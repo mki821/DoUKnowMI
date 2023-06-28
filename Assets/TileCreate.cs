@@ -10,6 +10,8 @@ public class TileCreate : MonoBehaviour
     [SerializeField]
     private GameObject blockPrefab;
 
+    public static UnityEngine.Events.UnityAction TileCreateFinish;
+
 
     private float domiTime = 0.01f;
 
@@ -66,11 +68,6 @@ public class TileCreate : MonoBehaviour
             count++;
         }
 
-        OnReady(); // 준비 완료!!!
-    }
-
-    void OnReady()
-    {
-        print("준비 완!");
+        TileCreateFinish.Invoke(); // 준비 완료!!!
     }
 }

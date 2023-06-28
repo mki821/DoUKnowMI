@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class LineRenderingTest : MonoBehaviour
 {
-    private int count = 0;
-    //private List<Vector3> pos = new List<Vector3>();
+    private bool Ready = false;
     private List<TileWay> Selects = new();
     private LineRenderer _lineRenderer;
 
     private void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
+        TileCreate.TileCreateFinish += OnTileCreated;
     }
 
-    private void Start()
+    private void OnDestroy()
     {
-        SetWayCoords(new TileWay(4, 1)); // 유저 좌표
+        TileCreate.TileCreateFinish -= OnTileCreated; // 리스너 해제 해야됭
     }
 
     private void Update()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!Input.GetMouseButtonDown(0) || !Ready) return;
         // 마우스 눌렀따
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -99,4 +99,11 @@ public class LineRenderingTest : MonoBehaviour
     }
 
     private bool True() => true; // 민기 코드
+
+    // 이벤트 리스너
+    void OnTileCreated()
+    {
+        Ready = true;
+        SetWayCoords(new TileWay(4, 1)); // 유저 좌표 (임시, 초기값)
+    }
 }
