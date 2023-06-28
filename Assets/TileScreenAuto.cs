@@ -25,6 +25,12 @@ public class TileScreenAuto : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = Vector2.Lerp(transform.position, FinishVec, Time.fixedDeltaTime * Speed);
+        if (!FinishPosition()) // 아직 다 안함
+            transform.position = Vector2.Lerp(transform.position, FinishVec, Time.fixedDeltaTime * Speed);
+    }
+
+    public bool FinishPosition()
+    {
+        return Vector2.Distance(transform.position, FinishVec) <= 0.1f;
     }
 }

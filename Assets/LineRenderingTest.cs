@@ -101,8 +101,15 @@ public class LineRenderingTest : MonoBehaviour
     private bool True() => true; // 민기 코드
 
     // 이벤트 리스너
-    void OnTileCreated()
+    void OnTileCreated() => StartCoroutine(ReadyWaiter());
+
+    IEnumerator ReadyWaiter()
     {
+        TileScreenAuto tileScreenAuto = GameObject.FindAnyObjectByType<TileScreenAuto>();
+
+        while (!tileScreenAuto.FinishPosition()) yield return null;
+
+        // 완료!
         Ready = true;
         SetWayCoords(new TileWay(4, 1)); // 유저 좌표 (임시, 초기값)
     }
