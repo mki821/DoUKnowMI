@@ -213,7 +213,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &702888558
 GameObject:
@@ -287,9 +287,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 123
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -298,7 +296,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.2734375
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -310,8 +308,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0.017601252, g: 1, b: 0, a: 1}
+      key1: {r: 0, g: 0.78581095, b: 1, a: 1}
       key2: {r: 1, g: 1, b: 1, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -338,8 +336,8 @@ LineRenderer:
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 5
+    numCapVertices: 5
     alignment: 0
     textureMode: 0
     textureScale: {x: 0.1, y: 0.1}
@@ -362,8 +360,52 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1000328002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000328003}
+  - component: {fileID: 1000328004}
+  m_Layer: 0
+  m_Name: _Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1000328003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000328002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1000328004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000328002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c854072e2c64644fb7e0843f99eded5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1405114144
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +436,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1405114146
 MonoBehaviour:

@@ -9,42 +9,28 @@ public class TileCreate : MonoBehaviour
     private int BlockSize = 4;
     [SerializeField]
     private GameObject blockPrefab;
-    private int Current_X = 0;
-    private int Current_Y = 0;
+
+    public static UnityEngine.Events.UnityAction TileCreateFinish;
+
 
     private float domiTime = 0.01f;
 
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(a());
-
-        }
+        TileManager.SetBlockSize(BlockSize);
     }
 
-    /*private IEnumerator TileCreate()
+    private void Start()
     {
-        while(Current_Y < BlockSize)
-        {
-            domiTime -= 0.01f;
-            Debug.Log($"{Current_X} | {Current_Y}");
-            Instantiate(blockPrefab, new Vector3(Current_X, Current_Y) * 0.9f, Quaternion.identity);
-
-            Current_X++;
-
-            if (Current_X > BlockSize - 1)
-            {
-                Current_X = 0;
-                Current_Y++;
-            }
-
-            yield return new WaitForSeconds(domiTime);
-        }
-    }*/
+        StartCoroutine(a());
+    }
 
     private IEnumerator a()
     {
+        // 강민기 코드 고등학생한테 다 털렸죠? ㅋㅋㅋㅋㅋㅋ
+        int Current_X;
+        int Current_Y;
+
         int b = BlockSize * 2 - 1;
         int count = 0;
         while (count < b)
@@ -55,7 +41,8 @@ public class TileCreate : MonoBehaviour
                 Current_Y = count - Current_X;
                 while (Current_Y >= 0)
                 {
-                    Instantiate(blockPrefab, transform.position + new Vector3(Current_X, Current_Y) * 0.9f, Quaternion.identity, transform);
+                    var Block = Instantiate(blockPrefab, transform.position + new Vector3(Current_X, Current_Y) * 0.9f, Quaternion.identity, transform);
+                    TileManager.SetBlock(Current_X, Current_Y, Block);
 
                     Current_X++;
                     Current_Y--;
@@ -69,7 +56,8 @@ public class TileCreate : MonoBehaviour
                 Current_Y = BlockSize - 1;
                 while (Current_X <= BlockSize - 1)
                 {
-                    Instantiate(blockPrefab, transform.position + new Vector3(Current_X, Current_Y) * 0.9f, Quaternion.identity, transform);
+                    var Block = Instantiate(blockPrefab, transform.position + new Vector3(Current_X, Current_Y) * 0.9f, Quaternion.identity, transform);
+                    TileManager.SetBlock(Current_X, Current_Y, Block);
 
                     Current_X++;
                     Current_Y--;
@@ -79,5 +67,7 @@ public class TileCreate : MonoBehaviour
             }
             count++;
         }
+
+        TileCreateFinish.Invoke(); // 준비 완료!!!
     }
 }
