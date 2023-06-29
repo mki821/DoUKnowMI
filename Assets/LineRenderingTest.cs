@@ -55,6 +55,11 @@ public class LineRenderingTest : MonoBehaviour
             return;
         }
 
+        if(Selects.Count != 0)
+            foreach (var mki in TileWay.GetWays(Selects[Selects.Count - 1], coords))
+            {
+                Debug.Log($"{mki.x}, {mki.y}");
+            }
         Selects.Add(coords);
         _lineRenderer.positionCount = Selects.Count;
         _lineRenderer.SetPosition(Selects.Count - 1, BlockEntity.transform.position);
