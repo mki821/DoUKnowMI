@@ -57,7 +57,7 @@ public class TileWay
         }
 
         // 변환 (솔직히 변환 안해도 되긴 하는데 이러게 하면 마음이 편함 ~_-)
-        TileWay[] SendPacket = new TileWay[Ways.Count];
+        TileWay[] SendPacket = new TileWay[Ways.Count - 1 /* <-- 어차피 마지막은 안넣으니까 뺌 ㅅㄱㅋㅋㅋ */];
         for (int i = 0; i < Ways.Count - 1 /* 마지막꺼는 어차피 end랑 똑같은 좌표임ㅁㅁㅁㅁ */; i++)
             SendPacket[i] = Ways[i];
 
