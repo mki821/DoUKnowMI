@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TileCreate : MonoBehaviour
 {
-    [Header("°­¹Î±â")]
-    [SerializeField, Tooltip("À¸ÇÏÇÏÇÏÇÏ"), Range(4, 16)]
+    [Header("ï¿½ï¿½ï¿½Î±ï¿½")]
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"), Range(4, 16)]
     private int BlockSize = 4;
     [SerializeField]
     private GameObject blockPrefab;
 
     public static UnityEngine.Events.UnityAction TileCreateFinish;
-
+    public static UnityEngine.Events.UnityAction TileCameraFinish;
 
     private float domiTime = 0.01f;
 
@@ -27,7 +27,7 @@ public class TileCreate : MonoBehaviour
 
     private IEnumerator a()
     {
-        // °­¹Î±â ÄÚµå °íµîÇÐ»ýÇÑÅ× ´Ù ÅÐ·ÈÁÒ? ¤»¤»¤»¤»¤»¤»
+        // ï¿½ï¿½ï¿½Î±ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ð·ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         int Current_X;
         int Current_Y;
 
@@ -68,6 +68,6 @@ public class TileCreate : MonoBehaviour
             count++;
         }
 
-        TileCreateFinish.Invoke(); // ÁØºñ ¿Ï·á!!!
+        TileCreateFinish.Invoke(); // ï¿½Øºï¿½ ï¿½Ï·ï¿½!!!
     }
 }
