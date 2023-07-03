@@ -21,6 +21,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        Time.timeScale = 1;
         Destroy(other.gameObject);
     }
 }

@@ -126,18 +126,43 @@ public class LineRenderingTest : MonoBehaviour
     }
 
     private IEnumerator EndMoveEndMove(){
-        float t = 0;
-        foreach(var item in Selects){
+        for (int i = 0; i < Selects.Count; i++)
+        {
+            var item = Selects[i];
+
+            if (i > 0) {
+                var Last_Coords = Selects[i - 1];
+                foreach (TileWay TileCoords in TileWay.GetWays(Last_Coords, item))
+                    WayEnemyActive(TileCoords);
+                WayEnemyActive(item); // GetWays는 마지막 좌표는 안주기 때문에 직접 해줘야함
+            }
+
             Vector2 tarPos = TileManager.GetBlockToCoords(item).transform.position;
             Vector2 curPos = player.transform.position;
-            float m = (curPos - tarPos).magnitude;
+            float prev_distance = Vector2.Distance(tarPos, curPos);
+            float t = 0;
             while (Vector2.Distance(player.transform.position, tarPos) > 0.1f) {
-                t += (Time.deltaTime / m);
-                player.Move(Vector2.Lerp(player.transform.position, tarPos, t));
-                print(t);
+                t += Time.deltaTime / prev_distance;
+                player.Move(Vector2.Lerp(player.transform.position, tarPos, t * Time.timeScale));
                 yield return null;
             }
-            t = 0;
         }
+    }
+
+    // 지나가는 길에 적이 있남?
+    void WayEnemyActive(TileWay Coords) {
+        Transform TileTrans = TileManager.GetBlockToCoords(Coords).transform;
+        Vector3 TileScaleHalf = TileTrans.localScale / 2;
+        
+        Collider2D hit = Physics2D.OverlapArea(TileTrans.position - TileScaleHalf, TileTrans.position + TileScaleHalf, LayerMask.GetMask("Enemy"));
+        if (hit == null) return;
+
+        StartCoroutine(RegisterSlowMotion(hit.transform.position));
+    }
+    
+    IEnumerator RegisterSlowMotion(Vector3 EnemyCoords) {
+        // 일단 거리가 좁아질때까지 기다리자.
+        yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
+        Time.timeScale = 0.1f;
     }
 }
