@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LineRenderingTest : MonoBehaviour
 {
+    [SerializeField] private PlayerMove player;
     private bool Ready = false;
     private List<TileWay> Selects = new();
     private LineRenderer _lineRenderer;
@@ -117,5 +118,26 @@ public class LineRenderingTest : MonoBehaviour
         // 완료!
         Ready = true;
         SetWayCoords(new TileWay(4, 1)); // 유저 좌표 (임시, 초기값)
+        TileCreate.TileCameraFinish?.Invoke();
+    }
+
+    public void EndEndEnd(){
+        StartCoroutine(EndMoveEndMove());
+    }
+
+    private IEnumerator EndMoveEndMove(){
+        float t = 0;
+        foreach(var item in Selects){
+            Vector2 tarPos = TileManager.GetBlockToCoords(item).transform.position;
+            Vector2 curPos = player.transform.position;
+            float m = (curPos - tarPos).magnitude;
+            while (Vector2.Distance(player.transform.position, tarPos) > 0.1f) {
+                t += (Time.deltaTime / m);
+                player.Move(Vector2.Lerp(player.transform.position, tarPos, t));
+                print(t);
+                yield return null;
+            }
+            t = 0;
+        }
     }
 }
