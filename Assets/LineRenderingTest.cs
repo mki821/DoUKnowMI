@@ -164,5 +164,6 @@ public class LineRenderingTest : MonoBehaviour
         // 일단 거리가 좁아질때까지 기다리자.
         yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
         Time.timeScale = 0.1f;
+        CameraManager.SlowCameraEnable(EnemyCoords);
     }
 }
