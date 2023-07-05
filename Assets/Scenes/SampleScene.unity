@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyList:
-  - Character: {fileID: 3759996184201824123, guid: 292b60fb554a3dc478e835602fc4c5dd, type: 3}
+  - Character: {fileID: 3759996184201824123, guid: 9786f28a96cda0d4fa5aac4669835700, type: 3}
     Coords: {x: 6, y: 4}
   - Character: {fileID: 3759996184201824123, guid: 292b60fb554a3dc478e835602fc4c5dd, type: 3}
     Coords: {x: 6, y: 6}
