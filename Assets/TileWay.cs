@@ -17,6 +17,10 @@ public class TileWay
     {
         return new TileWay(a.x + b.x, a.y + b.y);
     }
+    public static TileWay operator -(TileWay a, TileWay b) // 빼는것도 할건뎅
+    {
+        return new TileWay(a.x - b.x, a.y - b.y);
+    }
 
     public TileWay(int _x, int _y)
     {
