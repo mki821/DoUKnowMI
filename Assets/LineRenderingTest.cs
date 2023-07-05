@@ -26,7 +26,7 @@ public class LineRenderingTest : MonoBehaviour
         // 마우스 눌렀따
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        GameObject hit_entity = Physics2D.Raycast(mousePos, Vector2.zero, LayerMask.GetMask("Tile")).collider?.gameObject;
+        GameObject hit_entity = Physics2D.Raycast(mousePos, Vector2.zero, 0, LayerMask.GetMask("Tile")).collider?.gameObject;
         
         if (hit_entity == null) return; // 없넹
 

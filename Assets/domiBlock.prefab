@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3364689153336298681}
   - component: {fileID: 5431053394991988702}
   - component: {fileID: 569555577413731258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: domiBlock
   m_TagString: Tile
   m_Icon: {fileID: 0}
