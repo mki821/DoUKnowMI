@@ -27,4 +27,13 @@ public class TileManager : MonoBehaviour
 
     // 좌표 -> 블럭
     public static GameObject GetBlockToCoords(TileWay coords) => Blocks[coords.y, coords.x];
+
+    ////////////// 적 관련
+    public static GameObject IsEnemyToCoords(TileWay coords) {
+        Transform TileTrans = TileManager.GetBlockToCoords(coords).transform;
+        Vector3 TileScaleHalf = TileTrans.localScale / 2;
+        
+        Collider2D hit = Physics2D.OverlapArea(TileTrans.position - TileScaleHalf, TileTrans.position + TileScaleHalf, LayerMask.GetMask("Enemy"));
+        return hit == null ? null : hit.gameObject;
+    }
 }

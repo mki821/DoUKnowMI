@@ -31,7 +31,7 @@ public class LineRenderingTest : MonoBehaviour
         if (hit_entity == null) return; // 없넹
 
         TileWay TileCoords = TileManager.GetCoordsToBlock(hit_entity);
-        if (TileCoords == null) return;
+        if (TileCoords == null || TileManager.IsEnemyToCoords(TileCoords) != null /* 선택한 곳에 적이 있남? */) return;
 
         if (Selects.Count > 0 && (
             ( /* 전꺼 선택한거랑 같음 */
@@ -151,13 +151,10 @@ public class LineRenderingTest : MonoBehaviour
 
     // 지나가는 길에 적이 있남?
     void WayEnemyActive(TileWay Coords) {
-        Transform TileTrans = TileManager.GetBlockToCoords(Coords).transform;
-        Vector3 TileScaleHalf = TileTrans.localScale / 2;
-        
-        Collider2D hit = Physics2D.OverlapArea(TileTrans.position - TileScaleHalf, TileTrans.position + TileScaleHalf, LayerMask.GetMask("Enemy"));
-        if (hit == null) return;
+        GameObject Enemy = TileManager.IsEnemyToCoords(Coords);
+        if (Enemy == null) return;
 
-        StartCoroutine(RegisterSlowMotion(hit.transform.position));
+        StartCoroutine(RegisterSlowMotion(Enemy.transform.position));
     }
     
     IEnumerator RegisterSlowMotion(Vector3 EnemyCoords) {
