@@ -146,6 +146,9 @@ public class LineRenderingTest : MonoBehaviour
                 player.Move(Vector2.Lerp(player.transform.position, tarPos, t * Time.timeScale));
                 yield return null;
             }
+            
+            // 다 하면 정직(확)한 자리로 감
+            player.Move(tarPos);
         }
     }
 
