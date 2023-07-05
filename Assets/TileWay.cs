@@ -12,6 +12,12 @@ public class TileWay
         get => new(x, y);
     }
 
+    // class끼리 더하는거임 아무튼 개편함
+    public static TileWay operator +(TileWay a, TileWay b)
+    {
+        return new TileWay(a.x + b.x, a.y + b.y);
+    }
+
     public TileWay(int _x, int _y)
     {
         x = _x;
