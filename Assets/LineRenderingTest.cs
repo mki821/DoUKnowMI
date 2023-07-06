@@ -26,12 +26,12 @@ public class LineRenderingTest : MonoBehaviour
         // 마우스 눌렀따
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        GameObject hit_entity = Physics2D.Raycast(mousePos, Vector2.zero, LayerMask.GetMask("Tile")).collider?.gameObject;
+        GameObject hit_entity = Physics2D.Raycast(mousePos, Vector2.zero, 0, LayerMask.GetMask("Tile")).collider?.gameObject;
         
         if (hit_entity == null) return; // 없넹
 
         TileWay TileCoords = TileManager.GetCoordsToBlock(hit_entity);
-        if (TileCoords == null) return;
+        if (TileCoords == null || TileManager.IsEnemyToCoords(TileCoords) != null /* 선택한 곳에 적이 있남? */) return;
 
         if (Selects.Count > 0 && (
             ( /* 전꺼 선택한거랑 같음 */
@@ -126,18 +126,44 @@ public class LineRenderingTest : MonoBehaviour
     }
 
     private IEnumerator EndMoveEndMove(){
-        float t = 0;
-        foreach(var item in Selects){
+        for (int i = 0; i < Selects.Count; i++)
+        {
+            var item = Selects[i];
+
+            if (i > 0) {
+                var Last_Coords = Selects[i - 1];
+                foreach (TileWay TileCoords in TileWay.GetWays(Last_Coords, item))
+                    WayEnemyActive(TileCoords);
+                WayEnemyActive(item); // GetWays는 마지막 좌표는 안주기 때문에 직접 해줘야함
+            }
+
             Vector2 tarPos = TileManager.GetBlockToCoords(item).transform.position;
             Vector2 curPos = player.transform.position;
-            float m = (curPos - tarPos).magnitude;
+            float prev_distance = Vector2.Distance(tarPos, curPos);
+            float t = 0;
             while (Vector2.Distance(player.transform.position, tarPos) > 0.1f) {
-                t += (Time.deltaTime / m);
-                player.Move(Vector2.Lerp(player.transform.position, tarPos, t));
-                print(t);
+                t += Time.deltaTime / prev_distance;
+                player.Move(Vector2.Lerp(player.transform.position, tarPos, t * Time.timeScale));
                 yield return null;
             }
-            t = 0;
+            
+            // 다 하면 정직(확)한 자리로 감
+            player.Move(tarPos);
         }
+    }
+
+    // 지나가는 길에 적이 있남?
+    void WayEnemyActive(TileWay Coords) {
+        GameObject Enemy = TileManager.IsEnemyToCoords(Coords);
+        if (Enemy == null) return;
+
+        StartCoroutine(RegisterSlowMotion(Enemy.transform.position));
+    }
+    
+    IEnumerator RegisterSlowMotion(Vector3 EnemyCoords) {
+        // 일단 거리가 좁아질때까지 기다리자.
+        yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
+        Time.timeScale = 0.05f;
+        CameraManager.SlowCameraEnable(EnemyCoords);
     }
 }
