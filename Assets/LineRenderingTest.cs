@@ -141,7 +141,18 @@ public class LineRenderingTest : MonoBehaviour
             if (i > 0) {
                 var Last_Coords = Selects[i - 1];
                 TileWay[] WayList = TileWay.GetWays(Last_Coords, item);
-                for (int k = 0; k < WayList.Length; k++)
+
+                // 첫번째 우회 막기
+                if (WayList.Length > 0) {
+                    GameObject Enemy = TileManager.IsEnemyToCoords(Last_Coords); // 플레이어 자리에 enemy가 있음??
+                    GameObject Next_Enemy = TileManager.IsEnemyToCoords(WayList[0]); // 그 다음 자리에 있음?
+                    if (Enemy != null && Next_Enemy != null && Enemy.CompareTag("EnemyAttack") && !Next_Enemy.CompareTag("EnemyAttack") && Enemy.transform.parent == Next_Enemy.transform) {
+                        WillDie = true;
+                        tarPos = Enemy.transform.position;
+                    }
+                }
+
+                for (int k = 0; k < WayList.Length && !WillDie; k++)
                 {
                     GameObject AttackEnemy = WayEnemyActive(WayList[k], k == 0 ? Last_Coords : WayList[k - 1]);
                     if (AttackEnemy != null) { // ㅓ.. 죽는다!!
