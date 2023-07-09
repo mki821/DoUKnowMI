@@ -136,8 +136,8 @@ public class LineRenderingTest : MonoBehaviour
             if (i > 0) {
                 var Last_Coords = Selects[i - 1];
                 foreach (TileWay TileCoords in TileWay.GetWays(Last_Coords, item))
-                    WayEnemyActive(TileCoords);
-                WayEnemyActive(item); // GetWays는 마지막 좌표는 안주기 때문에 직접 해줘야함
+                    WayEnemyActive(TileCoords, Last_Coords);
+                WayEnemyActive(item, Last_Coords); // GetWays는 마지막 좌표는 안주기 때문에 직접 해줘야함
             }
 
             Vector2 tarPos = TileManager.GetBlockToCoords(item).transform.position;
@@ -156,7 +156,7 @@ public class LineRenderingTest : MonoBehaviour
     }
 
     // 지나가는 길에 적이 있남?
-    void WayEnemyActive(TileWay Coords) {
+    void WayEnemyActive(TileWay Coords, TileWay Last_Coords) {
         GameObject Enemy = TileManager.IsEnemyToCoords(Coords);
         if (Enemy == null) return;
 
