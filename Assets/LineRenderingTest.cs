@@ -188,6 +188,23 @@ public class LineRenderingTest : MonoBehaviour
             if (WillDie) {
                 CameraManager.SlowCameraEnable(tarPos);
                 print("[domi-DEBUG] 플레이어가 죽었습니다.");
+
+                //////////////////// 플레이어 죽는 임시 코드 ////////////////////
+                yield return new WaitForSeconds(0.1f);
+                // 플레이어 주겅
+                float Delay = 5f;
+                float tttt = 0;
+                SpriteRenderer renderer = player.GetComponent<SpriteRenderer>();
+                player.GetComponent<CircleCollider2D>().enabled = false;
+                while (tttt < 1)
+                {
+                    yield return null;
+                    tttt += Time.deltaTime / Delay;
+                    player.transform.localScale = Vector2.Lerp(player.transform.localScale, Vector2.one * 2, tttt);
+                    renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, Mathf.Lerp(renderer.color.a, 0, tttt));
+                }
+                CameraManager.SlowCameraDisable();
+                //////////////////// 플레이어 죽는 임시 코드 ////////////////////
                 yield break; // 더이상 체크 안함 [이미 죽었어... ㅡㅅㅡ]
             }
         }
