@@ -36,6 +36,8 @@ public class EnemySpawn : MonoBehaviour
                 AttackEntity.transform.parent = Enemy_Config.transform;
                 AttackEntity.transform.position = RealCoords;
                 AttackEntity.transform.localScale = new(1,1); // 옵젝 부모 바꾸면 스케일 바꿔짐 ㅁㄴㅇㄹ
+                AttackEntity.tag = "EnemyAttack";
+                AttackEntity.layer = 7;
 
                 // 콜라이더 생성해야지ㅣㅣㅣ (prefab으로 하는것보다 스끄립트로 하는게 더 최적화게 좋다함 [암튼 그럼])
                 var AttackCollider = AttackEntity.AddComponent<CircleCollider2D>();
