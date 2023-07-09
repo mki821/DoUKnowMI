@@ -21,8 +21,14 @@ public class PlayerMove : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Time.timeScale = 1;
-        CameraManager.SlowCameraDisable();
-        Destroy(other.gameObject);
+        if(other.CompareTag("EnemyAttack")){
+            //Time.timeScale = 0;
+            Debug.Log("플레이어 죽음");
+        }
+        else {
+            Time.timeScale = 1;
+            CameraManager.SlowCameraDisable();
+            Destroy(other.gameObject);
+        }
     }
 }

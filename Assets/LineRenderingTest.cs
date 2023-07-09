@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LineRenderingTest : MonoBehaviour
 {
+    public static LineRenderingTest instance = null;
     [SerializeField] private PlayerMove player;
     private bool Ready = false;
     private List<TileWay> Selects = new();
@@ -11,6 +12,8 @@ public class LineRenderingTest : MonoBehaviour
 
     private void Awake()
     {
+        if(instance == null) instance = this;
+
         _lineRenderer = GetComponent<LineRenderer>();
         TileCreate.TileCreateFinish += OnTileCreated;
     }
@@ -122,7 +125,7 @@ public class LineRenderingTest : MonoBehaviour
     }
 
     public void EndEndEnd(){
-        StartCoroutine(EndMoveEndMove());
+        StartCoroutine("EndMoveEndMove");
     }
 
     private IEnumerator EndMoveEndMove(){
@@ -157,13 +160,21 @@ public class LineRenderingTest : MonoBehaviour
         GameObject Enemy = TileManager.IsEnemyToCoords(Coords);
         if (Enemy == null) return;
 
-        StartCoroutine(RegisterSlowMotion(Enemy.transform.position));
+        StartCoroutine(RegisterSlowMotion(Enemy.transform));
     }
     
-    IEnumerator RegisterSlowMotion(Vector3 EnemyCoords) {
+    IEnumerator RegisterSlowMotion(Transform EnemyCoordsTrm) {
         // 일단 거리가 좁아질때까지 기다리자.
-        yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
-        Time.timeScale = 0.05f;
-        CameraManager.SlowCameraEnable(EnemyCoords);
+        if (EnemyCoordsTrm.CompareTag("EnemyAttack")){
+            yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoordsTrm.position) < 0.05f);
+
+            StopCoroutine("EndMoveEndMove");
+            Time.timeScale = 0;
+        }
+        else{
+            yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoordsTrm.position) < 1.2f && Time.timeScale == 1);
+            Time.timeScale = 0.05f;
+            CameraManager.SlowCameraEnable(EnemyCoordsTrm.position);
+        }
     }
 }

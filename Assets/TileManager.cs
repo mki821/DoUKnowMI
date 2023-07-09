@@ -15,7 +15,7 @@ public class TileManager : MonoBehaviour
         Blocks[y, x] = entity;
     }
 
-    // ºí·° -> ÁÂÇ¥
+    // ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½Ç¥
     public static TileWay GetCoordsToBlock(GameObject block)
     {
         for (int y = 0; y < Blocks.GetLength(0); y++)
@@ -25,10 +25,10 @@ public class TileManager : MonoBehaviour
         return null;
     }
 
-    // ÁÂÇ¥ -> ºí·°
+    // ï¿½ï¿½Ç¥ -> ï¿½ï¿½ï¿½ï¿½
     public static GameObject GetBlockToCoords(TileWay coords) => Blocks[coords.y, coords.x];
 
-    ////////////// Àû °ü·Ã
+    ////////////// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static GameObject IsEnemyToCoords(TileWay coords) {
         Transform TileTrans = TileManager.GetBlockToCoords(coords).transform;
         Vector3 TileScaleHalf = TileTrans.localScale / 2;
