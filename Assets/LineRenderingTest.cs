@@ -34,7 +34,9 @@ public class LineRenderingTest : MonoBehaviour
         if (hit_entity == null) return; // 없넹
 
         TileWay TileCoords = TileManager.GetCoordsToBlock(hit_entity);
-        if (TileCoords == null || TileManager.IsEnemyToCoords(TileCoords) != null /* 선택한 곳에 적이 있남? */) return;
+        if (TileCoords == null) return;
+        GameObject EnemyHit = TileManager.IsEnemyToCoords(TileCoords);
+        if (EnemyHit != null /* 선택한 곳에 적이 있남? */ && !EnemyHit.CompareTag("EnemyAttack") /* 적이 공격하는 곳이 아닌감자 */) return;
 
         if (Selects.Count > 0 && (
             ( /* 전꺼 선택한거랑 같음 */
@@ -133,14 +135,32 @@ public class LineRenderingTest : MonoBehaviour
         {
             var item = Selects[i];
 
+            Vector2 tarPos = TileManager.GetBlockToCoords(item).transform.position;
+            bool WillDie = false; // 죽을 예정
+
             if (i > 0) {
                 var Last_Coords = Selects[i - 1];
-                foreach (TileWay TileCoords in TileWay.GetWays(Last_Coords, item))
-                    WayEnemyActive(TileCoords, Last_Coords);
-                WayEnemyActive(item, Last_Coords); // GetWays는 마지막 좌표는 안주기 때문에 직접 해줘야함
+                TileWay[] WayList = TileWay.GetWays(Last_Coords, item);
+                for (int k = 0; k < WayList.Length; k++)
+                {
+                    GameObject AttackEnemy = WayEnemyActive(WayList[k], k == 0 ? Last_Coords : WayList[k - 1]);
+                    if (AttackEnemy != null) { // ㅓ.. 죽는다!!
+                        tarPos = AttackEnemy.transform.position; // 마지막 좌표를 바꿈
+                        WillDie = true;
+                        break; // 더이상 안해도 됨
+                    }
+                }
+                
+                // GetWays는 마지막 좌표는 안주기 때문에 직접 해줘야함
+                if (!WillDie) {
+                    GameObject AttackEnemy_2 = WayEnemyActive(item, WayList.Length == 0 ? Last_Coords : WayList[WayList.Length - 1]);
+                    if (AttackEnemy_2 != null) WillDie = true;
+                }
             }
 
-            Vector2 tarPos = TileManager.GetBlockToCoords(item).transform.position;
+            if (WillDie)
+                Debug.LogWarning("[domi-DEBUG] 플레이어가 죽을 예정입니다.");
+
             Vector2 curPos = player.transform.position;
             float prev_distance = Vector2.Distance(tarPos, curPos);
             float t = 0;
@@ -152,29 +172,43 @@ public class LineRenderingTest : MonoBehaviour
             
             // 다 하면 정직(확)한 자리로 감
             player.Move(tarPos);
+
+            // 다 이동함
+            if (WillDie) {
+                CameraManager.SlowCameraEnable(tarPos);
+                print("[domi-DEBUG] 플레이어가 죽었습니다.");
+                yield break; // 더이상 체크 안함 [이미 죽었어... ㅡㅅㅡ]
+            }
         }
     }
 
     // 지나가는 길에 적이 있남?
-    void WayEnemyActive(TileWay Coords, TileWay Last_Coords) {
+    GameObject WayEnemyActive(TileWay Coords, TileWay Last_Coords) {
         GameObject Enemy = TileManager.IsEnemyToCoords(Coords);
-        if (Enemy == null) return;
+        if (Enemy == null) return null;
+        
+        // 적이 때릴 수 있음
+        if (Enemy.CompareTag("EnemyAttack")) {
+            // GetWayToDirection + GetDirection 함수를 합치면 될것같은데 일단 따로 나눔
+            // TileWay diffCoords = TileWay.GetWayToDirection(TileWay.GetDirection(Last_Coords, Coords));
+            TileWay diffCoords = Coords - Last_Coords; // 간---단
+            GameObject AttackEnemy_Owner = TileManager.IsEnemyToCoords(Coords + diffCoords);
 
-        StartCoroutine(RegisterSlowMotion(Enemy.transform));
+            // attacker 주인이 있고, 진짜 주인인감?
+            if (AttackEnemy_Owner != null && Enemy.transform.parent == AttackEnemy_Owner.transform) {
+                return Enemy;
+            }
+            return null;
+        }
+
+        StartCoroutine(RegisterSlowMotion(Enemy.transform.position));
+        return null;
     }
     
-    IEnumerator RegisterSlowMotion(Transform EnemyCoordsTrm) {
+    IEnumerator RegisterSlowMotion(Vector3 EnemyCoords) {
         // 일단 거리가 좁아질때까지 기다리자.
-        if (EnemyCoordsTrm.CompareTag("EnemyAttack")){
-            yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoordsTrm.position) < 0.05f);
-
-            StopCoroutine("EndMoveEndMove");
-            Time.timeScale = 0;
-        }
-        else{
-            yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoordsTrm.position) < 1.2f && Time.timeScale == 1);
-            Time.timeScale = 0.05f;
-            CameraManager.SlowCameraEnable(EnemyCoordsTrm.position);
-        }
+        yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
+        Time.timeScale = 0.05f;
+        CameraManager.SlowCameraEnable(EnemyCoords);
     }
 }

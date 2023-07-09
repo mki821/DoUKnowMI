@@ -97,4 +97,27 @@ public class TileWay
         }
         return Direction.None;
     }
+    public static TileWay GetWayToDirection(Direction direction) {
+        switch (direction)
+        {
+            case Direction.Up:
+                return new TileWay(0,1);
+            case Direction.Down:
+                return new TileWay(0,-1);
+            case Direction.Left:
+                return new TileWay(-1,0);
+            case Direction.Right:
+                return new TileWay(1,0);
+            case Direction.LeftUp:
+                return new TileWay(-1,1);
+            case Direction.RightUp:
+                return new TileWay(1,1);
+            case Direction.LeftDown:
+                return new TileWay(-1,-1);
+            case Direction.RightDown:
+                return new TileWay(1,-1);
+            default:
+                return null;
+        }
+    }
 }
