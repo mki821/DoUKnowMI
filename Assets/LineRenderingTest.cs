@@ -206,7 +206,7 @@ public class LineRenderingTest : MonoBehaviour
             GameObject AttackEnemy_Owner = TileManager.IsEnemyToCoords(Coords + diffCoords);
 
             // attacker 주인이 있고, 진짜 주인인감?
-            if (AttackEnemy_Owner != null && Enemy.transform.parent == AttackEnemy_Owner.transform) {
+            if (AttackEnemy_Owner != null && !AttackEnemy_Owner.CompareTag("EnemyAttack") && Enemy.transform.parent == AttackEnemy_Owner.transform) {
                 return Enemy;
             }
             return null;
