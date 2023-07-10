@@ -167,12 +167,26 @@ public class LineRenderingTest : MonoBehaviour
                     GameObject LastEnemy = TileManager.IsEnemyToCoords(item); // 마지막 자리에 적 attack이 있슴?
                     if (LastEnemy != null && LastEnemy.CompareTag("EnemyAttack")) {
                         WillDie = true;
+
+                        // 예외 처리 / 사이에 있는 enemy 다 가지고 와서 마지막 목표 지점 Attack 주인이 있으면 취소함 (Attack 주인이 죽을 예정이라서 ㅎㅎ)
+                        /* -- 이 코드는 플레이어 죽는지 예측은 가능하나, 코드에 레이턴시? 가 좀 문제가 있음
+                        foreach (TileWay WayCoord in WayList)
+                        {
+                            GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
+                            if (WayEnemy != null && LastEnemy.transform.parent == WayEnemy.transform) {
+                                WillDie = false;
+                                break;
+                            }
+                        }
+                        */
                     }
                 }
             }
 
+            /* -- 예측 안내 코드는 비활함
             if (WillDie)
                 Debug.LogWarning("[domi-DEBUG] 플레이어가 죽을 예정입니다.");
+            */
 
             Vector2 curPos = player.transform.position;
             float prev_distance = Vector2.Distance(tarPos, curPos);
@@ -185,6 +199,12 @@ public class LineRenderingTest : MonoBehaviour
             
             // 다 하면 정직(확)한 자리로 감
             player.Move(tarPos);
+
+            // 죽을 예정임!! 그리고 마지막 좌표 근데 적 실종햇다ㅏㅏ
+            // [!] 이 코드는 플레이어가 죽는지 예측을 할 수 없음
+            if (WillDie && i+1 == Selects.Count && TileManager.IsEnemyToCoords(item) == null) {
+                WillDie = false;
+            }
 
             // 다 이동함
             if (WillDie) {
