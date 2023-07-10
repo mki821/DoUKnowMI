@@ -38,6 +38,20 @@ public class LineRenderingTest : MonoBehaviour
         GameObject EnemyHit = TileManager.IsEnemyToCoords(TileCoords);
         if (EnemyHit != null /* 선택한 곳에 적이 있남? */ && !EnemyHit.CompareTag("EnemyAttack") /* 적이 공격하는 곳이 아닌감자 */) return;
 
+        // 선택 한 사이에 적들이 없으면 안댐
+        // if (Selects.Count > 0) {
+        //     bool hasEnemy = false;
+        //     foreach (var WayCoord in TileWay.GetWays(Selects[Selects.Count - 1], TileCoords)) {
+        //         GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
+        //         print(WayEnemy);
+        //         if (WayEnemy != null && !WayEnemy.CompareTag("EnemyAttack")) {
+        //             hasEnemy = true;
+        //             break;
+        //         }
+        //     }
+        //     if (!hasEnemy) return;
+        // }
+
         if (Selects.Count > 0 && (
             ( /* 전꺼 선택한거랑 같음 */
                 Selects[Selects.Count - 1].x == TileCoords.x
@@ -169,7 +183,7 @@ public class LineRenderingTest : MonoBehaviour
                         WillDie = true;
 
                         // 예외 처리 / 사이에 있는 enemy 다 가지고 와서 마지막 목표 지점 Attack 주인이 있으면 취소함 (Attack 주인이 죽을 예정이라서 ㅎㅎ)
-                        /* -- 이 코드는 플레이어 죽는지 예측은 가능하나, 코드에 레이턴시? 가 좀 문제가 있음
+                        // -- 이 코드는 플레이어 죽는지 예측은 가능하나, 코드에 레이턴시? 가 좀 문제가 있음
                         foreach (TileWay WayCoord in WayList)
                         {
                             GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
@@ -178,15 +192,13 @@ public class LineRenderingTest : MonoBehaviour
                                 break;
                             }
                         }
-                        */
                     }
                 }
             }
 
-            /* -- 예측 안내 코드는 비활함
+            // 예측 안내 코드는 비활함
             if (WillDie)
                 Debug.LogWarning("[domi-DEBUG] 플레이어가 죽을 예정입니다.");
-            */
 
             Vector2 curPos = player.transform.position;
             float prev_distance = Vector2.Distance(tarPos, curPos);
@@ -202,9 +214,9 @@ public class LineRenderingTest : MonoBehaviour
 
             // 죽을 예정임!! 그리고 마지막 좌표 근데 적 실종햇다ㅏㅏ
             // [!] 이 코드는 플레이어가 죽는지 예측을 할 수 없음
-            if (WillDie && i+1 == Selects.Count && TileManager.IsEnemyToCoords(item) == null) {
-                WillDie = false;
-            }
+            // if (WillDie && i+1 == Selects.Count && TileManager.IsEnemyToCoords(item) == null) {
+            //     WillDie = false;
+            // }
 
             // 다 이동함
             if (WillDie) {
