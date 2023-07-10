@@ -5,6 +5,7 @@ using UnityEngine;
 public class LineRenderingTest : MonoBehaviour
 {
     public static LineRenderingTest instance = null;
+    public Animator _animator;
     [SerializeField] private PlayerMove player;
     private bool Ready = false;
     private List<TileWay> Selects = new();
@@ -238,7 +239,7 @@ public class LineRenderingTest : MonoBehaviour
     IEnumerator RegisterSlowMotion(Vector3 EnemyCoords) {
         // 일단 거리가 좁아질때까지 기다리자.
         yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
-        Time.timeScale = 0.05f;
+        _animator.SetTrigger("onAttack");
         CameraManager.SlowCameraEnable(EnemyCoords);
     }
 }
