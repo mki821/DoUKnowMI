@@ -26,4 +26,8 @@ public class PlayerMove : MonoBehaviour
         CameraManager.SlowCameraDisable();
         Destroy(other.gameObject);
     }
+
+    public void SetTime(float t){
+        Time.timeScale = t;
+    }
 }
