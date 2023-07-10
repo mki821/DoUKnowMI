@@ -73,4 +73,51 @@ public class TileWay
 
         return SendPacket;
     }
+    
+    // 가는 방향구하기
+    public enum Direction {
+        None,
+        Up,
+        Down,
+        Left,
+        Right,
+        LeftUp,
+        RightUp,
+        LeftDown,
+        RightDown
+    }
+    public static Direction GetDirection(TileWay start, TileWay end) {
+        var diff = end - start;
+        if (diff.x == 0) {
+            return diff.y == 1 ? Direction.Up : Direction.Down;
+        } else if (diff.x == 1) {
+            return diff.y == 0 ? Direction.Right : (diff.y == 1 ? Direction.RightUp : Direction.RightDown);
+        } else if (diff.x == -1) {
+            return diff.y == 0 ? Direction.Left : (diff.y == 1 ? Direction.LeftUp : Direction.LeftDown);
+        }
+        return Direction.None;
+    }
+    public static TileWay GetWayToDirection(Direction direction) {
+        switch (direction)
+        {
+            case Direction.Up:
+                return new TileWay(0,1);
+            case Direction.Down:
+                return new TileWay(0,-1);
+            case Direction.Left:
+                return new TileWay(-1,0);
+            case Direction.Right:
+                return new TileWay(1,0);
+            case Direction.LeftUp:
+                return new TileWay(-1,1);
+            case Direction.RightUp:
+                return new TileWay(1,1);
+            case Direction.LeftDown:
+                return new TileWay(-1,-1);
+            case Direction.RightDown:
+                return new TileWay(1,-1);
+            default:
+                return null;
+        }
+    }
 }
