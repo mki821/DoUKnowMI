@@ -162,10 +162,12 @@ public class LineRenderingTest : MonoBehaviour
                     }
                 }
                 
-                // GetWays는 마지막 좌표는 안주기 때문에 직접 해줘야함
-                if (!WillDie) {
-                    GameObject AttackEnemy_2 = WayEnemyActive(item, WayList.Length == 0 ? Last_Coords : WayList[WayList.Length - 1]);
-                    if (AttackEnemy_2 != null) WillDie = true;
+                // 마지막 목표 지점에 Enemy가 공격하는지
+                if (!WillDie && i+1 == Selects.Count) {
+                    GameObject LastEnemy = TileManager.IsEnemyToCoords(item); // 마지막 자리에 적 attack이 있슴?
+                    if (LastEnemy != null && LastEnemy.CompareTag("EnemyAttack")) {
+                        WillDie = true;
+                    }
                 }
             }
 
