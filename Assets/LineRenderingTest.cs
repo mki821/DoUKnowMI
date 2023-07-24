@@ -271,7 +271,8 @@ public class LineRenderingTest : MonoBehaviour
     IEnumerator RegisterSlowMotion(Vector3 EnemyCoords) {
         // 일단 거리가 좁아질때까지 기다리자.
         yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
-        _animator.SetTrigger("onAttack");
+        Time.timeScale = 0.05f;
+        _animator.SetBool("isAttack", true);
         CameraManager.SlowCameraEnable(EnemyCoords);
     }
 }

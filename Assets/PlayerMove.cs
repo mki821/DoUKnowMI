@@ -24,6 +24,7 @@ public class PlayerMove : MonoBehaviour
         if (other.CompareTag("EnemyAttack")) return;
         Time.timeScale = 1;
         CameraManager.SlowCameraDisable();
+        GetComponent<Animator>().SetBool("isAttack", false);
         Destroy(other.gameObject);
     }
 
