@@ -40,18 +40,17 @@ public class LineRenderingTest : MonoBehaviour
         if (EnemyHit != null /* 선택한 곳에 적이 있남? */ && !EnemyHit.CompareTag("EnemyAttack") /* 적이 공격하는 곳이 아닌감자 */) return;
 
         // 선택 한 사이에 적들이 없으면 안댐
-        // if (Selects.Count > 0) {
-        //     bool hasEnemy = false;
-        //     foreach (var WayCoord in TileWay.GetWays(Selects[Selects.Count - 1], TileCoords)) {
-        //         GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
-        //         print(WayEnemy);
-        //         if (WayEnemy != null && !WayEnemy.CompareTag("EnemyAttack")) {
-        //             hasEnemy = true;
-        //             break;
-        //         }
-        //     }
-        //     if (!hasEnemy) return;
-        // }
+        if (Selects.Count > 0) {
+            bool hasEnemy = false;
+            foreach (var WayCoord in TileWay.GetWays(Selects[Selects.Count - 1], TileCoords)) {
+                GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
+                if (WayEnemy != null && !WayEnemy.CompareTag("EnemyAttack")) {
+                    hasEnemy = true;
+                    break;
+                }
+            }
+            if (!hasEnemy) return;
+        }
 
         if (Selects.Count > 0 && (
             ( /* 전꺼 선택한거랑 같음 */
@@ -137,7 +136,8 @@ public class LineRenderingTest : MonoBehaviour
 
         // 완료!
         Ready = true;
-        SetWayCoords(new TileWay(4, 1)); // 유저 좌표 (임시, 초기값)
+        print(TileManager.Blocks.Length);
+        SetWayCoords(StageLoader.stageData == null ? new TileWay(4, 1) : new TileWay((int)StageLoader.stageData.playerCoord.x, (int)StageLoader.stageData.playerCoord.y)); // 유저 좌표 (임시, 초기값)
         TileCreate.TileCameraFinish?.Invoke();
     }
 

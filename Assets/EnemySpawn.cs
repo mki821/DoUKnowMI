@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-class EnemyInfo {
+public class EnemyInfo {
     public GameObject Character;
     public Vector2 Coords;
 }
@@ -17,6 +17,11 @@ public class EnemySpawn : MonoBehaviour
     }
     private void OnDestroy() {
         TileCreate.TileCameraFinish -= EnemySpawnStart;
+    }
+
+    private void Start() {
+        if (StageLoader.stageData != null)
+            EnemyList = StageLoader.stageData.enemys;
     }
 
     void EnemySpawnStart() {

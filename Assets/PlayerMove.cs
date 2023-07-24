@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     public void SetPos(){
-        transform.position = TileManager.GetBlockToCoords(new TileWay(4, 1)).transform.position;
+        transform.position = TileManager.GetBlockToCoords(StageLoader.stageData == null ? new TileWay(4, 1) : new TileWay((int)StageLoader.stageData.playerCoord.x, (int)StageLoader.stageData.playerCoord.y)).transform.position;
     }
 
     public void Move(Vector3 pos){

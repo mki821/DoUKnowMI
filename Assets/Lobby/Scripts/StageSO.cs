@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/StageMap", fileName = "Stage_domi")]
 public class StageSO : ScriptableObject
 {
-    [SerializeField] Vector2 playerCoord;
-    [SerializeField] EnemyInfo[] enemys;
+    public Vector2 playerCoord;
+    [Range(4,16)] public int BlockSize;
+    public EnemyInfo[] enemys;
 }
