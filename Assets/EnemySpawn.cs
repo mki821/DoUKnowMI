@@ -11,6 +11,8 @@ public class EnemyInfo {
 public class EnemySpawn : MonoBehaviour
 {
     [SerializeField] EnemyInfo[] EnemyList;
+    [SerializeField] Sprite WarningSprite;
+    [SerializeField] Color WarningColor;
 
     private void Awake() {
         TileCreate.TileCameraFinish += EnemySpawnStart;
@@ -47,6 +49,11 @@ public class EnemySpawn : MonoBehaviour
                 // 콜라이더 생성해야지ㅣㅣㅣ (prefab으로 하는것보다 스끄립트로 하는게 더 최적화게 좋다함 [암튼 그럼])
                 var AttackCollider = AttackEntity.AddComponent<CircleCollider2D>();
                 AttackCollider.isTrigger = true;
+
+                // 표시
+                var attackSprite = AttackEntity.AddComponent<SpriteRenderer>();
+                attackSprite.sprite = WarningSprite;
+                attackSprite.color = WarningColor;
             }
         }
     }
