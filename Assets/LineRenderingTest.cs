@@ -7,6 +7,7 @@ public class LineRenderingTest : MonoBehaviour
     public static LineRenderingTest instance = null;
     public Animator _animator;
     [SerializeField] private PlayerMove player;
+    [SerializeField] ResultScreen _resultScreen;
     private bool Ready = false;
     private List<TileWay> Selects = new();
     private LineRenderer _lineRenderer;
@@ -142,6 +143,7 @@ public class LineRenderingTest : MonoBehaviour
     }
 
     public void EndEndEnd(){
+        if (!Ready) return;
         StartCoroutine("EndMoveEndMove");
     }
 
@@ -243,6 +245,7 @@ public class LineRenderingTest : MonoBehaviour
                 yield break; // 더이상 체크 안함 [이미 죽었어... ㅡㅅㅡ]
             }
         }
+        _resultScreen.ShowUI(GameObject.FindObjectsByType<EnemyConfig>(FindObjectsSortMode.None).Length == 0);
     }
 
     // 지나가는 길에 적이 있남?
