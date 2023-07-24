@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class StageLoader : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public static StageSO stageData { get; private set; }
+
+    private void Awake() {
+        stageData = null; // 초기화
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
