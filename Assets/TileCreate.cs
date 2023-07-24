@@ -25,7 +25,6 @@ public class TileCreate : MonoBehaviour
         if (StageLoader.stageData != null)
             BlockSize = StageLoader.stageData.BlockSize;
 
-        print(StageLoader.stageData.BlockSize);
         StartCoroutine(a());
     }
 
