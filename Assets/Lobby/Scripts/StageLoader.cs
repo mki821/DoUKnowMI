@@ -9,6 +9,7 @@ public class StageLoader : MonoBehaviour
 
     private void Awake() {
         stageData = null; // 초기화
+        Application.targetFrameRate = 60; // 60fps 제한
     }
 
     public void GoStage(int stage) {
