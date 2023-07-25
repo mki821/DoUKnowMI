@@ -225,6 +225,7 @@ public class LineRenderingTest : MonoBehaviour
             if (WillDie) {
                 CameraManager.SlowCameraEnable(tarPos);
                 print("[domi-DEBUG] 플레이어가 죽었습니다.");
+                _resultScreen.ShowUI(false);
 
                 //////////////////// 플레이어 죽는 임시 코드 ////////////////////
                 yield return new WaitForSeconds(0.1f);
