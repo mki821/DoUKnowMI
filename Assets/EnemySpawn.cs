@@ -22,6 +22,9 @@ public class EnemySpawn : MonoBehaviour
     }
 
     private void Start() {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60; // 60fps 제한
+
         if (StageLoader.stageData != null)
             EnemyList = StageLoader.stageData.enemys;
     }
