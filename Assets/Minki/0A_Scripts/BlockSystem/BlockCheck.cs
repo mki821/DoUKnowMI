@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BlockCheck : MonoBehaviour
+{
+    [SerializeField] private LayerMask blockLayer;
+
+    private Camera _cam;
+
+    private void Awake() {
+        _cam = Camera.main;
+    }
+
+    private void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            Vector2 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, blockLayer);
+
+            if(hit.collider != null) {
+                Block block = hit.transform.GetComponent<Block>();
+            }
+        }
+    }
+}

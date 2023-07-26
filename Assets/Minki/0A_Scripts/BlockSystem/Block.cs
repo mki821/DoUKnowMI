@@ -1,0 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Block : MonoBehaviour
+{
+    public Vector2 worldPos;
+    public Vector2 pos;
+}

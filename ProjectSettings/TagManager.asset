@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Tile
   - Enemy
-  - 
+  - Block
   - 
   - 
   - 
@@ -42,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Tile
+    uniqueID: 3437704401
     locked: 0
