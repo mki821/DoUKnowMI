@@ -7,6 +7,7 @@ public class LineRenderingTest : MonoBehaviour
     public static LineRenderingTest instance = null;
     public Animator _animator;
     [SerializeField] private PlayerMove player;
+    [SerializeField] ResultScreen _resultScreen;
     private bool Ready = false;
     private List<TileWay> Selects = new();
     private LineRenderer _lineRenderer;
@@ -40,18 +41,17 @@ public class LineRenderingTest : MonoBehaviour
         if (EnemyHit != null /* 선택한 곳에 적이 있남? */ && !EnemyHit.CompareTag("EnemyAttack") /* 적이 공격하는 곳이 아닌감자 */) return;
 
         // 선택 한 사이에 적들이 없으면 안댐
-        // if (Selects.Count > 0) {
-        //     bool hasEnemy = false;
-        //     foreach (var WayCoord in TileWay.GetWays(Selects[Selects.Count - 1], TileCoords)) {
-        //         GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
-        //         print(WayEnemy);
-        //         if (WayEnemy != null && !WayEnemy.CompareTag("EnemyAttack")) {
-        //             hasEnemy = true;
-        //             break;
-        //         }
-        //     }
-        //     if (!hasEnemy) return;
-        // }
+        if (Selects.Count > 0) {
+            bool hasEnemy = false;
+            foreach (var WayCoord in TileWay.GetWays(Selects[Selects.Count - 1], TileCoords)) {
+                GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
+                if (WayEnemy != null && !WayEnemy.CompareTag("EnemyAttack")) {
+                    hasEnemy = true;
+                    break;
+                }
+            }
+            if (!hasEnemy) return;
+        }
 
         if (Selects.Count > 0 && (
             ( /* 전꺼 선택한거랑 같음 */
@@ -137,11 +137,13 @@ public class LineRenderingTest : MonoBehaviour
 
         // 완료!
         Ready = true;
-        SetWayCoords(new TileWay(4, 1)); // 유저 좌표 (임시, 초기값)
+        print(TileManager.Blocks.Length);
+        SetWayCoords(StageLoader.stageData == null ? new TileWay(4, 1) : new TileWay((int)StageLoader.stageData.playerCoord.x, (int)StageLoader.stageData.playerCoord.y)); // 유저 좌표 (임시, 초기값)
         TileCreate.TileCameraFinish?.Invoke();
     }
 
     public void EndEndEnd(){
+        if (!Ready) return;
         StartCoroutine("EndMoveEndMove");
     }
 
@@ -223,6 +225,7 @@ public class LineRenderingTest : MonoBehaviour
             if (WillDie) {
                 CameraManager.SlowCameraEnable(tarPos);
                 print("[domi-DEBUG] 플레이어가 죽었습니다.");
+                _resultScreen.ShowUI(false);
 
                 //////////////////// 플레이어 죽는 임시 코드 ////////////////////
                 yield return new WaitForSeconds(0.1f);
@@ -243,6 +246,7 @@ public class LineRenderingTest : MonoBehaviour
                 yield break; // 더이상 체크 안함 [이미 죽었어... ㅡㅅㅡ]
             }
         }
+        _resultScreen.ShowUI(GameObject.FindObjectsByType<EnemyConfig>(FindObjectsSortMode.None).Length == 0);
     }
 
     // 지나가는 길에 적이 있남?

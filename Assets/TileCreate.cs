@@ -15,13 +15,13 @@ public class TileCreate : MonoBehaviour
 
     private float domiTime = 0.01f;
 
-    private void Awake()
-    {
-        TileManager.SetBlockSize(BlockSize);
-    }
-
     private void Start()
     {
+        if (StageLoader.stageData != null)
+            BlockSize = StageLoader.stageData.BlockSize;
+
+        TileManager.SetBlockSize(BlockSize);
+
         StartCoroutine(a());
     }
 
