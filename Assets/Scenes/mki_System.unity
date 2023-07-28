@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 1457461334}
   - component: {fileID: 1457461335}
   - component: {fileID: 1457461333}
+  - component: {fileID: 1457461336}
   m_Layer: 0
   m_Name: BlockSystem
   m_TagString: Untagged
@@ -245,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bcb91267ee2a542aa94087c2760435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blockCount: 15
+  _blockCount: 5
   block: {fileID: 4744651038088691635, guid: c59e58d3199699b4ba8cf79d8da4e98b, type: 3}
 --- !u!4 &1457461334
 Transform:
@@ -277,3 +278,17 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &1457461336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457461332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967bf8a2cb0432c48a6d6ea5a547a71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 9570e690e1de15a47ad749857537063c, type: 3}
