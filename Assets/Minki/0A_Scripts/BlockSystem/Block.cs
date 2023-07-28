@@ -5,5 +5,5 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     public Vector2 worldPos;
-    public Vector2 pos;
+    public Vector2Int pos;
 }

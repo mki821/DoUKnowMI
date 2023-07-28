@@ -6,13 +6,12 @@ public class CreateBlock : MonoBehaviour
 {
     public Block[,] blocks = new Block[16, 16];
 
-    [Range(4, 16)] [SerializeField] private int _blockCount = 8;
+    [Range(4, 16)] public int _blockCount = 8;
 
     [SerializeField] private Block block;
 
-    public void Create() {
-        float size = Mathf.Lerp(0.5f, 2, 8 / _blockCount);
-        block.transform.localScale = Vector3.one * size;
+    public Block[,] Create() {
+        block.transform.localScale = Vector3.one * (8f / _blockCount);
         float width = BlockWidth() * 1.1f;
         float half = width * (_blockCount - 1) / 2;
 
@@ -24,10 +23,12 @@ public class CreateBlock : MonoBehaviour
                 Block tile = Instantiate(block, transform);
                 tile.transform.position = new Vector2(width * x, width * y) + offset;
                 tile.worldPos = transform.position;
-                tile.pos = new Vector2(x, y);
+                tile.pos = new Vector2Int(x, y);
                 blocks[y, x] = tile;
             }
         }
+
+        return blocks;
     }
 
     private float BlockWidth() {
