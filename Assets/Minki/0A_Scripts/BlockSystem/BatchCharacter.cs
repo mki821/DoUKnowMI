@@ -11,6 +11,7 @@ public class BatchCharacter : MonoBehaviour
         obj.transform.position = pos;
 
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
+        objSpr.sprite = sprites[0];
         objSpr.sortingLayerName = "Character";
         objSpr.sortingOrder = 5;
     }
