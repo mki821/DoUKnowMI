@@ -6,6 +6,8 @@ public class BlockCheck : MonoBehaviour
 {
     [SerializeField] private LayerMask blockLayer;
 
+    [SerializeField] private SlimeMove _slimeMove;
+
     private Camera _cam;
 
     private BatchCharacter _batchCharacter;
@@ -23,6 +25,8 @@ public class BlockCheck : MonoBehaviour
 
             if(hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();
+
+                _slimeMove.SetMovePos(block.worldPos);
             }
         }
     }

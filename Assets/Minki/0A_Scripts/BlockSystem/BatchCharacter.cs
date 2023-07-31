@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ObjectType {
-    Knight = 0,
+    Slime = 0,
+    Knight,
 }
 
 public enum EnemyDir {
@@ -30,18 +31,15 @@ public class BatchCharacter : MonoBehaviour
 
         Animator objAnim = obj.AddComponent<Animator>();
         objAnim.runtimeAnimatorController = _animators[type];
+
+        if(type == 0) {
+            obj.AddComponent<SlimeMove>();
+        }
     }
 
     public void BatchAll() {
         foreach(var item in _batchSO.batchObject) {
-            Vector2 pos = Vector2.zero;
-            foreach(var b in CreateBlock.blocks) {
-                if(b == null) continue;
-                if(item.pos == b.pos) {
-                    pos = b.worldPos;
-                    break;
-                }
-            }
+            Vector2 pos = CreateBlock.blocks[item.pos.y, item.pos.x].worldPos;
             
             Batch(pos, item.dir, (int)item.type);
         }

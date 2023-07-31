@@ -249,6 +249,7 @@ MonoBehaviour:
   _blockCount: 5
   block: {fileID: 4744651038088691635, guid: c59e58d3199699b4ba8cf79d8da4e98b, type: 3}
   _batchCharacter: {fileID: 1457461336}
+  _slimeMove: {fileID: 0}
 --- !u!4 &1457461334
 Transform:
   m_ObjectHideFlags: 0
@@ -279,6 +280,7 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 256
+  _slimeMove: {fileID: 0}
 --- !u!114 &1457461336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,5 +296,7 @@ MonoBehaviour:
   _batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
   _sprites:
   - {fileID: 2102678837, guid: a34681dca7f11ee45a0738d8b1136e1e, type: 3}
+  - {fileID: 2102678837, guid: a34681dca7f11ee45a0738d8b1136e1e, type: 3}
   _animators:
+  - {fileID: 9100000, guid: dec6dc6639489794d9d456e1bd9e0deb, type: 2}
   - {fileID: 9100000, guid: dec6dc6639489794d9d456e1bd9e0deb, type: 2}
