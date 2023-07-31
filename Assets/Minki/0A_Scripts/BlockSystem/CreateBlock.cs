@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class CreateBlock : MonoBehaviour
 {
-    public Block[,] blocks = new Block[16, 16];
+    public static Block[,] blocks = new Block[16, 16];
 
     [Range(4, 16)] public int _blockCount = 8;
 
     [SerializeField] private Block block;
+
+
+    [SerializeField] private BatchCharacter _batchCharacter;
+    [SerializeField] private SlimeMove _slimeMove;
 
     public Block[,] Create() {
         block.transform.localScale = Vector3.one * (8f / _blockCount);
@@ -22,12 +26,13 @@ public class CreateBlock : MonoBehaviour
             for (int y = 0; y < _blockCount; y++) {
                 Block tile = Instantiate(block, transform);
                 tile.transform.position = new Vector2(width * x, width * y) + offset;
-                tile.worldPos = transform.position;
+                tile.worldPos = tile.transform.position;
                 tile.pos = new Vector2Int(x, y);
                 blocks[y, x] = tile;
             }
         }
 
+        _batchCharacter.BatchAll();
         return blocks;
     }
 
@@ -43,5 +48,9 @@ public class CreateBlock : MonoBehaviour
         }
 
         blocks = new Block[16, 16];
+    }
+
+    public void Move() {
+        _slimeMove.Move();
     }
 }
