@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CreateBlock : MonoBehaviour
 {
-    public Block[,] blocks = new Block[16, 16];
+    public static Block[,] blocks = new Block[16, 16];
 
     [Range(4, 16)] public int _blockCount = 8;
 
     [SerializeField] private Block block;
+
+
+    [SerializeField] private BatchCharacter _batchCharacter;
 
     public Block[,] Create() {
         block.transform.localScale = Vector3.one * (8f / _blockCount);
@@ -28,6 +31,7 @@ public class CreateBlock : MonoBehaviour
             }
         }
 
+        _batchCharacter.BatchAll();
         return blocks;
     }
 

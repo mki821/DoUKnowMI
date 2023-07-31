@@ -23,8 +23,6 @@ public class BlockCheck : MonoBehaviour
 
             if(hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();
-
-                _batchCharacter.Batch(block.transform.position, Vector2.zero);
             }
         }
     }
