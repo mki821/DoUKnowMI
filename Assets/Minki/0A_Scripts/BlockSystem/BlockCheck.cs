@@ -7,6 +7,7 @@ public class BlockCheck : MonoBehaviour
     [SerializeField] private LayerMask blockLayer;
 
     [SerializeField] private SlimeMove _slimeMove;
+    [SerializeField] private DrawLine _drawLine;
 
     private Camera _cam;
 
@@ -23,11 +24,38 @@ public class BlockCheck : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, blockLayer);
 
-            if(hit.collider != null) {
+            if (hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();
 
-                _slimeMove.SetMovePos(block.worldPos);
+                Vector2 dir = block.worldPos - _slimeMove.movePos[_slimeMove.movePos.Count - 1];
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                if (Mathf.Abs(angle) % 45 == 0) {
+                    if (CheckEnemy(_slimeMove.movePos[_slimeMove.movePos.Count - 1], dir.normalized, dir.magnitude)) {
+                        _drawLine.SetLinePos(block.worldPos);
+                        _slimeMove.SetMovePos(block.worldPos);
+                    }
+                }
             }
         }
+    }
+
+    private bool CheckEnemy(Vector2 pos, Vector2 dir, float distance) {
+        RaycastHit2D[] d = Physics2D.RaycastAll(pos, dir, distance, 7);
+
+        Debug.Log($"{d.Length}");
+
+        this.pos = pos;
+        this.dir = dir;
+        this.distance = distance;
+
+        return d.Length > 1 ? true : false;
+    }
+
+    Vector2 pos, dir = Vector2.zero;
+    float distance = 0;
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(pos, dir * distance);
     }
 }
