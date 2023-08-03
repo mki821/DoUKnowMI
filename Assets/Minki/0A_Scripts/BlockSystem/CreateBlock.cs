@@ -6,16 +6,23 @@ public class CreateBlock : MonoBehaviour
 {
     public static Block[,] blocks = new Block[16, 16];
 
-    [Range(4, 16)] public int _blockCount = 8;
-
     [SerializeField] private Block block;
 
 
     [SerializeField] private BatchCharacter _batchCharacter;
     [SerializeField] private SlimeMove _slimeMove;
 
+    private BlockManager blockManager;
+
+    private void Awake() {
+        blockManager = BlockManager.instance;
+    }
+
     public Block[,] Create() {
-        block.transform.localScale = Vector3.one * (8f / _blockCount);
+        int _blockCount = blockManager.blockCount;
+        float _size = blockManager.size;
+
+        block.transform.localScale = Vector3.one * (_size / _blockCount);
         float width = BlockWidth() * 1.1f;
         float half = width * (_blockCount - 1) / 2;
 

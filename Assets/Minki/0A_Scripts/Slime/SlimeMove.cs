@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class SlimeMove : MonoBehaviour
 {
-    private List<Vector2> movePos = new List<Vector2>();
+    public List<Vector2> movePos = new List<Vector2>();
 
     private float speed = 8f;
+    private LayerMask layer = 7;
 
     private void Start() {
         movePos.Add(transform.position);
@@ -31,5 +32,9 @@ public class SlimeMove : MonoBehaviour
 
     public void SetMovePos(Vector2 pos) {
         movePos.Add(pos);
+    }
+
+    private bool CheckEnemy(Vector2 dir, float distance) {
+        return Physics2D.Raycast(transform.position, dir, distance, layer);
     }
 }

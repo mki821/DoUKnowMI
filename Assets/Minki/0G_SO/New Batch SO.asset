@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: New Batch SO
   m_EditorClassIdentifier: 
   batchObject:
-  - pos: {x: 1, y: 0}
+  - pos: {x: 3, y: 3}
     type: 0
     dir: 0
-  - pos: {x: 3, y: 3}
+  - pos: {x: 0, y: 0}
     type: 1
     dir: 0
