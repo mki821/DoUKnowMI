@@ -277,6 +277,6 @@ public class LineRenderingTest : MonoBehaviour
         yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
         Time.timeScale = 0.05f;
         _animator.SetBool("isAttack", true);
-        CameraManager.SlowCameraEnable(EnemyCoords);
+        //CameraManager.SlowCameraEnable(EnemyCoords);
     }
 }
