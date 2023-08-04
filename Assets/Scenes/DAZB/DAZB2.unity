@@ -921,11 +921,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyList:
   - Character: {fileID: 3759996184201824123, guid: 9786f28a96cda0d4fa5aac4669835700, type: 3}
-    Coords: {x: 6, y: 4}
+    Coords: {x: 4, y: 4}
   - Character: {fileID: 3759996184201824123, guid: 292b60fb554a3dc478e835602fc4c5dd, type: 3}
     Coords: {x: 6, y: 6}
   - Character: {fileID: 3759996184201824123, guid: 64af1c291fcce4744ac5267a2b97d059, type: 3}
-    Coords: {x: 2, y: 5}
+    Coords: {x: 6, y: 5}
   WarningSprite: {fileID: 21300000, guid: 3f2d8e263d8314a48a35859e01318f35, type: 3}
   WarningColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1238249129
