@@ -22,3 +22,6 @@ MonoBehaviour:
   - pos: {x: 4, y: 0}
     type: 1
     dir: 0
+  - pos: {x: 3, y: 5}
+    type: 1
+    dir: 0

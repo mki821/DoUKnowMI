@@ -9,7 +9,7 @@ AnimatorController:
   m_Name: Slime
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Idle
+  - m_Name: Slime_Idle
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -84,7 +84,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Idle
+  m_BlendParameter: Slime_Idle
   m_BlendParameterY: Blend
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -128,7 +128,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1851521616489238160}
-    m_Position: {x: 260, y: 70, z: 0}
+    m_Position: {x: 240, y: 80, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

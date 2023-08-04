@@ -43,7 +43,7 @@ public class LineRenderingTest : MonoBehaviour
         // 선택 한 사이에 적들이 없으면 안댐
         if (Selects.Count > 0) {
             bool hasEnemy = false;
-            foreach (var WayCoord in TileWay.GetWays(Selects[Selects.Count - 1], TileCoords)) {
+            foreach (var WayCoord in TileWay.GetWays(Selects[^1], TileCoords)) {
                 GameObject WayEnemy = TileManager.IsEnemyToCoords(WayCoord);
                 if (WayEnemy != null && !WayEnemy.CompareTag("EnemyAttack")) {
                     hasEnemy = true;
@@ -277,6 +277,6 @@ public class LineRenderingTest : MonoBehaviour
         yield return new WaitUntil(() => Vector3.Distance(player.transform.position, EnemyCoords) < 1.2f && Time.timeScale == 1);
         Time.timeScale = 0.05f;
         _animator.SetBool("isAttack", true);
-        //CameraManager.SlowCameraEnable(EnemyCoords);
+        CameraManager.SlowCameraEnable(EnemyCoords);
     }
 }
