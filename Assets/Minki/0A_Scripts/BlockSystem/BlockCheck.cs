@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BlockCheck : MonoBehaviour
 {
-    [SerializeField] private LayerMask blockLayer;
+    [SerializeField] private LayerMask _blockLayer;
+    [SerializeField] private LayerMask _enemyLayer;
 
     [SerializeField] private SlimeMove _slimeMove;
     [SerializeField] private DrawLine _drawLine;
+
+    private bool firstMove = false;
 
     private Camera _cam;
 
@@ -22,7 +25,7 @@ public class BlockCheck : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             Vector2 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, blockLayer);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, _blockLayer);
 
             if (hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();
@@ -41,15 +44,24 @@ public class BlockCheck : MonoBehaviour
     }
 
     private bool CheckEnemy(Vector2 pos, Vector2 dir, float distance) {
-        RaycastHit2D[] d = Physics2D.RaycastAll(pos, dir, distance, 7);
-
-        Debug.Log($"{d.Length}");
+        RaycastHit2D[] d = Physics2D.RaycastAll(pos, dir, distance, _enemyLayer);
 
         this.pos = pos;
         this.dir = dir;
         this.distance = distance;
 
-        return d.Length > 1 ? true : false;
+        if(!firstMove) {
+            if(d.Length == 1) {
+                firstMove = true;
+                return true;
+            }
+            return false;
+        }
+
+        if(d.Length == 1 && (Vector2)d[0].transform.position == pos) {
+
+        }
+        return d.Length == 1 ? true : false;
     }
 
     Vector2 pos, dir = Vector2.zero;
