@@ -31,6 +31,10 @@ public class SlimeMove : MonoBehaviour
     private IEnumerator M() {
         float t = 0;
         for(int i = 1; i < movePos.Count; i++) {
+            if (i == movePos.Count - 1) {
+                //CameraManager.SlowCameraEnable(transform.position);
+                StartCoroutine(TimeScale());
+            }
             float distance = (movePos[i - 1] - movePos[i]).magnitude;
             SetSlimeDir(i);
             while(t < 1 * distance / speed) {
@@ -42,8 +46,17 @@ public class SlimeMove : MonoBehaviour
         }
     }
 
+
     public void SetMovePos(Vector2 pos) {
         movePos.Add(pos);
+    }
+
+    private IEnumerator TimeScale() {
+        Time.timeScale = 0.05f;
+        print(Time.timeScale);
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1f;
+        print(Time.timeScale);
     }
 
     private void SetSlimeDir(int i) {
@@ -56,7 +69,7 @@ public class SlimeMove : MonoBehaviour
         else if (Mathf.Abs(angle - (0f)) < 0.0001f)
             animator.SetFloat("Slime_Idle", Slime_Idle_right);
         // 더 추가 해야됨
-        print(angle);
+        print("각도" + angle);
     }
 
     private bool CheckEnemy(Vector2 dir, float distance) {
