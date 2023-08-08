@@ -6,6 +6,7 @@ public class SlimeMove : MonoBehaviour
 {
     public List<Vector2> movePos = new List<Vector2>();
     public List<Vector2> enemyPos = new List<Vector2>();
+    public Vector2 direction;
 
     private float speed = 8f;
     private LayerMask layer = 7;
@@ -79,6 +80,7 @@ public class SlimeMove : MonoBehaviour
     private void SetSlimeDir(int i) {
         animator.SetTrigger("IsAtk");
         Vector2 dir  = movePos[i] - movePos[i - 1];
+        direction = dir.normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
             animator.SetFloat("Slime_Atk", Slime_Atk);
@@ -91,10 +93,6 @@ public class SlimeMove : MonoBehaviour
         }
         // 더 추가 해야됨
         print("각도" + angle);
-    }
-
-    private bool CheckEnemy(Vector2 dir, float distance) {
-        return Physics2D.Raycast(transform.position, dir, distance, layer);
     }
 
     public void AddEnemyPos(Vector3 pos) {

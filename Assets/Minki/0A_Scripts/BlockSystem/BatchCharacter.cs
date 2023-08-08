@@ -37,7 +37,7 @@ public class BatchCharacter : MonoBehaviour
 
         CircleCollider2D objCol = obj.AddComponent<CircleCollider2D>();
         objCol.offset = new Vector2(0, 0);
-        objCol.radius = 0.2f;
+        objCol.radius = BlockManager.instance.tileSize / 5f;
 
         Animator objAnim = obj.AddComponent<Animator>();
         objAnim.runtimeAnimatorController = _animators[type];
@@ -82,6 +82,6 @@ public class BatchCharacter : MonoBehaviour
 
         CircleCollider2D eAtkCol = enemyAttack.AddComponent<CircleCollider2D>();
         eAtkCol.isTrigger = true;
-        eAtkCol.radius = 0.2f;
+        eAtkCol.radius = 0.03f;
     }
 }
