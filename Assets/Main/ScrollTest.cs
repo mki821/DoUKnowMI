@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScrollTest : MonoBehaviour
+public class ScrollTest : MonoBehaviour, domiSliceScreen.ISlideEvent
 {
     [SerializeField] ScrollRect scrollRect;
     [SerializeField] RectTransform contentPanel;
@@ -19,7 +19,7 @@ public class ScrollTest : MonoBehaviour
     }
 
     private void Update() {
-        InvokeRepeating(nameof(testrtest), 5, .1f);
+        // InvokeRepeating(nameof(testrtest), 5, .1f);
     }
 
     void testrtest() {
@@ -28,5 +28,15 @@ public class ScrollTest : MonoBehaviour
 
     public void OnChangeScroll(Vector2 value) {
         print(value);
+    }
+
+    public void OnSlideOpen()
+    {
+        print("열렸다");
+    }
+
+    public void OnSlideClose()
+    {
+        print("오 닫혔는데?");
     }
 }
