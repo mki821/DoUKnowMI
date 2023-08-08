@@ -20,6 +20,7 @@ public class BatchCharacter : MonoBehaviour
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
+    private List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     private DrawLine _drawLine;
 
     private void Awake() {
@@ -43,7 +44,7 @@ public class BatchCharacter : MonoBehaviour
         objAnim.runtimeAnimatorController = _animators[type];
 
         if(type == 0) {
-            obj.AddComponent<SlimeMove>();
+            BlockManager.instance.slimeMove = obj.AddComponent<SlimeMove>();
             obj.AddComponent<SlimeAttack>();
             _drawLine.SetLinePos(obj.transform.position);
 
@@ -51,6 +52,7 @@ public class BatchCharacter : MonoBehaviour
             objRig.gravityScale = 0;
         }
         else if(type > 0) {
+            enemyColList.Add(objCol);
             obj.tag = "Enemy";
             obj.layer = 7;
             objCol.isTrigger = true;
@@ -83,5 +85,11 @@ public class BatchCharacter : MonoBehaviour
         CircleCollider2D eAtkCol = enemyAttack.AddComponent<CircleCollider2D>();
         eAtkCol.isTrigger = true;
         eAtkCol.radius = 0.03f;
+    }
+
+    public void EndCheck() {
+        foreach(CircleCollider2D item in enemyColList) {
+            item.enabled = true;
+        }
     }
 }

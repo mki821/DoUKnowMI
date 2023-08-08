@@ -23,6 +23,8 @@ public class BlockCheck : MonoBehaviour
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
+            if(_slimeMove is null) _slimeMove = BlockManager.instance.slimeMove; 
+
             Vector2 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, _blockLayer);
@@ -56,6 +58,7 @@ public class BlockCheck : MonoBehaviour
 
         if(d.Length == 1) {
             _slimeMove.AddEnemyPos(d[0].transform.position);
+            d[0].collider.enabled = false;
             return true;
         }
         else {
