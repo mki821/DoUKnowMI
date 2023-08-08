@@ -9,7 +9,11 @@ public class BlockManager : MonoBehaviour
     [Range(4, 16)] public int blockCount = 8;
     public float size = 8f;
 
+    public float tileSize = 0f;
+
     private void Awake() {
         if(instance == null) instance = this;
+
+        tileSize = blockCount / size;
     }
 }

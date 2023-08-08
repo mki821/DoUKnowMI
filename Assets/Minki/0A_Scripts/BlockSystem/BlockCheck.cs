@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BlockCheck : MonoBehaviour
 {
+    public List<Vector2> enemyPos = new List<Vector2>();
+
     [SerializeField] private LayerMask _blockLayer;
     [SerializeField] private LayerMask _enemyLayer;
 
     [SerializeField] private SlimeMove _slimeMove;
     [SerializeField] private DrawLine _drawLine;
-
-    private bool firstMove = false;
 
     private Camera _cam;
 
@@ -34,7 +34,7 @@ public class BlockCheck : MonoBehaviour
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
                 if (Mathf.Abs(angle) % 45 == 0) {
-                    if (CheckEnemy(_slimeMove.movePos[_slimeMove.movePos.Count - 1], dir.normalized, dir.magnitude)) {
+                    if (CheckEnemy(_slimeMove.movePos[_slimeMove.movePos.Count - 1], dir.normalized, dir.magnitude, block.transform.position)) {
                         _drawLine.SetLinePos(block.worldPos);
                         _slimeMove.SetMovePos(block.worldPos);
                     }
@@ -43,25 +43,24 @@ public class BlockCheck : MonoBehaviour
         }
     }
 
-    private bool CheckEnemy(Vector2 pos, Vector2 dir, float distance) {
+    private bool CheckEnemy(Vector2 pos, Vector2 dir, float distance, Vector2 blockPos) {
         RaycastHit2D[] d = Physics2D.RaycastAll(pos, dir, distance, _enemyLayer);
 
         this.pos = pos;
         this.dir = dir;
         this.distance = distance;
 
-        if(!firstMove) {
-            if(d.Length == 1) {
-                firstMove = true;
-                return true;
-            }
+        if(d.Length == 1 && (Vector2)d[0].transform.position == blockPos) {
             return false;
         }
 
-        if(d.Length == 1 && (Vector2)d[0].transform.position == pos) {
-
+        if(d.Length == 1) {
+            _slimeMove.AddEnemyPos(d[0].transform.position);
+            return true;
         }
-        return d.Length == 1 ? true : false;
+        else {
+            return false;
+        }
     }
 
     Vector2 pos, dir = Vector2.zero;
