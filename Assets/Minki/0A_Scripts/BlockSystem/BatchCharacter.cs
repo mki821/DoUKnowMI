@@ -16,7 +16,7 @@ public enum EnemyDir {
 
 public class BatchCharacter : MonoBehaviour
 {
-    [SerializeField] private BatchSO _batchSO;
+    public BatchSO batchSO;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
@@ -67,7 +67,7 @@ public class BatchCharacter : MonoBehaviour
     }
 
     public void BatchAll() {
-        foreach(var item in _batchSO.batchObject) {
+        foreach(var item in batchSO.batchObject) {
             Vector2 pos = CreateBlock.blocks[item.pos.y, item.pos.x].worldPos;
             
             Batch(pos, item.dir, (int)item.type);

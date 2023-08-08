@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CreateBlock : MonoBehaviour
 {
+    public BatchSO batchSO;
+
     public static Block[,] blocks = new Block[16, 16];
 
     [SerializeField] private Block block;
@@ -19,7 +21,7 @@ public class CreateBlock : MonoBehaviour
     }
 
     public Block[,] Create() {
-        int _blockCount = blockManager.blockCount;
+        int _blockCount = batchSO.blockCount;
         float _size = blockManager.size;
 
         block.transform.localScale = Vector3.one * (_size / _blockCount);
@@ -40,6 +42,7 @@ public class CreateBlock : MonoBehaviour
             }
         }
 
+        _batchCharacter.batchSO = batchSO;
         _batchCharacter.BatchAll();
         return blocks;
     }
