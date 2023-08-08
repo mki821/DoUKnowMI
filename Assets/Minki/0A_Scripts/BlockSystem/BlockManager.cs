@@ -11,6 +11,8 @@ public class BlockManager : MonoBehaviour
 
     public float tileSize = 0f;
 
+    public SlimeMove slimeMove;
+
     public int BlockCount {
         get => blockCount;
         set {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e114d20eed2df524981e3184171fea69, type: 3}
   m_Name: New Batch SO
   m_EditorClassIdentifier: 
-  blockCount: 7
+  blockCount: 5
   batchObject:
   - pos: {x: 3, y: 3}
     type: 0
