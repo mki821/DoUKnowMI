@@ -8,6 +8,7 @@ public class BatchObject
     public Vector2Int pos;
     public ObjectType type;
     public EnemyDir dir;
+    public int blockCount;
 }
 
 [CreateAssetMenu(menuName = "SO/BatchSO")]

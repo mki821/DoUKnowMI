@@ -24,6 +24,7 @@ public class CreateBlock : MonoBehaviour
 
         block.transform.localScale = Vector3.one * (_size / _blockCount);
         float width = BlockWidth() * 1.1f;
+        BlockManager.instance.tileSize = width;
         float half = width * (_blockCount - 1) / 2;
 
         Vector2 offset = new Vector2(-half, -half);
