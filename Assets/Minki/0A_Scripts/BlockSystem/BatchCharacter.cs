@@ -36,6 +36,8 @@ public class BatchCharacter : MonoBehaviour
         objSpr.sortingOrder = 5;
 
         CircleCollider2D objCol = obj.AddComponent<CircleCollider2D>();
+        objCol.offset = new Vector2(0, 0);
+        objCol.radius = 0.2f;
 
         Animator objAnim = obj.AddComponent<Animator>();
         objAnim.runtimeAnimatorController = _animators[type];
