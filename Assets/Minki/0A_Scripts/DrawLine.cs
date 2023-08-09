@@ -14,7 +14,6 @@ public class DrawLine : MonoBehaviour
     }
 
     public void SetLinePos(Vector2 pos) {
-        Debug.Log(1);
         _posList.Add(pos);
 
         

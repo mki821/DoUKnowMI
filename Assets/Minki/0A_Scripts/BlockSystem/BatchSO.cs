@@ -13,6 +13,7 @@ public class BatchObject
 [CreateAssetMenu(menuName = "SO/BatchSO")]
 public class BatchSO : ScriptableObject
 {
+    [Range(4, 16)] public int blockCount;
     public BatchObject[] batchObject;
 }
 
