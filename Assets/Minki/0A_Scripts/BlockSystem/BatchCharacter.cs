@@ -21,6 +21,7 @@ public class BatchCharacter : MonoBehaviour
 {
     [HideInInspector] public BatchSO batchSO;
     [SerializeField] private Sprite[] _sprites;
+    [SerializeField] private Sprite _denySprite;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
     private List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
@@ -33,6 +34,7 @@ public class BatchCharacter : MonoBehaviour
     public void Batch(Vector2 pos, EnemyDir dir, int type) {
         GameObject obj = new GameObject();
         obj.transform.position = pos;
+        obj.transform.localScale = Vector3.one * BlockManager.instance.tileSize;
 
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
         objSpr.sprite = _sprites[type];
@@ -59,20 +61,65 @@ public class BatchCharacter : MonoBehaviour
             obj.tag = "Enemy";
             obj.layer = 7;
             objCol.isTrigger = true;
+            float tSize = BlockManager.instance.tileSize;
             switch(type) {
                 case 2:
                     switch((int)dir) {
                         case 0:
-                            CreateEnemy(obj.transform, new Vector3(0, -BlockManager.instance.tileSize));
+                            CreateEnemy(obj.transform, new Vector3(0, -tSize));
                             break;
                         case 1:
-                            CreateEnemy(obj.transform, new Vector3(BlockManager.instance.tileSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(tSize, 0));
                             break;
                         case 2:
-                            CreateEnemy(obj.transform, new Vector3(0, BlockManager.instance.tileSize));
+                            CreateEnemy(obj.transform, new Vector3(0, tSize));
                             break;
                         case 3:
-                            CreateEnemy(obj.transform, new Vector3(-BlockManager.instance.tileSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, 0));
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch((int)dir) {
+                        case 0:
+                            CreateEnemy(obj.transform, new Vector3(-tSize, -tSize));
+                            CreateEnemy(obj.transform, new Vector3(0, -tSize));
+                            CreateEnemy(obj.transform, new Vector3(tSize, -tSize));
+                            break;
+                        case 1:
+                            CreateEnemy(obj.transform, new Vector3(tSize, tSize));
+                            CreateEnemy(obj.transform, new Vector3(tSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(tSize, -tSize));
+                            break;
+                        case 2:
+                            CreateEnemy(obj.transform, new Vector3(tSize, tSize));
+                            CreateEnemy(obj.transform, new Vector3(0, tSize));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, tSize));
+                            break;
+                        case 3:
+                            CreateEnemy(obj.transform, new Vector3(-tSize, tSize));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, -tSize));
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch((int)dir) {
+                        case 0:
+                            CreateEnemy(obj.transform, new Vector3(0, tSize));
+                            CreateEnemy(obj.transform, new Vector3(0, -tSize));
+                            break;
+                        case 1:
+                            CreateEnemy(obj.transform, new Vector3(tSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, 0));
+                            break;
+                        case 2:
+                            CreateEnemy(obj.transform, new Vector3(0, tSize));
+                            CreateEnemy(obj.transform, new Vector3(0, -tSize));
+                            break;
+                        case 3:
+                            CreateEnemy(obj.transform, new Vector3(tSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, 0));
                             break;
                     }
                     break;
@@ -91,8 +138,14 @@ public class BatchCharacter : MonoBehaviour
     private void CreateEnemy(Transform parent, Vector3 pos) {
         GameObject enemyAttack = new GameObject();
         enemyAttack.transform.position = parent.position + pos;
+        enemyAttack.transform.localScale = Vector3.one * BlockManager.instance.tileSize;
         enemyAttack.transform.parent = parent;
         enemyAttack.tag = "EnemyAttack";
+
+        SpriteRenderer eAtkSpr = enemyAttack.AddComponent<SpriteRenderer>();
+        eAtkSpr.sprite = _denySprite;
+        eAtkSpr.sortingLayerName = "Character";
+        eAtkSpr.sortingOrder = 10;
 
         CircleCollider2D eAtkCol = enemyAttack.AddComponent<CircleCollider2D>();
         eAtkCol.isTrigger = true;
