@@ -4,14 +4,17 @@ using UnityEngine;
 
 public enum ObjectType {
     Slime = 0,
-    Knight,
+    sinchamgisa,
+    archer,
+    shield,
+    spear
 }
 
 public enum EnemyDir {
-    Up = 0,
-    Down,
-    Left,
-    Right
+    Down = 0,
+    Right,
+    Up,
+    Left
 }
 
 public class BatchCharacter : MonoBehaviour

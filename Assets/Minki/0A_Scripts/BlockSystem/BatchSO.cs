@@ -28,16 +28,22 @@ public class DomiBatch {
         public int[] player;
         public Dictionary<string, TileData> data;
     }
-    public static BatchSO ConverToBatchSO(string jsondata) {
+    public static BatchSO ConvertToBatchSO(string jsondata) {
         var decode = LitJson.JsonMapper.ToObject<JsonData>(jsondata);
 
         BatchSO _batch = new();
-        _batch.batchObject = new BatchObject[decode.data.Count];
+        _batch.batchObject = new BatchObject[decode.data.Count + 1];
 
-        // player 위치 누락, 타일 사이즈 누락
-        
+        _batch.blockCount = decode.size;
+
+        _batch.batchObject[0] = new() {
+            pos = new(decode.player[0], decode.player[1]),
+            dir = 0,
+            type = ObjectType.Slime
+        };
+
         ///////////////// batchObject
-        int loop = 0;
+        int loop = 1;
         foreach (KeyValuePair<string, TileData> enemy in decode.data)
         {
             string[] SplitCoords = enemy.Key.Split(",");
