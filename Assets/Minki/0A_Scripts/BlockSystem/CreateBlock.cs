@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CreateBlock : MonoBehaviour
 {
+    [SerializeField] int stageInfo;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
 
     [SerializeField] private Block block;
-
 
     [SerializeField] private BatchCharacter _batchCharacter;
     [SerializeField] private SlimeMove _slimeMove;
@@ -18,6 +18,8 @@ public class CreateBlock : MonoBehaviour
 
     private void Awake() {
         blockManager = BlockManager.instance;
+        string map_json = Resources.Load("StageMap/" + stageInfo).ToString();
+        batchSO = _batchCharacter.batchSO = DomiBatch.ConvertToBatchSO(map_json);
     }
 
     public Block[,] Create() {
@@ -79,7 +81,6 @@ public class CreateBlock : MonoBehaviour
     }
 
     private void EndCreate() {
-        _batchCharacter.batchSO = batchSO;
         _batchCharacter.BatchAll();
         _slimeMove = BlockManager.instance.slimeMove;
     }

@@ -70,6 +70,9 @@ namespace domiSliceScreen {
                 screen.screen.offsetMax *= -1;
             }
 
+            // trigger
+            screens[oldID].screen.GetComponent<ISlideEvent>()?.OnSlideClose();
+
             screen.screen.DOAnchorPos(Vector3.zero, .3f);
             ImmediatelyChange(true);
         }
@@ -79,9 +82,12 @@ namespace domiSliceScreen {
             if (!disable)
                 screen.screen.anchoredPosition = Vector3.zero;
 
-            screen.screen.transform.SetSiblingIndex(transform.childCount - 1 - 1);
+            screen.screen.transform.SetSiblingIndex(transform.childCount - 1 - 2);
             StageText.text = screen.name;
             UpdateOne();
+
+            // trigger
+            screen.screen.GetComponent<ISlideEvent>()?.OnSlideOpen();
         }
 
         void UpdateOne() {
