@@ -53,10 +53,10 @@ public class SlimeMove : MonoBehaviour
                 // }
             }
             float distance = (movePos[i - 1] - movePos[i]).magnitude;
-            SetSlimeDir(i);
             while(t < 1 * distance / speed) {
                 transform.position = Vector2.Lerp(movePos[i - 1], movePos[i], t / distance * speed);
                 t += Time.deltaTime;
+                SetSlimeDir(i);
                 yield return null;
             }
             t = 0;
@@ -80,6 +80,7 @@ public class SlimeMove : MonoBehaviour
     private void SetSlimeDir(int i) {
         animator.SetTrigger("IsAtk");
         Vector2 dir  = movePos[i] - movePos[i - 1];
+        if(i < movePos.Count - 1 && (movePos[i] - (Vector2)transform.position).magnitude < 0.2f) dir = movePos[i + 1] - movePos[i];
         direction = dir.normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
