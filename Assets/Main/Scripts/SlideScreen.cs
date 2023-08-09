@@ -82,7 +82,7 @@ namespace domiSliceScreen {
             if (!disable)
                 screen.screen.anchoredPosition = Vector3.zero;
 
-            screen.screen.transform.SetSiblingIndex(transform.childCount - 1 - 1);
+            screen.screen.transform.SetSiblingIndex(transform.childCount - 1 - 2);
             StageText.text = screen.name;
             UpdateOne();
 
