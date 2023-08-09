@@ -99,6 +99,7 @@ public class CreateBlock : MonoBehaviour
     }
 
     public void Move() {
+        _batchCharacter.EndCheck();
         _slimeMove.Move();
     }
 }

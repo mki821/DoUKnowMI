@@ -16,7 +16,7 @@ public enum EnemyDir {
 
 public class BatchCharacter : MonoBehaviour
 {
-    public BatchSO batchSO;
+    [HideInInspector] public BatchSO batchSO;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
@@ -57,10 +57,19 @@ public class BatchCharacter : MonoBehaviour
             obj.layer = 7;
             objCol.isTrigger = true;
             switch(type) {
-                case 1:
+                case 2:
                     switch((int)dir) {
                         case 0:
+                            CreateEnemy(obj.transform, new Vector3(0, -BlockManager.instance.tileSize));
+                            break;
+                        case 1:
+                            CreateEnemy(obj.transform, new Vector3(BlockManager.instance.tileSize, 0));
+                            break;
+                        case 2:
                             CreateEnemy(obj.transform, new Vector3(0, BlockManager.instance.tileSize));
+                            break;
+                        case 3:
+                            CreateEnemy(obj.transform, new Vector3(-BlockManager.instance.tileSize, 0));
                             break;
                     }
                     break;
