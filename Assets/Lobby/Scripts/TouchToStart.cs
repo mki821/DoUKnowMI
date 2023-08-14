@@ -7,11 +7,11 @@ using DG.Tweening;
 
 public class TouchToStart : MonoBehaviour
 {
-    [SerializeField] Image _toutchBar;
+    [SerializeField] CanvasGroup _toutchBar;
 
     private void Start() 
     {
-        _toutchBar.DOFade(1, .4f).SetLoops((int)LoopType.Yoyo);
+        _toutchBar.DOFade(0, 3f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
     }
     
     void Update()
