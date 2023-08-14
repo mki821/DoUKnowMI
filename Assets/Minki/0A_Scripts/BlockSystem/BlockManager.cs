@@ -16,8 +16,8 @@ public class BlockManager : MonoBehaviour
     public int BlockCount {
         get => blockCount;
         set {
-            SetTileSize();
             blockCount = value;
+            SetTileSize();
         }
     }
 
@@ -28,6 +28,8 @@ public class BlockManager : MonoBehaviour
     }
 
     private void SetTileSize() {
-        tileSize = blockCount / size;
+        Debug.Log(size);
+        Debug.Log(blockCount);
+        tileSize = size / blockCount;
     }
 }

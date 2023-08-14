@@ -31,8 +31,7 @@ public class CreateBlock : MonoBehaviour
         int blockCount = batchSO.blockCount;
 
         float size = blockManager.size / blockCount;
-        float width = BlockWidth() * 1.1f;
-        BlockManager.instance.tileSize = width;
+        float width = blockManager.tileSize;
         float half = width * (blockCount - 1) / 2;
 
         Vector2 offset = new Vector2(-half, -half);
@@ -110,12 +109,6 @@ public class CreateBlock : MonoBehaviour
     private void EndCreate() {
         _batchCharacter.BatchAll();
         _slimeMove = BlockManager.instance.slimeMove;
-    }
-
-    private float BlockWidth() {
-        Vector2[] vertices = block.GetComponent<SpriteRenderer>().sprite.uv;
-
-        return (block.transform.TransformPoint(vertices[0]) - block.transform.TransformPoint(vertices[3])).magnitude;
     }
 
     public void Clear() {
