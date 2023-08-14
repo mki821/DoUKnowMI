@@ -58,7 +58,7 @@ public class SlimeMove : MonoBehaviour
             while(t < 1 * distance / speed) {
                 transform.position = Vector2.Lerp(movePos[i - 1], movePos[i], t / distance * speed);
                 t += Time.deltaTime;
-                SetSlimeDir(i);
+                //SetSlimeDir(i);
                 yield return null;
             }
             t = 0;
