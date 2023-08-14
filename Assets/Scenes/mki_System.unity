@@ -297,6 +297,9 @@ MonoBehaviour:
   stageInfo: 1
   batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
   block: {fileID: 4744651038088691635, guid: c59e58d3199699b4ba8cf79d8da4e98b, type: 3}
+  blockSprites:
+  - {fileID: -743221247, guid: 26ccac50d87e5eb4c97e1e3957e54b8b, type: 3}
+  - {fileID: -1633671396, guid: 26ccac50d87e5eb4c97e1e3957e54b8b, type: 3}
   _batchCharacter: {fileID: 1457461336}
   _slimeMove: {fileID: 0}
 --- !u!4 &1457461334
