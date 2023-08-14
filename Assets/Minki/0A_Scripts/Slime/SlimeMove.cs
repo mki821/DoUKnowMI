@@ -10,6 +10,7 @@ public class SlimeMove : MonoBehaviour
     private float speed = 8f;
     private LayerMask layer = 7;
     private Animator animator;
+    private int i;
 
 #region Slime_Idle
     private const float Slime_Idle_left = 0;
@@ -43,7 +44,7 @@ public class SlimeMove : MonoBehaviour
 
     private IEnumerator M() {
         float t = 0;
-        for(int i = 1; i < movePos.Count; i++) {
+        for(i = 1; i < movePos.Count; i++) {
             if (i == movePos.Count - 1) {
                 // 일단 보류
                 // if () {
@@ -52,13 +53,20 @@ public class SlimeMove : MonoBehaviour
                 // }
             }
             float distance = (movePos[i - 1] - movePos[i]).magnitude;
-            SetSlimeDir(i);
+            SetSlimeDir(i, enemyPos[i - 1]);
             while(t < 1 * distance / speed) {
                 transform.position = Vector2.Lerp(movePos[i - 1], movePos[i], t / distance * speed);
                 t += Time.deltaTime;
                 yield return null;
             }
             t = 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (i == movePos.Count - 1) {
+            CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
+            StartCoroutine(TimeScale());
         }
     }
 
@@ -76,7 +84,7 @@ public class SlimeMove : MonoBehaviour
         print(Time.timeScale);
     }
 
-    private void SetSlimeDir(int i) {
+    private void SetSlimeDir(int i, Vector2 enemyPos) {
         animator.SetTrigger("IsAtk");
         Vector2 dir  = movePos[i] - movePos[i - 1];
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -89,10 +97,24 @@ public class SlimeMove : MonoBehaviour
         else if (Mathf.Abs(angle - (0f)) < 0.0001f) {
             animator.SetFloat("Slime_Atk", Slime_right_Atk);
         }
+        else if (Mathf.Abs(angle - (90f)) < 0.0001f) {
+            animator.SetFloat("Slime_Atk", Slime_back_Atk);
+        }
+        else if (Mathf.Abs(angle - (-135f)) < 0.0001f) {
+            animator.SetFloat("Slime_Atk", Slime_diagonal_left_Atk);
+        }
+        else if (Mathf.Abs(angle - (45f)) < 0.0001f) {
+            animator.SetFloat("Slime_Atk", Slime_back_Atk);
+        }
+        else if (Mathf.Abs(angle - (135f)) < 0.0001f) {
+            animator.SetFloat("Slime_Atk", Slime_back_Atk);
+        }
+        else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
+            animator.SetFloat("Slime_Atk", Slime_diagonal_right_Atk);
+        }
         // 더 추가 해야됨
         print("각도" + angle);
     }
-
     private bool CheckEnemy(Vector2 dir, float distance) {
         return Physics2D.Raycast(transform.position, dir, distance, layer);
     }

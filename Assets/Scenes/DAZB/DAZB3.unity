@@ -635,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bcb91267ee2a542aa94087c2760435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
   block: {fileID: 4744651038088691635, guid: c59e58d3199699b4ba8cf79d8da4e98b, type: 3}
   _batchCharacter: {fileID: 1457461336}
   _slimeMove: {fileID: 0}
@@ -686,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967bf8a2cb0432c48a6d6ea5a547a71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
+  batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
   _sprites:
   - {fileID: 89424793, guid: 97b34681e7b0f934ba6696190fe5102e, type: 3}
   - {fileID: 1905521809, guid: 4eb8a4cbe922711479f0e3b820cda8fb, type: 3}

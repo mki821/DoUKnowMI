@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e114d20eed2df524981e3184171fea69, type: 3}
   m_Name: New Batch SO
   m_EditorClassIdentifier: 
+  blockCount: 8
   batchObject:
   - pos: {x: 3, y: 3}
     type: 0
     dir: 0
-  - pos: {x: 1, y: 1}
+  - pos: {x: 2, y: 3}
     type: 1
     dir: 0
-  - pos: {x: 4, y: 0}
+  - pos: {x: 5, y: 1}
     type: 1
     dir: 0
-  - pos: {x: 3, y: 4}
+  - pos: {x: 4, y: 4}
     type: 1
     dir: 0
