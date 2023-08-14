@@ -23,11 +23,15 @@ public class BlockCheck : MonoBehaviour
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            if(_slimeMove is null) _slimeMove = BlockManager.instance.slimeMove; 
+            if(_slimeMove is null) _slimeMove = BlockManager.instance.slimeMove;
 
             Vector2 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, _blockLayer);
+
+            Debug.Log(hit.transform.name);
+            Debug.Log(hit.transform.position);
+            Debug.Log(hit.collider == null);
 
             if (hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();

@@ -250,6 +250,7 @@ MonoBehaviour:
   blockCount: 8
   size: 4
   tileSize: 0
+  slimeMove: {fileID: 0}
 --- !u!4 &443293528
 Transform:
   m_ObjectHideFlags: 0
@@ -635,8 +636,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bcb91267ee2a542aa94087c2760435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageInfo: 1
   batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
   block: {fileID: 4744651038088691635, guid: c59e58d3199699b4ba8cf79d8da4e98b, type: 3}
+  blockSprites:
+  - {fileID: -743221247, guid: 26ccac50d87e5eb4c97e1e3957e54b8b, type: 3}
+  - {fileID: -1633671396, guid: 26ccac50d87e5eb4c97e1e3957e54b8b, type: 3}
   _batchCharacter: {fileID: 1457461336}
   _slimeMove: {fileID: 0}
 --- !u!4 &1457461334
@@ -693,6 +698,7 @@ MonoBehaviour:
   - {fileID: 1905521809, guid: 4eb8a4cbe922711479f0e3b820cda8fb, type: 3}
   - {fileID: 1905521809, guid: 4eb8a4cbe922711479f0e3b820cda8fb, type: 3}
   - {fileID: 1905521809, guid: 4eb8a4cbe922711479f0e3b820cda8fb, type: 3}
+  _denySprite: {fileID: -1945294347, guid: be02edc63c6542441844833e6c2a4318, type: 3}
   _animators:
   - {fileID: 9100000, guid: 36cc4c19ad0e5da4cb6c29adb26e7717, type: 2}
   - {fileID: 9100000, guid: e572f0004247a53419e053c91d5a19ac, type: 2}
