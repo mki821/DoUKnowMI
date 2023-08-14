@@ -86,6 +86,8 @@ public class CreateBlock : MonoBehaviour
         float size = BlockManager.instance.tileSize;
 
         GameObject obj = new GameObject();
+        obj.name = $"Block {x}x{y}";
+        obj.layer = 8;
         obj.transform.parent = transform;
         obj.transform.position = new Vector2(width * x, width * y) + offset;
         
@@ -94,6 +96,9 @@ public class CreateBlock : MonoBehaviour
 
         obj.transform.localScale = Vector3.one * size * 1.2f;
         seq.Join(obj.transform.DOScale(Vector3.one * size, 0.6f).SetEase(Ease.InQuad));
+
+        BoxCollider2D objCol = obj.AddComponent<BoxCollider2D>();
+        objCol.size = Vector2.one * blockManager.tileSize;
 
         Block tile = obj.AddComponent<Block>();
         tile.worldPos = obj.transform.position;
