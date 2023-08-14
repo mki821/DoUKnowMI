@@ -11,9 +11,23 @@ public class BlockManager : MonoBehaviour
 
     public float tileSize = 0f;
 
+    public SlimeMove slimeMove;
+
+    public int BlockCount {
+        get => blockCount;
+        set {
+            SetTileSize();
+            blockCount = value;
+        }
+    }
+
     private void Awake() {
         if(instance == null) instance = this;
 
+        SetTileSize();
+    }
+
+    private void SetTileSize() {
         tileSize = blockCount / size;
     }
 }
