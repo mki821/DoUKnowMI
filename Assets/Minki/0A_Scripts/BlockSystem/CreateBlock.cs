@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    [SerializeField] int stageInfo;
+    [SerializeField] public static int stageInfo = 1;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
@@ -25,6 +25,10 @@ public class CreateBlock : MonoBehaviour
         string map_json = Resources.Load("StageMap/" + stageInfo).ToString();
         batchSO = _batchCharacter.batchSO = DomiBatch.ConvertToBatchSO(map_json);
         seq = DOTween.Sequence();
+    }
+
+    private void Start() {
+        Create();
     }
 
     public Block[,] Create() {

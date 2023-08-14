@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace MainScroll
 {
@@ -61,6 +63,9 @@ namespace MainScroll
                 }
 
                 child.GetComponentInChildren<TextMeshProUGUI>().text = nowStage.ToString();
+                
+                var cacheI = nowStage;
+                child.gameObject.AddComponent<Button>().onClick.AddListener(() => LoadStage(cacheI));
             }
 
             if (nowStage > maxStage) { // 더이상 소환 불가
@@ -77,6 +82,11 @@ namespace MainScroll
                 AddStage();
                 Canvas.ForceUpdateCanvases();
             }
+        }
+        
+        public void LoadStage(int stage) {
+            CreateBlock.stageInfo = stage;
+            SceneManager.LoadScene("mki_System");
         }
     }
 }
