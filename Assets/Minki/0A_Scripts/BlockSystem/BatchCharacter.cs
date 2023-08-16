@@ -19,12 +19,12 @@ public enum EnemyDir {
 
 public class BatchCharacter : MonoBehaviour
 {
+    public static List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     [HideInInspector] public BatchSO batchSO;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private Sprite _denySprite;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
-    private List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     private DrawLine _drawLine;
 
     private void Awake() {
@@ -34,7 +34,7 @@ public class BatchCharacter : MonoBehaviour
     public void Batch(Vector2 pos, EnemyDir dir, int type) {
         GameObject obj = new GameObject();
         obj.transform.position = pos;
-        obj.transform.localScale = Vector3.one * BlockManager.instance.tileSize;
+        obj.transform.localScale = Vector3.one * BlockManager.instance.tileSize * 1.5f;
 
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
         objSpr.sprite = _sprites[type];
