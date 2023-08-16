@@ -29,7 +29,7 @@ public class BlockManager : MonoBehaviour
 
     private void SetTileSize() {
         Debug.Log(size);
-        Debug.Log(blockCount);
-        tileSize = size / blockCount;
+        Debug.Log(BlockCount);
+        tileSize = size / BlockCount;
     }
 }

@@ -63,6 +63,13 @@ public class SlimeMove : MonoBehaviour
             }
             t = 0;
         }
+
+        if (BatchCharacter.enemyColList.Count == 0) {
+            Debug.Log("Successed");
+        }
+        else {
+            Debug.Log("Failed");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -75,6 +82,14 @@ public class SlimeMove : MonoBehaviour
 
     public void SetMovePos(Vector2 pos) {
         movePos.Add(pos);
+    }
+
+    public void RevertMovePos() {
+        movePos.Remove(movePos[movePos.Count - 1]);
+    }
+
+    public void ResetMovePos() {
+        movePos.Clear();
     }
 
     private IEnumerator TimeScale() {
