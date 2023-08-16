@@ -43,7 +43,12 @@ namespace MainScroll {
                 yield return null;
             }
         }
-        internal void OnCreateStage(Transform _transform, int stage) {
+        internal void OnCreateStage(Transform _transform, int stage, float scale) {
+            // 스케일 수정
+            var rect = _transform.GetComponent<RectTransform>();
+            rect.anchoredPosition *= scale;
+            rect.sizeDelta *= scale;
+
             if ( stage > _db.clearStage + 1 ) {
                 _transform.GetComponent<Image>().color = new Color(1,1,1, 0.5f);
                 _transform.GetComponentInChildren<TextMeshProUGUI>().text = stage.ToString();

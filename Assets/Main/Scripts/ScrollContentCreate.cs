@@ -30,6 +30,9 @@ namespace MainScroll
         int nowIndex = 0;
         int nowStage = 0;
 
+        float phone_hieght;
+        float phone_weight;
+
         private void Awake() {
             _canvas = (RectTransform)transform.parent.GetComponent("RectTransform");
             _event = GetComponent<ScrollEvent>();
@@ -38,7 +41,8 @@ namespace MainScroll
         private void Start() {
             Canvas.ForceUpdateCanvases(); // 캔버스 업뎃 시키고
             float now_height;
-            float phone_hieght = _canvas.rect.height; // 그 다음 높이 구함
+            phone_hieght = _canvas.rect.height; // 그 다음 높이 구함
+            phone_weight = _canvas.rect.width; // 이건 넓이 구함
             
             _event.OnInit(this);
             do {
@@ -53,6 +57,11 @@ namespace MainScroll
 
             StageMap map = _stageMaps[nowIndex % _stageMaps.Length];
             var clone = Instantiate(map.prefab, contentBox.transform).transform;
+            var cloneT = (RectTransform)clone.GetComponent("RectTransform");
+
+            // 리사이징
+            float zoom = phone_weight / cloneT.rect.width;
+            cloneT.sizeDelta = new(phone_weight, phone_weight * cloneT.rect.height / cloneT.rect.width);
 
             // List<Transform> stageButtons = new();
             for (int i = 0; i < clone.childCount; i++)
@@ -62,10 +71,10 @@ namespace MainScroll
                 nowStage ++;
                 if (nowStage > maxStage) {
                     Destroy(child.gameObject);
-                    break;
+                    continue;
                 }
                 
-                _event.OnCreateStage(child, nowStage);
+                _event.OnCreateStage(child, nowStage, zoom);
             }
 
             if (nowStage > maxStage) { // 더이상 소환 불가
