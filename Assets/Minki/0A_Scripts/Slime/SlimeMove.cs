@@ -11,6 +11,7 @@ public class SlimeMove : MonoBehaviour
     private float speed = 8f;
     private LayerMask layer = 7;
     private Animator animator;
+    private float angle;
     private int i;
 
 #region Slime_Idle
@@ -37,6 +38,7 @@ public class SlimeMove : MonoBehaviour
         movePos.Add(transform.position);
         animator = GetComponent<Animator>();
         animator.SetFloat("Slime_Idle", Slime_Idle);
+        //Time.timeScale = 0.1f;
     }
 
     public void Move() {
@@ -47,11 +49,8 @@ public class SlimeMove : MonoBehaviour
         float t = 0;
         for(i = 1; i < movePos.Count; i++) {
             if (i == movePos.Count - 1) {
-                // 일단 보류
-                // if () {
-                //     CameraManager.SlowCameraEnable(movePos[i]);
-                //     StartCoroutine(TimeScale());
-                // }
+                CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
+                StartCoroutine(TimeScale());
             }
             float distance = (movePos[i - 1] - movePos[i]).magnitude;
             SetSlimeDir(i, enemyPos[i - 1]);
@@ -63,12 +62,29 @@ public class SlimeMove : MonoBehaviour
             }
             t = 0;
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (i == movePos.Count - 1) {
-            CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
-            StartCoroutine(TimeScale());
+        if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle);
+        }
+        else if (Mathf.Abs(angle - (180f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle);
+        }
+        else if (Mathf.Abs(angle - (0f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle_right);
+        }
+        else if (Mathf.Abs(angle - (90f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle_back);
+        }
+        else if (Mathf.Abs(angle - (-135f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_left);
+        }
+        else if (Mathf.Abs(angle - (45f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle_back);
+        }
+        else if (Mathf.Abs(angle - (135f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle_back);
+        }
+        else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
+            animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
         }
     }
 
@@ -79,7 +95,7 @@ public class SlimeMove : MonoBehaviour
 
     private IEnumerator TimeScale() {
         //yield return null;
-        Time.timeScale = 0.05f;
+        Time.timeScale = 0.01f;
         print(Time.timeScale);
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1f;
@@ -91,7 +107,8 @@ public class SlimeMove : MonoBehaviour
         Vector2 dir  = movePos[i] - movePos[i - 1];
         if(i < movePos.Count - 1 && (movePos[i] - (Vector2)transform.position).magnitude < 0.2f) dir = movePos[i + 1] - movePos[i];
         direction = dir.normalized;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        StartCoroutine(Check());
         if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
             animator.SetFloat("Slime_Atk", Slime_Atk);
         }
@@ -119,8 +136,41 @@ public class SlimeMove : MonoBehaviour
         // 더 추가 해야됨
         print("각도" + angle);
     }
-    private bool CheckEnemy(Vector2 dir, float distance) {
+
+    private bool CheckEnemy(Vector2 dir, float distance, float angle) {
+        dir = Quaternion.Euler(0, 0, angle) * dir;
+        Debug.DrawRay(transform.position, dir * distance, Color.red);
         return Physics2D.Raycast(transform.position, dir, distance, layer);
+    }
+
+    private IEnumerator Check() {
+        while (CheckEnemy(Vector2.right, 3f, angle)) {
+            if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle);
+                }
+                else if (Mathf.Abs(angle - (180f)) < 0.0001f) {
+                    animator.SetFloat("Slime_Idle", Slime_Idle);
+                }
+                else if (Mathf.Abs(angle - (0f)) < 0.0001f) {
+                    animator.SetFloat("Slime_Idle", Slime_Idle_right);
+                }
+                else if (Mathf.Abs(angle - (90f)) < 0.0001f) {
+                    animator.SetFloat("Slime_Idle", Slime_Idle_back);
+                }
+                else if (Mathf.Abs(angle - (-135f)) < 0.0001f) {
+                    animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_left);
+                }
+                else if (Mathf.Abs(angle - (45f)) < 0.0001f) {
+                    animator.SetFloat("Slime_Idle", Slime_Idle_back);
+                }
+                else if (Mathf.Abs(angle - (135f)) < 0.0001f) {
+                    animator.SetFloat("Slime_Idle", Slime_Idle_back);
+                }
+                else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
+                    animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
+                }
+            yield return null;
+        }
     }
 
     public void AddEnemyPos(Vector3 pos) {
