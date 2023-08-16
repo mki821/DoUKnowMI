@@ -2295,6 +2295,7 @@ GameObject:
   - component: {fileID: 2020128707}
   - component: {fileID: 2020128706}
   - component: {fileID: 2020128709}
+  - component: {fileID: 2020128711}
   - component: {fileID: 2020128710}
   m_Layer: 5
   m_Name: Scroll View
@@ -2442,6 +2443,19 @@ MonoBehaviour:
   _padding:
     top: 0
     bottom: 500
+--- !u!114 &2020128711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020128704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf621e3696bd2274dab99440457c5ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ContentBox: {fileID: 874726490}
 --- !u!1 &2090074685
 GameObject:
   m_ObjectHideFlags: 0
