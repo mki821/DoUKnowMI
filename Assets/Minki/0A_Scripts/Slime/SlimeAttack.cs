@@ -18,6 +18,7 @@ public class SlimeAttack : MonoBehaviour
             if (CheckEnemy(_slimeMove.direction, other.transform.parent)) Destroy(gameObject);
         }
         else if(other.CompareTag("Enemy")) {
+            BatchCharacter.enemyColList.Remove((CircleCollider2D)other);
             Destroy(other.gameObject);
         }
     }

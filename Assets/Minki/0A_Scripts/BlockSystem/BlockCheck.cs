@@ -12,6 +12,8 @@ public class BlockCheck : MonoBehaviour
     [SerializeField] private SlimeMove _slimeMove;
     [SerializeField] private DrawLine _drawLine;
 
+    private List<Collider2D> enemyColList = new List<Collider2D>();
+
     private Camera _cam;
 
     private BatchCharacter _batchCharacter;
@@ -29,17 +31,13 @@ public class BlockCheck : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, _blockLayer);
 
-            Debug.Log(hit.transform.name);
-            Debug.Log(hit.transform.position);
-            Debug.Log(hit.collider == null);
-
             if (hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();
 
                 Vector2 dir = block.worldPos - _slimeMove.movePos[_slimeMove.movePos.Count - 1];
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                int angle = (int)Mathf.Abs(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
 
-                if (Mathf.Abs(angle) % 45 == 0) {
+                if (angle % 45 == 0) {
                     if (CheckEnemy(_slimeMove.movePos[_slimeMove.movePos.Count - 1], dir.normalized, dir.magnitude, block.transform.position)) {
                         _drawLine.SetLinePos(block.worldPos);
                         _slimeMove.SetMovePos(block.worldPos);
@@ -47,6 +45,22 @@ public class BlockCheck : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Back() {
+        _drawLine.RevertLinePos();
+        _slimeMove.RevertMovePos();
+        enemyColList[enemyColList.Count - 1].enabled = true;
+        enemyColList.Remove(enemyColList[enemyColList.Count - 1]);
+    }
+
+    public void Reset() {
+        _drawLine.ResetLinePos();
+        _slimeMove.ResetMovePos();
+        foreach(Collider2D item in enemyColList) {
+            item.enabled = true;
+        }
+        enemyColList.Clear();
     }
 
     private bool CheckEnemy(Vector2 pos, Vector2 dir, float distance, Vector2 blockPos) {
@@ -57,15 +71,19 @@ public class BlockCheck : MonoBehaviour
         this.distance = distance;
 
         if(d.Length == 1 && (Vector2)d[0].transform.position == blockPos) {
+            Debug.Log(1);
             return false;
         }
 
         if(d.Length == 1) {
+            Debug.Log(2);
             _slimeMove.AddEnemyPos(d[0].transform.position);
             d[0].collider.enabled = false;
+            enemyColList.Add(d[0].collider);
             return true;
         }
         else {
+            Debug.Log(3);
             return false;
         }
     }

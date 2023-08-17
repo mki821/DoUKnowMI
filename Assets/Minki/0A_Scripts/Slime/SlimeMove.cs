@@ -85,12 +85,33 @@ public class SlimeMove : MonoBehaviour
         }
         else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
             animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
+
+        if (BatchCharacter.enemyColList.Count == 0) {
+            Debug.Log("Successed");
+        }
+        else {
+            Debug.Log("Failed");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (i == movePos.Count - 1) {
+            CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
+            StartCoroutine(TimeScale());
         }
     }
 
 
     public void SetMovePos(Vector2 pos) {
         movePos.Add(pos);
+    }
+
+    public void RevertMovePos() {
+        movePos.Remove(movePos[movePos.Count - 1]);
+    }
+
+    public void ResetMovePos() {
+        movePos.Clear();
     }
 
     private IEnumerator TimeScale() {
