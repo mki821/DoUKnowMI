@@ -85,6 +85,7 @@ public class SlimeMove : MonoBehaviour
         }
         else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
             animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
+        }
 
         if (BatchCharacter.enemyColList.Count == 0) {
             Debug.Log("Successed");
