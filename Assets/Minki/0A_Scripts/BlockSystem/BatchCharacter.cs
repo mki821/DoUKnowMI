@@ -22,7 +22,6 @@ public class BatchCharacter : MonoBehaviour
     public static List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     [HideInInspector] public BatchSO batchSO;
     [SerializeField] private Sprite[] _sprites;
-    [SerializeField] private Sprite _denySprite;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
     private DrawLine _drawLine;
@@ -141,11 +140,6 @@ public class BatchCharacter : MonoBehaviour
         enemyAttack.transform.localScale = Vector3.one * BlockManager.instance.tileSize;
         enemyAttack.transform.parent = parent;
         enemyAttack.tag = "EnemyAttack";
-
-        SpriteRenderer eAtkSpr = enemyAttack.AddComponent<SpriteRenderer>();
-        eAtkSpr.sprite = _denySprite;
-        eAtkSpr.sortingLayerName = "Character";
-        eAtkSpr.sortingOrder = 10;
 
         CircleCollider2D eAtkCol = enemyAttack.AddComponent<CircleCollider2D>();
         eAtkCol.isTrigger = true;

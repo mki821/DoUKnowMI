@@ -7,6 +7,7 @@ public class SlimeMove : MonoBehaviour
     public List<Vector2> movePos = new List<Vector2>();
     public List<Vector2> enemyPos = new List<Vector2>();
     public Vector2 direction;
+    public int curPos = 0;
 
     private float speed = 8f;
     private LayerMask layer = 7;
@@ -54,6 +55,7 @@ public class SlimeMove : MonoBehaviour
                 // }
             }
             float distance = (movePos[i - 1] - movePos[i]).magnitude;
+            curPos++;
             SetSlimeDir(i, enemyPos[i - 1]);
             while(t < 1 * distance / speed) {
                 transform.position = Vector2.Lerp(movePos[i - 1], movePos[i], t / distance * speed);
