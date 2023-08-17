@@ -5,10 +5,12 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    [SerializeField] public static int stageInfo = 1;
+    [SerializeField] public static int stageInfo = 43;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
+
+    [SerializeField] public int stageTileType = 0;
 
     [SerializeField] private Sprite[] blockSprites;
 
@@ -99,7 +101,7 @@ public class CreateBlock : MonoBehaviour
         obj.transform.position = new Vector2(width * x, width * y) + offset;
         
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
-        objSpr.sprite = blockSprites[spriteNum];
+        objSpr.sprite = blockSprites[stageTileType * 2 + spriteNum];
 
         obj.transform.localScale = Vector3.one * size * 1.2f;
         seq.Join(obj.transform.DOScale(Vector3.one * size, 0.6f).SetEase(Ease.InQuad));
