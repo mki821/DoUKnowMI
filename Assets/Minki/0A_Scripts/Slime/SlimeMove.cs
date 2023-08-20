@@ -44,9 +44,6 @@ public class SlimeMove : MonoBehaviour
         rend.sortingOrder = 100;
         //Time.timeScale = 0.1f;
     }
-    private void Update() {
-        Debug.LogError("게임이 너무 재미가 없어서 클남");
-    }
 
     public void Move() {
         StartCoroutine(M());
