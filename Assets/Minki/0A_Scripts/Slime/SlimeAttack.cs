@@ -27,7 +27,6 @@ public class SlimeAttack : MonoBehaviour
         RaycastHit2D ray = Physics2D.Raycast(transform.position, dir, BlockManager.instance.tileSize * 1.5f, layer);
         this.dir = dir;
 
-        Debug.Log($"{_slimeMove.curPos} != {_slimeMove.movePos.Count}");
         if(ray.transform is not null)
             if(_slimeMove.curPos != _slimeMove.movePos.Count - 1 && _slimeMove.enemyPos[_slimeMove.curPos] != (Vector2)ray.transform.position) return false;
 

@@ -13,6 +13,7 @@ public class CreateBlock : MonoBehaviour
     [SerializeField] public int stageTileType = 0;
 
     [SerializeField] private Sprite[] blockSprites;
+    [SerializeField] private RuntimeAnimatorController blockAnimator;
 
     [SerializeField] private BatchCharacter _batchCharacter;
     [SerializeField] private SlimeMove _slimeMove;
@@ -107,6 +108,11 @@ public class CreateBlock : MonoBehaviour
         seq.Join(obj.transform.DOScale(Vector3.one * size, 0.6f).SetEase(Ease.InQuad));
 
         BoxCollider2D objCol = obj.AddComponent<BoxCollider2D>();
+
+        if (spriteNum == 2) {
+            Animator objAnim = obj.AddComponent<Animator>();
+            objAnim.runtimeAnimatorController = blockAnimator;
+        }
 
         Block tile = obj.AddComponent<Block>();
         tile.worldPos = obj.transform.position;
