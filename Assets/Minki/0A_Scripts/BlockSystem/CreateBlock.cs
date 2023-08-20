@@ -13,7 +13,7 @@ public class CreateBlock : MonoBehaviour
     [SerializeField] public int stageTileType = 0;
 
     [SerializeField] private Sprite[] blockSprites;
-    [SerializeField] private RuntimeAnimatorController blockAnimator;
+    [SerializeField] private RuntimeAnimatorController[] blockAnimator;
 
     [SerializeField] private BatchCharacter _batchCharacter;
     [SerializeField] private SlimeMove _slimeMove;
@@ -109,9 +109,9 @@ public class CreateBlock : MonoBehaviour
 
         BoxCollider2D objCol = obj.AddComponent<BoxCollider2D>();
 
-        if (spriteNum == 2) {
+        if (stageTileType == 2) {
             Animator objAnim = obj.AddComponent<Animator>();
-            objAnim.runtimeAnimatorController = blockAnimator;
+            objAnim.runtimeAnimatorController = blockAnimator[spriteNum];
         }
 
         Block tile = obj.AddComponent<Block>();

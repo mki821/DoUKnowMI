@@ -538,7 +538,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 968809260, guid: 569f809851480c445b27213119bb322e, type: 3}
+    m_PressedSprite: {fileID: -1464724162, guid: 447e7452cbd5bf941a83d1b864601a4c, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -584,7 +584,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 286130235, guid: 569f809851480c445b27213119bb322e, type: 3}
+  m_Sprite: {fileID: -1673898579, guid: 447e7452cbd5bf941a83d1b864601a4c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1518,6 +1518,7 @@ MonoBehaviour:
   - {fileID: -1905921107, guid: 569f809851480c445b27213119bb322e, type: 3}
   - {fileID: 1101530481, guid: 7f3d95077d0b3694cbd1d421e97c80a5, type: 3}
   - {fileID: -1028010335, guid: 7f3d95077d0b3694cbd1d421e97c80a5, type: 3}
+  blockAnimator: {fileID: 0}
   _batchCharacter: {fileID: 1457461336}
   _slimeMove: {fileID: 0}
   _lineRenderer: {fileID: 1578841766}
