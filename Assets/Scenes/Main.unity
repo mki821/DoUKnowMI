@@ -250,10 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2589,18 +2589,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stageMaps:
   - prefab: {fileID: 4190509215517289905, guid: 01dc1d3ad1b71a348a63e556765964a7, type: 3}
+    theme: 0
   - prefab: {fileID: 4190509215517289905, guid: 69708b626a16d5c489bcfaffbe8516c0, type: 3}
+    theme: 0
   - prefab: {fileID: 4190509215517289905, guid: 69708b626a16d5c489bcfaffbe8516c0, type: 3}
+    theme: 0
   - prefab: {fileID: 4190509215517289905, guid: 2887cc9af909efe498506241507a7903, type: 3}
+    theme: 1
   - prefab: {fileID: 4190509215517289905, guid: 2e4223d01f85e0a4bb0af722f843fdaf, type: 3}
+    theme: 1
   - prefab: {fileID: 4190509215517289905, guid: 2e4223d01f85e0a4bb0af722f843fdaf, type: 3}
+    theme: 1
   - prefab: {fileID: 4190509215517289905, guid: 1420901614506064c9099fcec2665ae6, type: 3}
+    theme: 2
   - prefab: {fileID: 4190509215517289905, guid: d709c2b2a3397764c8b528dbf5b5e8f6, type: 3}
+    theme: 2
   - prefab: {fileID: 4190509215517289905, guid: d709c2b2a3397764c8b528dbf5b5e8f6, type: 3}
+    theme: 2
   - prefab: {fileID: 4190509215517289905, guid: d709c2b2a3397764c8b528dbf5b5e8f6, type: 3}
+    theme: 2
   - prefab: {fileID: 4190509215517289905, guid: 18feaf938bc4c6849b829b25a0237df3, type: 3}
+    theme: 3
   - prefab: {fileID: 4190509215517289905, guid: 66b57d29bb5997242a91e674c41ad3f4, type: 3}
+    theme: 3
   - prefab: {fileID: 4190509215517289905, guid: 66b57d29bb5997242a91e674c41ad3f4, type: 3}
+    theme: 3
   contentBox: {fileID: 874726490}
   maxStage: 999
   _padding:

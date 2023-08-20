@@ -43,7 +43,7 @@ namespace MainScroll {
                 yield return null;
             }
         }
-        internal void OnCreateStage(Transform _transform, int stage, float scale) {
+        internal void OnCreateStage(Transform _transform, int stage, float scale, MapTheme theme) {
             // 스케일 수정
             var rect = _transform.GetComponent<RectTransform>();
             rect.anchoredPosition *= scale;
@@ -58,6 +58,7 @@ namespace MainScroll {
             _transform.GetComponentInChildren<TextMeshProUGUI>().text = stage.ToString();
             _transform.gameObject.AddComponent<Button>().onClick.AddListener(() => {
                 CreateBlock.stageInfo = stage;
+                // theme 어디에다가 넣지? (⊙_⊙)？
                 UnityEngine.SceneManagement.SceneManager.LoadScene("mki_System");
             });
         }

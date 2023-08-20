@@ -7,9 +7,17 @@ using UnityEngine.SceneManagement;
 
 namespace MainScroll
 {
+    public enum MapTheme {
+        forest,
+        sea,
+        volcano,
+        snow
+    }
+
     [System.Serializable]
     public class StageMap {
         public GameObject prefab;
+        public MapTheme theme;
     }
     
     [System.Serializable]
@@ -74,7 +82,7 @@ namespace MainScroll
                     continue;
                 }
                 
-                _event.OnCreateStage(child, nowStage, zoom);
+                _event.OnCreateStage(child, nowStage, zoom, map.theme);
             }
 
             if (nowStage > maxStage) { // 더이상 소환 불가
