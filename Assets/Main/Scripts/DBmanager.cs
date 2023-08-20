@@ -7,7 +7,7 @@ namespace domi.DB {
     public class DBstruct {
         public int health = 5;
         public int clearStage = 0;
-        public string timeInfo;
+        public long healthTime = 0;
     }
 
     public class DBmanager : MonoBehaviour
