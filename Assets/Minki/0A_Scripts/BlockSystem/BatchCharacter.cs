@@ -60,6 +60,7 @@ public class BatchCharacter : MonoBehaviour
             obj.tag = "Enemy";
             obj.layer = 7;
             objCol.isTrigger = true;
+            objAnim.SetFloat("Idle", (int)dir);
             float tSize = BlockManager.instance.tileSize;
             switch(type) {
                 case 2:
