@@ -450,7 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockCount: 8
-  size: 5.5
+  size: 4
   tileSize: 0
   slimeMove: {fileID: 0}
 --- !u!4 &443293528

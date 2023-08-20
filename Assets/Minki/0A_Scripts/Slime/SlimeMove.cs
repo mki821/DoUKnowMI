@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,7 @@ public class SlimeMove : MonoBehaviour
     private float speed = 8f;
     private LayerMask layer = 7;
     private Animator animator;
+    private SpriteRenderer rend;
     private float angle;
     private int i;
 
@@ -39,7 +40,12 @@ public class SlimeMove : MonoBehaviour
         movePos.Add(transform.position);
         animator = GetComponent<Animator>();
         animator.SetFloat("Slime_Idle", Slime_Idle);
+        rend = GetComponent<SpriteRenderer>();
+        rend.sortingOrder = 100;
         //Time.timeScale = 0.1f;
+    }
+    private void Update() {
+        Debug.LogError("게임이 너무 재미가 없어서 클남");
     }
 
     public void Move() {
@@ -49,10 +55,10 @@ public class SlimeMove : MonoBehaviour
     private IEnumerator M() {
         float t = 0;
         for(i = 1; i < movePos.Count; i++) {
-            if (i == movePos.Count - 1) {
-                CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
-                StartCoroutine(TimeScale());
-            }
+            // if (i == movePos.Count - 1) {
+            //     CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
+            //     StartCoroutine(TimeScale());
+            // }
             float distance = (movePos[i - 1] - movePos[i]).magnitude;
             curPos++;
             SetSlimeDir(i, enemyPos[i - 1]);
@@ -64,30 +70,31 @@ public class SlimeMove : MonoBehaviour
             }
             t = 0;
         }
-        if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle);
-        }
-        else if (Mathf.Abs(angle - (180f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle);
-        }
-        else if (Mathf.Abs(angle - (0f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle_right);
-        }
-        else if (Mathf.Abs(angle - (90f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle_back);
-        }
-        else if (Mathf.Abs(angle - (-135f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_left);
-        }
-        else if (Mathf.Abs(angle - (45f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle_back);
-        }
-        else if (Mathf.Abs(angle - (135f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle_back);
-        }
-        else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
-            animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
-        }
+        // if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle);
+        // }
+        // else if (Mathf.Abs(angle - (180f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle);
+        // }
+        // else if (Mathf.Abs(angle - (0f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle_right);
+        // }
+        // else if (Mathf.Abs(angle - (90f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle_back);
+        // }
+        // else if (Mathf.Abs(angle - (-135f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_left);
+        // }
+        // else if (Mathf.Abs(angle - (45f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle_back);
+        // }
+        // else if (Mathf.Abs(angle - (135f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle_back);
+        // }
+        // else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
+        //     animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
+        // }
+        CameraManager.SlowCameraDisable();
 
         if (BatchCharacter.enemyColList.Count == 0) {
             Debug.Log("Successed");
@@ -97,12 +104,12 @@ public class SlimeMove : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (i == movePos.Count - 1) {
-            CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
-            StartCoroutine(TimeScale());
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D other) {
+    //     if (i == movePos.Count - 1) {
+    //         CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
+    //         StartCoroutine(TimeScale());
+    //     }
+    // }
 
 
     public void SetMovePos(Vector2 pos) {
@@ -168,31 +175,37 @@ public class SlimeMove : MonoBehaviour
     }
 
     private IEnumerator Check() {
-        while (CheckEnemy(Vector2.right, 3f, angle)) {
+        while (CheckEnemy(Vector2.right, 1f, angle)) {
             if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
                 animator.SetFloat("Slime_Idle", Slime_Idle);
-                }
-                else if (Mathf.Abs(angle - (180f)) < 0.0001f) {
-                    animator.SetFloat("Slime_Idle", Slime_Idle);
-                }
-                else if (Mathf.Abs(angle - (0f)) < 0.0001f) {
-                    animator.SetFloat("Slime_Idle", Slime_Idle_right);
-                }
-                else if (Mathf.Abs(angle - (90f)) < 0.0001f) {
-                    animator.SetFloat("Slime_Idle", Slime_Idle_back);
-                }
-                else if (Mathf.Abs(angle - (-135f)) < 0.0001f) {
-                    animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_left);
-                }
-                else if (Mathf.Abs(angle - (45f)) < 0.0001f) {
-                    animator.SetFloat("Slime_Idle", Slime_Idle_back);
-                }
-                else if (Mathf.Abs(angle - (135f)) < 0.0001f) {
-                    animator.SetFloat("Slime_Idle", Slime_Idle_back);
-                }
-                else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
-                    animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
-                }
+            }
+            else if (Mathf.Abs(angle - (180f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle);
+            }
+            else if (Mathf.Abs(angle - (0f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle_right);
+            }
+            else if (Mathf.Abs(angle - (90f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle_back);
+            }
+            else if (Mathf.Abs(angle - (-135f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_left);
+            }
+            else if (Mathf.Abs(angle - (45f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle_back);
+            }
+            else if (Mathf.Abs(angle - (135f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle_back);
+            }
+            else if (Mathf.Abs(angle - (-45f)) < 0.0001f) {
+                animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
+            }
+
+            if (i == movePos.Count - 1) {
+                CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
+                StartCoroutine(TimeScale());
+                break;
+            }
             yield return null;
         }
     }

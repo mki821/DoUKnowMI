@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    [SerializeField] public static int stageInfo = 43;
+    [SerializeField] public static int stageInfo = 34;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
