@@ -1558,13 +1558,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
-  stageTileType: 0
+  stageTileType: 2
   blockSprites:
-  - {fileID: -1905921107, guid: 569f809851480c445b27213119bb322e, type: 3}
-  - {fileID: -1905921107, guid: 569f809851480c445b27213119bb322e, type: 3}
-  - {fileID: 1101530481, guid: 7f3d95077d0b3694cbd1d421e97c80a5, type: 3}
-  - {fileID: -1028010335, guid: 7f3d95077d0b3694cbd1d421e97c80a5, type: 3}
-  blockAnimator: []
+  - {fileID: 1919513717, guid: 35539d292dd60ed4e956754af8b7814e, type: 3}
+  - {fileID: -1896967507, guid: 35539d292dd60ed4e956754af8b7814e, type: 3}
+  - {fileID: 1374950711, guid: 35539d292dd60ed4e956754af8b7814e, type: 3}
+  - {fileID: 203396671, guid: 35539d292dd60ed4e956754af8b7814e, type: 3}
+  - {fileID: 1978381731, guid: 667c51d49e9b2aa4cb5f05e47007f80a, type: 3}
+  - {fileID: 632491964, guid: 667c51d49e9b2aa4cb5f05e47007f80a, type: 3}
+  - {fileID: -2134461865, guid: 35539d292dd60ed4e956754af8b7814e, type: 3}
+  - {fileID: -2146934156, guid: 35539d292dd60ed4e956754af8b7814e, type: 3}
+  blockAnimator: {fileID: 9100000, guid: 569d2086f72bcc049b8d49050c352218, type: 2}
   _batchCharacter: {fileID: 1457461336}
   _slimeMove: {fileID: 0}
   _lineRenderer: {fileID: 1578841766}
