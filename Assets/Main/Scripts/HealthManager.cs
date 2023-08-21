@@ -26,12 +26,17 @@ public class HealthManager : MonoBehaviour
 
         // test
         Give(5);
-        Try(1);
+        Try(3);
     }
 
     private void Update() {
         if (health < 5) {
-            print(DateTime.Now.Ticks - _db.healthTime);
+            long diff = (DateTime.Now.Ticks - _db.healthTime) / /* 60000000000 */ 60000000;
+            if (diff >= 1) {
+                Give((int)diff);
+                _db.healthTime = DateTime.Now.Ticks;
+                print(health);
+            }
         }
     }
 

@@ -18,7 +18,7 @@ namespace MainScroll {
 
         internal void OnInit(ScrollContentCreate _base) {
             _db = DBmanager.GetData();
-            // _db.clearStage = 1000; // TEST
+            _db.clearStage = 23; // TEST
 
             int[] index_Conf = _base.GetMapIndexToStage(_db.clearStage + 1);
 
@@ -49,13 +49,26 @@ namespace MainScroll {
             rect.anchoredPosition *= scale;
             rect.sizeDelta *= scale;
 
+            if (stage != 1 && (stage % 20) == 1) {
+                _transform.Find("Lock").gameObject.SetActive(true);
+            }
+
+            var textMesh = _transform.GetComponentInChildren<TextMeshProUGUI>();
+            textMesh.text = stage.ToString();
+
             if ( stage > _db.clearStage + 1 ) {
-                _transform.GetComponent<Image>().color = new Color(1,1,1, 0.5f);
-                _transform.GetComponentInChildren<TextMeshProUGUI>().text = stage.ToString();
+                textMesh.color = new Color32(255, 255, 255, 150);
+                _transform.GetComponent<Image>().color = new Color32(50,50,50, 150);
                 return;
             }
 
-            _transform.GetComponentInChildren<TextMeshProUGUI>().text = stage.ToString();
+            textMesh.color = new Color32(0, 0, 0, 230);
+            if (stage == _db.clearStage + 1) {
+                _transform.GetComponent<Image>().color = new Color32(243, 240, 102, 255);
+            } else {
+                _transform.GetComponent<Image>().color = new Color32(111, 212, 43, 255);
+            }
+
             _transform.gameObject.AddComponent<Button>().onClick.AddListener(() => {
                 CreateBlock.stageInfo = stage;
                 CreateBlock.stageTileType = (int)theme;
