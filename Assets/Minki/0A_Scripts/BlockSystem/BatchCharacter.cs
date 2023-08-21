@@ -51,7 +51,7 @@ public class BatchCharacter : MonoBehaviour
         objCol.radius = BlockManager.instance.tileSize / 5f;
 
         Animator objAnim = obj.AddComponent<Animator>();
-        objAnim.runtimeAnimatorController = _animators[type];
+        objAnim.runtimeAnimatorController = _animators[type == 0 ? type : type - 1];
 
         if(type == 0) {
             BlockManager.instance.slimeMove = obj.AddComponent<SlimeMove>();
@@ -71,49 +71,51 @@ public class BatchCharacter : MonoBehaviour
             obj.layer = 7;
             objCol.isTrigger = true;
             objAnim.SetFloat("Idle", (int)dir);
+            if ((int)dir == 1)
+                obj.GetComponent<SpriteRenderer>().flipX = true;
             float tSize = BlockManager.instance.tileSize;
             switch(type) {
-                case 2:
-                    switch((int)dir) {
-                        case 0:
-                            CreateEnemy(obj.transform, new Vector3(0, -tSize));
-                            break;
-                        case 1:
-                            CreateEnemy(obj.transform, new Vector3(tSize, 0));
-                            break;
-                        case 2:
-                            CreateEnemy(obj.transform, new Vector3(0, tSize));
-                            break;
-                        case 3:
-                            CreateEnemy(obj.transform, new Vector3(-tSize, 0));
-                            break;
-                    }
-                    break;
                 case 3:
                     switch((int)dir) {
                         case 0:
-                            CreateEnemy(obj.transform, new Vector3(-tSize, -tSize));
                             CreateEnemy(obj.transform, new Vector3(0, -tSize));
-                            CreateEnemy(obj.transform, new Vector3(tSize, -tSize));
                             break;
                         case 1:
-                            CreateEnemy(obj.transform, new Vector3(tSize, tSize));
                             CreateEnemy(obj.transform, new Vector3(tSize, 0));
-                            CreateEnemy(obj.transform, new Vector3(tSize, -tSize));
                             break;
                         case 2:
-                            CreateEnemy(obj.transform, new Vector3(tSize, tSize));
                             CreateEnemy(obj.transform, new Vector3(0, tSize));
-                            CreateEnemy(obj.transform, new Vector3(-tSize, tSize));
                             break;
                         case 3:
-                            CreateEnemy(obj.transform, new Vector3(-tSize, tSize));
                             CreateEnemy(obj.transform, new Vector3(-tSize, 0));
-                            CreateEnemy(obj.transform, new Vector3(-tSize, -tSize));
                             break;
                     }
                     break;
                 case 4:
+                    switch((int)dir) {
+                        case 0:
+                            CreateEnemy(obj.transform, new Vector3(-tSize, -tSize));
+                            CreateEnemy(obj.transform, new Vector3(0, -tSize));
+                            CreateEnemy(obj.transform, new Vector3(tSize, -tSize));
+                            break;
+                        case 1:
+                            CreateEnemy(obj.transform, new Vector3(tSize, tSize));
+                            CreateEnemy(obj.transform, new Vector3(tSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(tSize, -tSize));
+                            break;
+                        case 2:
+                            CreateEnemy(obj.transform, new Vector3(tSize, tSize));
+                            CreateEnemy(obj.transform, new Vector3(0, tSize));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, tSize));
+                            break;
+                        case 3:
+                            CreateEnemy(obj.transform, new Vector3(-tSize, tSize));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, 0));
+                            CreateEnemy(obj.transform, new Vector3(-tSize, -tSize));
+                            break;
+                    }
+                    break;
+                case 5:
                     switch((int)dir) {
                         case 0:
                             CreateEnemy(obj.transform, new Vector3(0, tSize));
