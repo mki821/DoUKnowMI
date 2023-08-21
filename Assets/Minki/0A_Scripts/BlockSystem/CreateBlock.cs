@@ -5,14 +5,16 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    public static int stageInfo = 20;
-    public static int stageTileType = 3;
+    public static int stageInfo = 34;
+    public static int stageTileType = 1;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
 
-
+    [SerializeField] private GameObject[] backgroundPrefabs;
+    [SerializeField] private Color[] outlineColors;
     [SerializeField] private Sprite[] blockSprites;
+    [SerializeField] private Sprite _square;
     [SerializeField] private RuntimeAnimatorController blockAnimator;
 
     [SerializeField] private BatchCharacter _batchCharacter;
@@ -46,6 +48,8 @@ public class CreateBlock : MonoBehaviour
         float half = width * (blockCount - 1) / 2;
 
         Vector2 offset = new Vector2(-half, -half);
+
+        Instantiate(backgroundPrefabs[stageTileType], Vector3.zero, Quaternion.identity);
 
         //Modify the creation method
         // for(int x = 0; x < _blockCount; x++) {
@@ -103,6 +107,7 @@ public class CreateBlock : MonoBehaviour
         
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
         objSpr.sprite = blockSprites[stageTileType * 2 + spriteNum];
+        objSpr.sortingLayerName = "Tile";
 
         obj.transform.localScale = Vector3.one * size * 1.2f;
         seq.Join(obj.transform.DOScale(Vector3.one * size, 0.6f).SetEase(Ease.InQuad));
@@ -122,6 +127,13 @@ public class CreateBlock : MonoBehaviour
     }
 
     private void EndCreate() {
+        GameObject obj = new GameObject();
+        obj.transform.localScale = Vector3.one * (BlockManager.instance.size + 0.1f);
+        SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
+        objSpr.sprite = _square;
+        objSpr.color = outlineColors[stageTileType];
+        objSpr.sortingLayerName = "Background";
+
         _batchCharacter.BatchAll();
         _slimeMove = BlockManager.instance.slimeMove;
     }
