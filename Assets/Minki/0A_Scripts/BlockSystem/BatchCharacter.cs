@@ -51,7 +51,7 @@ public class BatchCharacter : MonoBehaviour
         objCol.radius = BlockManager.instance.tileSize / 5f;
 
         Animator objAnim = obj.AddComponent<Animator>();
-        objAnim.runtimeAnimatorController = _animators[type];
+        objAnim.runtimeAnimatorController = _animators[type == 0 ? type : type - 1];
 
         if(type == 0) {
             BlockManager.instance.slimeMove = obj.AddComponent<SlimeMove>();
@@ -63,12 +63,16 @@ public class BatchCharacter : MonoBehaviour
         }
         else if(type == 1) {
             if (_db.takenKeyStage.Contains(CreateBlock.stageInfo)) Destroy(obj);
-            else obj.tag = "Key";
+            else {
+                obj.tag = "Key";
+                Destroy(objAnim);
+            }
         }
         else if(type > 1) {
             enemyColList.Add(objCol);
             obj.tag = "Enemy";
             obj.layer = 7;
+            obj.transform.position += Vector3.up * BlockManager.instance.tileSize * 0.13f;
             objCol.isTrigger = true;
             objAnim.SetFloat("Idle", (int)dir);
             float tSize = BlockManager.instance.tileSize;
