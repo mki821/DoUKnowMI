@@ -1624,13 +1624,15 @@ MonoBehaviour:
   _sprites:
   - {fileID: 89424793, guid: 97b34681e7b0f934ba6696190fe5102e, type: 3}
   - {fileID: 1905521809, guid: 4eb8a4cbe922711479f0e3b820cda8fb, type: 3}
-  - {fileID: 1905521809, guid: 4eb8a4cbe922711479f0e3b820cda8fb, type: 3}
-  - {fileID: 1905521809, guid: 4eb8a4cbe922711479f0e3b820cda8fb, type: 3}
+  - {fileID: -1466137380, guid: d62769edfe47cca45ab3442bdc438d26, type: 3}
+  - {fileID: -1558877791, guid: 52a394529080b2943ba855a276c1b0de, type: 3}
+  - {fileID: 2105028679, guid: e225a09e1beb69044912447227312fe7, type: 3}
   _animators:
   - {fileID: 9100000, guid: 36cc4c19ad0e5da4cb6c29adb26e7717, type: 2}
   - {fileID: 9100000, guid: e572f0004247a53419e053c91d5a19ac, type: 2}
+  - {fileID: 9100000, guid: d6ff92b43c2362441b3df1ccf8b77189, type: 2}
   - {fileID: 9100000, guid: e572f0004247a53419e053c91d5a19ac, type: 2}
-  - {fileID: 9100000, guid: e572f0004247a53419e053c91d5a19ac, type: 2}
+  - {fileID: 9100000, guid: 51a5603743807344dad3bf013b9b40ea, type: 2}
 --- !u!1 &1560581747
 GameObject:
   m_ObjectHideFlags: 0
