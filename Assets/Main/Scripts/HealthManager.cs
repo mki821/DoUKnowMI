@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
+    static long TIME_LEFT = /* 6000000000 */ 1000000000;
     static HealthManager instance;
     public static int health {
         get => instance._db.health;
@@ -31,7 +32,11 @@ public class HealthManager : MonoBehaviour
 
     private void Update() {
         if (health < 5) {
-            long diff = (DateTime.Now.Ticks - _db.healthTime) / /* 60000000000 */ 60000000;
+            long diff = (DateTime.Now.Ticks - _db.healthTime) / /* 60000000000 */ TIME_LEFT;
+            long RemainTime = (TIME_LEFT - (DateTime.Now.Ticks - _db.healthTime)) / 10000000;
+
+            print($"{(RemainTime / 60).ToString().PadLeft(2, '0')} : {(RemainTime % 60).ToString().PadLeft(2, '0')}");
+
             if (diff >= 1) {
                 Give((int)diff);
                 _db.healthTime = DateTime.Now.Ticks;
