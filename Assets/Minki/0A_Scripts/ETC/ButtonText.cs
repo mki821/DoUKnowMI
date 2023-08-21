@@ -9,10 +9,6 @@ public class ButtonText : MonoBehaviour
 
     private RectTransform _ractTransform;
 
-    private void Awake() {
-        _ractTransform = GetComponent<RectTransform>();
-    }
-
     public void ButtonUp() {
         _ractTransform.position += -Vector3.up * distance;
     }
