@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using domi.DB;
 
 public enum ObjectType {
     Slime = 0,
+    key,
     sinchamgisa,
     archer,
     shield,
@@ -26,8 +28,12 @@ public class BatchCharacter : MonoBehaviour
 
     private DrawLine _drawLine;
 
+    private DBstruct _db;
+
     private void Awake() {
         _drawLine = GameObject.Find("LineRenderer").GetComponent<DrawLine>();
+
+        _db = DBmanager.GetData();
     }
 
     public void Batch(Vector2 pos, EnemyDir dir, int type) {
@@ -55,7 +61,11 @@ public class BatchCharacter : MonoBehaviour
             Rigidbody2D objRig = obj.AddComponent<Rigidbody2D>();
             objRig.gravityScale = 0;
         }
-        else if(type > 0) {
+        else if(type == 1) {
+            if (_db.takenKeyStage.Contains(CreateBlock.stageInfo)) Destroy(obj);
+            else obj.tag = "Key";
+        }
+        else if(type > 1) {
             enemyColList.Add(objCol);
             obj.tag = "Enemy";
             obj.layer = 7;

@@ -8,6 +8,7 @@ namespace domi.DB {
         public int health = 5;
         public int clearStage = 0;
         public long healthTime = 0;
+        public List<int> takenKeyStage = new List<int>();
     }
 
     public class DBmanager : MonoBehaviour
