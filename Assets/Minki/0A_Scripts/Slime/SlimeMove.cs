@@ -172,7 +172,7 @@ public class SlimeMove : MonoBehaviour
     }
 
     private IEnumerator Check() {
-        while (CheckEnemy(Vector2.right, 1f, angle)) {
+        while (CheckEnemy(Vector2.right, 0.4f, angle)) {
             if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
                 animator.SetFloat("Slime_Idle", Slime_Idle);
             }
