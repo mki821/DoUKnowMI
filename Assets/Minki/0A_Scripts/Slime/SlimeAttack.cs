@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using domi.DB;
 
 public class SlimeAttack : MonoBehaviour
 {
@@ -8,9 +9,13 @@ public class SlimeAttack : MonoBehaviour
 
     private LayerMask layer;
 
+    private DBstruct _db;
+
     private void Awake() {
         _slimeMove = GetComponent<SlimeMove>();
         layer = LayerMask.GetMask("Enemy");
+
+        _db = DBmanager.GetData();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -19,6 +24,12 @@ public class SlimeAttack : MonoBehaviour
         }
         else if(other.CompareTag("Enemy")) {
             BatchCharacter.enemyColList.Remove((CircleCollider2D)other);
+            Destroy(other.gameObject);
+        }
+        else if(other.CompareTag("Key")) {
+            Debug.Log("Key");
+            _db.takenKeyStage.Add(CreateBlock.stageInfo);
+            DBmanager.Save();
             Destroy(other.gameObject);
         }
     }
