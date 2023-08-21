@@ -5,12 +5,12 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    [SerializeField] public static int stageInfo = 34;
+    public static int stageInfo = 34;
+    public static int stageTileType = 0;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
 
-    [SerializeField] public int stageTileType = 0;
 
     [SerializeField] private Sprite[] blockSprites;
     [SerializeField] private RuntimeAnimatorController blockAnimator;

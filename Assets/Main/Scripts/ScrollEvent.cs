@@ -58,8 +58,9 @@ namespace MainScroll {
             _transform.GetComponentInChildren<TextMeshProUGUI>().text = stage.ToString();
             _transform.gameObject.AddComponent<Button>().onClick.AddListener(() => {
                 CreateBlock.stageInfo = stage;
+                CreateBlock.stageTileType = (int)theme;
                 // theme 어디에다가 넣지? (⊙_⊙)？
-                UnityEngine.SceneManagement.SceneManager.LoadScene("mki_System");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("DAZB3");
             });
         }
     }
