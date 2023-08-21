@@ -27,10 +27,6 @@ public class HealthManager : MonoBehaviour
     private void Start() {
         _db = DBmanager.GetData();
         UpdateText();
-
-        // test
-        Give(5);
-        Try(3);
     }
 
     private void Update() {
