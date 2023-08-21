@@ -48,19 +48,12 @@ public class BlockCheck : MonoBehaviour
     }
 
     public void Back() {
-        _drawLine.RevertLinePos();
-        _slimeMove.RevertMovePos();
-        enemyColList[enemyColList.Count - 1].enabled = true;
-        enemyColList.Remove(enemyColList[enemyColList.Count - 1]);
-    }
-
-    public void Reset() {
-        _drawLine.ResetLinePos();
-        _slimeMove.ResetMovePos();
-        foreach(Collider2D item in enemyColList) {
-            item.enabled = true;
+        if (enemyColList.Count > 0) {
+            _drawLine.RevertLinePos();
+            _slimeMove.RevertMovePos();
+            enemyColList[enemyColList.Count - 1].enabled = true;
+            enemyColList.Remove(enemyColList[enemyColList.Count - 1]);
         }
-        enemyColList.Clear();
     }
 
     private bool CheckEnemy(Vector2 pos, Vector2 dir, float distance, Vector2 blockPos) {
