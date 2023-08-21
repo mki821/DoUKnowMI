@@ -19,12 +19,11 @@ public enum EnemyDir {
 
 public class BatchCharacter : MonoBehaviour
 {
+    public static List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     [HideInInspector] public BatchSO batchSO;
     [SerializeField] private Sprite[] _sprites;
-    [SerializeField] private Sprite _denySprite;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
-    private List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     private DrawLine _drawLine;
 
     private void Awake() {
@@ -34,7 +33,7 @@ public class BatchCharacter : MonoBehaviour
     public void Batch(Vector2 pos, EnemyDir dir, int type) {
         GameObject obj = new GameObject();
         obj.transform.position = pos;
-        obj.transform.localScale = Vector3.one * BlockManager.instance.tileSize;
+        obj.transform.localScale = Vector3.one * BlockManager.instance.tileSize * 1.5f;
 
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
         objSpr.sprite = _sprites[type];
@@ -61,6 +60,7 @@ public class BatchCharacter : MonoBehaviour
             obj.tag = "Enemy";
             obj.layer = 7;
             objCol.isTrigger = true;
+            objAnim.SetFloat("Idle", (int)dir);
             float tSize = BlockManager.instance.tileSize;
             switch(type) {
                 case 2:
@@ -141,11 +141,6 @@ public class BatchCharacter : MonoBehaviour
         enemyAttack.transform.localScale = Vector3.one * BlockManager.instance.tileSize;
         enemyAttack.transform.parent = parent;
         enemyAttack.tag = "EnemyAttack";
-
-        SpriteRenderer eAtkSpr = enemyAttack.AddComponent<SpriteRenderer>();
-        eAtkSpr.sprite = _denySprite;
-        eAtkSpr.sortingLayerName = "Character";
-        eAtkSpr.sortingOrder = 10;
 
         CircleCollider2D eAtkCol = enemyAttack.AddComponent<CircleCollider2D>();
         eAtkCol.isTrigger = true;

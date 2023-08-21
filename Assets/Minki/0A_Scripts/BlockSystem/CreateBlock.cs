@@ -5,16 +5,20 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    [SerializeField] public static int stageInfo = 1;
+    [SerializeField] public static int stageInfo = 34;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
 
-    [SerializeField] private Block block;
+    [SerializeField] public int stageTileType = 0;
+
     [SerializeField] private Sprite[] blockSprites;
+    [SerializeField] private RuntimeAnimatorController blockAnimator;
 
     [SerializeField] private BatchCharacter _batchCharacter;
     [SerializeField] private SlimeMove _slimeMove;
+
+    [SerializeField] private LineRenderer _lineRenderer;
 
     private BlockManager blockManager;
 
@@ -33,9 +37,12 @@ public class CreateBlock : MonoBehaviour
 
     public Block[,] Create() {
         int blockCount = batchSO.blockCount;
+        blockManager.BlockCount = blockCount;
 
         float size = blockManager.size / blockCount;
         float width = blockManager.tileSize;
+        _lineRenderer.startWidth = width / 5f;
+        _lineRenderer.endWidth = width / 5f;
         float half = width * (blockCount - 1) / 2;
 
         Vector2 offset = new Vector2(-half, -half);
@@ -95,13 +102,17 @@ public class CreateBlock : MonoBehaviour
         obj.transform.position = new Vector2(width * x, width * y) + offset;
         
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
-        objSpr.sprite = blockSprites[spriteNum];
+        objSpr.sprite = blockSprites[stageTileType * 2 + spriteNum];
 
         obj.transform.localScale = Vector3.one * size * 1.2f;
         seq.Join(obj.transform.DOScale(Vector3.one * size, 0.6f).SetEase(Ease.InQuad));
 
         BoxCollider2D objCol = obj.AddComponent<BoxCollider2D>();
-        objCol.size = Vector2.one * blockManager.tileSize;
+
+        if (stageTileType == 2 && spriteNum == 0) {
+            Animator objAnim = obj.AddComponent<Animator>();
+            objAnim.runtimeAnimatorController = blockAnimator;
+        }
 
         Block tile = obj.AddComponent<Block>();
         tile.worldPos = obj.transform.position;
