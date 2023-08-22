@@ -84,7 +84,12 @@ namespace MainScroll {
             btncomp.onClick.AddListener(() => {
                 CreateBlock.stageInfo = stage;
                 CreateBlock.stageTileType = (int)theme;
-                // theme 어디에다가 넣지? (⊙_⊙)？
+                
+                if (!HealthManager.Try()) {
+                    domiAlertSys.Show("체력이 부족하여 스테이지를 진행할 수 없습니다.", new Color32(230,100,100, 255));
+                    return;
+                }
+
                 UnityEngine.SceneManagement.SceneManager.LoadScene("DAZB3");
             });
         }
