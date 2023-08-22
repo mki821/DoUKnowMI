@@ -7,7 +7,7 @@ namespace domi.DB {
     public class DBstruct {
         public int health = 5;
         public int clearStage = 0;
-        public long healthTime = 0;
+        public string healthTime = "0";
         public int keyAmount = 0;
         public int keyUnlock = 0;
         public List<int> takenKeyStage = new List<int>();

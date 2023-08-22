@@ -21,7 +21,7 @@ namespace MainScroll {
         private void Start() {
             _db = DBmanager.GetData();
             // DBmanager.Reset(true);
-            _db.keyAmount = 8; // test
+            // _db.keyAmount = 8; // test
         }
 
         public void TryUnlock(Transform _transform, int stage, MapTheme theme) {

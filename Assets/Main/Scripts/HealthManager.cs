@@ -31,8 +31,8 @@ public class HealthManager : MonoBehaviour
 
     private void Update() {
         if (health < 5) {
-            long diff = (DateTime.Now.Ticks - _db.healthTime) / TIME_LEFT;
-            long RemainTime = (TIME_LEFT - (DateTime.Now.Ticks - _db.healthTime)) / 10000000 /* 1초 */;
+            long diff = (DateTime.Now.Ticks - long.Parse(_db.healthTime)) / TIME_LEFT;
+            long RemainTime = (TIME_LEFT - (DateTime.Now.Ticks - long.Parse(_db.healthTime))) / 10000000 /* 1초 */;
             RemainTime = Math.Max(RemainTime, 0);
 
             if (!activeTimer) {
@@ -44,7 +44,7 @@ public class HealthManager : MonoBehaviour
 
             if (diff >= 1) {
                 Give((int)diff);
-                _db.healthTime = DateTime.Now.Ticks;
+                _db.healthTime = DateTime.Now.Ticks.ToString();
                 print(health);
             }
         } else if (activeTimer) {
@@ -66,7 +66,7 @@ public class HealthManager : MonoBehaviour
         instance._db.health -= value;
 
         if (lastNum == 5 && instance._db.health < 5)
-            instance._db.healthTime = DateTime.Now.Ticks;
+            instance._db.healthTime = DateTime.Now.Ticks.ToString();
 
         DBmanager.Save();
         UpdateText();
