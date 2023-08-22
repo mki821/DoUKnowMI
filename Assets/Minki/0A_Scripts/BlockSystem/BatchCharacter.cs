@@ -9,7 +9,7 @@ public enum ObjectType {
     sinchamgisa,
     archer,
     shield,
-    spear
+    spearman
 }
 
 public enum EnemyDir {
@@ -53,7 +53,7 @@ public class BatchCharacter : MonoBehaviour
 
         CircleCollider2D objCol = obj.AddComponent<CircleCollider2D>();
         objCol.offset = new Vector2(0, 0);
-        objCol.radius = BlockManager.instance.tileSize / 5f;
+        objCol.radius = BlockManager.instance.tileSize / 10f;
 
         Animator objAnim = obj.AddComponent<Animator>();
         objAnim.runtimeAnimatorController = _animators[type == 0 ? type : type - 1];
@@ -79,7 +79,7 @@ public class BatchCharacter : MonoBehaviour
             obj.layer = 7;
             obj.transform.position += (Vector3)characterOffset;
             objCol.isTrigger = true;
-            objCol.offset = characterOffset;
+            objCol.offset = -characterOffset;
             objAnim.SetFloat("Idle", (int)dir);
             if ((int)dir == 1)
                 obj.GetComponent<SpriteRenderer>().flipX = true;
@@ -171,7 +171,7 @@ public class BatchCharacter : MonoBehaviour
 
     public void EndCheck() {
         foreach(CircleCollider2D item in enemyColList) {
-            item.enabled = true;
+            if(item != null) item.enabled = true;
         }
     }
 }

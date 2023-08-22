@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SlimeMove : MonoBehaviour
 {
-    public List<Vector2> movePos = new List<Vector2>();
     public List<Vector2> enemyPos = new List<Vector2>();
     public Vector2 direction;
     public int curPos = 0;
@@ -13,6 +12,7 @@ public class SlimeMove : MonoBehaviour
     private LayerMask layer = 7;
     private Animator animator;
     private SpriteRenderer rend;
+    private DrawLine _drawLine;
     private float angle;
     private int i;
 
@@ -37,7 +37,8 @@ public class SlimeMove : MonoBehaviour
 #endregion
 
     private void Start() {
-        movePos.Add(transform.position);
+        _drawLine = GameObject.Find("LineRenderer").GetComponent<DrawLine>();
+        _drawLine._posList.Add(transform.position);
         animator = GetComponent<Animator>();
         animator.SetFloat("Slime_Idle", Slime_Idle);
         rend = GetComponent<SpriteRenderer>();
@@ -51,16 +52,16 @@ public class SlimeMove : MonoBehaviour
 
     private IEnumerator M() {
         float t = 0;
-        for(i = 1; i < movePos.Count; i++) {
+        for(i = 1; i < _drawLine._posList.Count; i++) {
             // if (i == movePos.Count - 1) {
             //     CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
             //     StartCoroutine(TimeScale());
             // }
-            float distance = (movePos[i - 1] - movePos[i]).magnitude;
+            float distance = (_drawLine._posList[i - 1] - _drawLine._posList[i]).magnitude;
             curPos++;
-            SetSlimeDir(i, enemyPos[i - 1]);
+            SetSlimeDir(i);
             while(t < 1 * distance / speed) {
-                transform.position = Vector2.Lerp(movePos[i - 1], movePos[i], t / distance * speed);
+                transform.position = Vector2.Lerp(_drawLine._posList[i - 1], _drawLine._posList[i], t / distance * speed);
                 t += Time.deltaTime;
                 //SetSlimeDir(i);
                 yield return null;
@@ -93,12 +94,7 @@ public class SlimeMove : MonoBehaviour
         // }
         CameraManager.SlowCameraDisable();
 
-        if (BatchCharacter.enemyColList.Count == 0) {
-            Debug.Log("Successed");
-        }
-        else {
-            Debug.Log("Failed");
-        }
+        BlockManager.instance.ShowPanel(BatchCharacter.enemyColList.Count == 0);
     }
 
     // private void OnTriggerEnter2D(Collider2D other) {
@@ -110,15 +106,15 @@ public class SlimeMove : MonoBehaviour
 
 
     public void SetMovePos(Vector2 pos) {
-        movePos.Add(pos);
+        _drawLine._posList.Add(pos);
     }
 
     public void RevertMovePos() {
-        movePos.Remove(movePos[movePos.Count - 1]);
+        if (_drawLine._posList.Count > 1) _drawLine._posList.Remove(_drawLine._posList[_drawLine._posList.Count - 1]);
     }
 
     public void ResetMovePos() {
-        movePos.Clear();
+        _drawLine._posList.Clear();
     }
 
     private IEnumerator TimeScale() {
@@ -130,9 +126,9 @@ public class SlimeMove : MonoBehaviour
         print(Time.timeScale);
     }
 
-    private void SetSlimeDir(int i, Vector2 enemyPos) {
-        Vector2 dir  = movePos[i] - movePos[i - 1];
-        if(i < movePos.Count - 1 && (movePos[i] - (Vector2)transform.position).magnitude < 0.2f) dir = movePos[i + 1] - movePos[i];
+    private void SetSlimeDir(int i) {
+        Vector2 dir  = _drawLine._posList[i] - _drawLine._posList[i - 1];
+        if(i < _drawLine._posList.Count - 1 && (_drawLine._posList[i] - transform.position).magnitude < 0.2f) dir = _drawLine._posList[i + 1] - _drawLine._posList[i];
         direction = dir.normalized;
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         StartCoroutine(Check());
@@ -198,7 +194,7 @@ public class SlimeMove : MonoBehaviour
                 animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
             }
 
-            if (i == movePos.Count - 1) {
+            if (i == _drawLine._posList.Count - 1) {
                 CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
                 StartCoroutine(TimeScale());
                 break;
