@@ -139,9 +139,9 @@ TextureImporter:
       name: New_Piskel_19_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 7
         y: 60
-        width: 32
+        width: 17
         height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -160,9 +160,9 @@ TextureImporter:
       name: New_Piskel_19_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 39
         y: 60
-        width: 32
+        width: 17
         height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

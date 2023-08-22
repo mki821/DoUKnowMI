@@ -32,13 +32,12 @@ public class BlockCheck : MonoBehaviour
             if (hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();
 
-                Vector2 dir = block.worldPos - _slimeMove.movePos[_slimeMove.movePos.Count - 1];
+                Vector2 dir = block.worldPos - (Vector2)_drawLine._posList[_drawLine._posList.Count - 1];
                 int angle = (int)Mathf.Abs(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
 
                 if (angle % 45 == 0) {
-                    if (CheckEnemy(_slimeMove.movePos[_slimeMove.movePos.Count - 1], dir.normalized, dir.magnitude, block.transform.position)) {
+                    if (CheckEnemy(_drawLine._posList[_drawLine._posList.Count - 1], dir.normalized, dir.magnitude, block.transform.position)) {
                         _drawLine.SetLinePos(block.worldPos);
-                        _slimeMove.SetMovePos(block.worldPos);
                     }
                 }
             }
@@ -48,7 +47,6 @@ public class BlockCheck : MonoBehaviour
     public void Back() {
         if (enemyColList.Count > 0) {
             _drawLine.RevertLinePos();
-            _slimeMove.RevertMovePos();
             enemyColList[enemyColList.Count - 1].enabled = true;
             enemyColList.Remove(enemyColList[enemyColList.Count - 1]);
         }
@@ -65,8 +63,6 @@ public class BlockCheck : MonoBehaviour
             return false;
         }
 
-        Debug.Log($"{(Vector2)d[0].transform.position} == {blockPos}");
-
         if(d.Length == 1) {
             _slimeMove.AddEnemyPos(d[0].transform.position);
             d[0].collider.enabled = false;
@@ -74,7 +70,6 @@ public class BlockCheck : MonoBehaviour
             return true;
         }
         else {
-            Debug.Log(3);
             return false;
         }
     }
