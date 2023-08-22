@@ -21,7 +21,6 @@ namespace MainScroll {
         private void Start() {
             _db = DBmanager.GetData();
             // DBmanager.Reset(true);
-            // _db.keyAmount = 8; // test
         }
 
         public void TryUnlock(Transform _transform, int stage, MapTheme theme) {
@@ -35,11 +34,12 @@ namespace MainScroll {
                 return;
             }
 
-            _db.keyAmount -= NEED_KEY;
+            var reamingAmount = _db.keyAmount - NEED_KEY;
+            _db.keyAmount = 0;
             _db.keyUnlock ++;
             DBmanager.Save();
 
-            domiAlertSys.Show("잠금 해제! 남은 열쇠조각: "+ _db.keyAmount + "개", new Color(100, 230, 100, 255));
+            domiAlertSys.Show("잠금 해제! " + (reamingAmount > 0 ? $"남은 열쇠조각 {reamingAmount}개가 사라졌습니다." : ""), new Color(100, 230, 100, 255));
             _event.OnCreateStage(_transform, stage, 1, theme);
         }
     }

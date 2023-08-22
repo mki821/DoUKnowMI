@@ -18,7 +18,7 @@ namespace MainScroll {
 
         internal void OnInit(ScrollContentCreate _base) {
             _db = DBmanager.GetData();
-            // _db.clearStage = 998; // TEST
+            // _db.clearStage = 60; // TEST
 
             int[] index_Conf = _base.GetMapIndexToStage(_db.clearStage + 1);
 
