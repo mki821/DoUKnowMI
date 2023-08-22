@@ -6,6 +6,7 @@ using domi.DB;
 public class SlimeAttack : MonoBehaviour
 {
     private SlimeMove _slimeMove;
+    private DrawLine _drawLine;
 
     private LayerMask layer;
 
@@ -13,6 +14,7 @@ public class SlimeAttack : MonoBehaviour
 
     private void Awake() {
         _slimeMove = GetComponent<SlimeMove>();
+        _drawLine = GameObject.Find("LineRenderer").GetComponent<DrawLine>();
         layer = LayerMask.GetMask("Enemy");
 
         _db = DBmanager.GetData();
@@ -20,7 +22,7 @@ public class SlimeAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("EnemyAttack")) {
-            if (CheckEnemy(_slimeMove.direction, other.transform.parent)) Destroy(gameObject);
+            if (CheckEnemy(_slimeMove.direction, other.transform.parent)) BlockManager.instance.ShowPanel(false);
         }
         else if(other.CompareTag("Enemy")) {
             BatchCharacter.enemyColList.Remove((CircleCollider2D)other);
@@ -40,7 +42,7 @@ public class SlimeAttack : MonoBehaviour
         this.dir = dir;
 
         if(ray.transform is not null)
-            if(_slimeMove.curPos != _slimeMove.movePos.Count - 1 && _slimeMove.enemyPos[_slimeMove.curPos] != (Vector2)ray.transform.position) return false;
+            if(_slimeMove.curPos != _drawLine._posList.Count - 1 && _slimeMove.enemyPos[_slimeMove.curPos] != (Vector2)ray.transform.position) return false;
 
         return ray.transform == parent;
     }

@@ -23,17 +23,22 @@ public class BatchCharacter : MonoBehaviour
 {
     public static List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     [HideInInspector] public BatchSO batchSO;
+    [HideInInspector] public Vector2 characterOffset = Vector2.zero;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
     private Vector2 characterOffset = Vector2.zero;
 
     private DrawLine _drawLine;
+    private BlockCheck _blockCheck;
 
     private DBstruct _db;
 
     private void Awake() {
         _drawLine = GameObject.Find("LineRenderer").GetComponent<DrawLine>();
+        _blockCheck = (BlockCheck)GetComponent("BlockCheck");
+
+        characterOffset = Vector3.up * BlockManager.instance.tileSize * 0.13f;
 
         _db = DBmanager.GetData();
     }
@@ -49,8 +54,8 @@ public class BatchCharacter : MonoBehaviour
         objSpr.sortingOrder = 5;
 
         CircleCollider2D objCol = obj.AddComponent<CircleCollider2D>();
-        objCol.offset = -characterOffset;
-        objCol.radius = BlockManager.instance.tileSize / 5f;
+        objCol.offset = new Vector2(0, 0);
+        objCol.radius = BlockManager.instance.tileSize / 10f;
 
         Animator objAnim = obj.AddComponent<Animator>();
         objAnim.runtimeAnimatorController = _animators[type == 0 ? type : type - 1];
@@ -76,6 +81,7 @@ public class BatchCharacter : MonoBehaviour
             obj.layer = 7;
             obj.transform.position += (Vector3)characterOffset;
             objCol.isTrigger = true;
+            objCol.offset = -characterOffset;
             objAnim.SetFloat("Idle", (int)dir);
             if ((int)dir == 1)
                 obj.GetComponent<SpriteRenderer>().flipX = true;
@@ -168,7 +174,7 @@ public class BatchCharacter : MonoBehaviour
 
     public void EndCheck() {
         foreach(CircleCollider2D item in enemyColList) {
-            item.enabled = true;
+            if(item != null) item.enabled = true;
         }
     }
 }

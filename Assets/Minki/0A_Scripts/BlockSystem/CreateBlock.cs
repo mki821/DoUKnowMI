@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    public static int stageInfo = 34;
+    public static int stageInfo = 9;
     public static int stageTileType = 1;
     public BatchSO batchSO;
 
@@ -133,6 +133,7 @@ public class CreateBlock : MonoBehaviour
         objSpr.sprite = _square;
         objSpr.color = outlineColors[stageTileType];
         objSpr.sortingLayerName = "Background";
+        objSpr.sortingOrder = 10;
 
         _batchCharacter.BatchAll();
         _slimeMove = BlockManager.instance.slimeMove;
