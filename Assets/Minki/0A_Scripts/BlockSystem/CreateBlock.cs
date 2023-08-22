@@ -133,6 +133,7 @@ public class CreateBlock : MonoBehaviour
         objSpr.sprite = _square;
         objSpr.color = outlineColors[stageTileType];
         objSpr.sortingLayerName = "Background";
+        objSpr.sortingOrder = 10;
 
         _batchCharacter.BatchAll();
         _slimeMove = BlockManager.instance.slimeMove;
