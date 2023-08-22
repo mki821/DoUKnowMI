@@ -9,7 +9,7 @@ public enum ObjectType {
     sinchamgisa,
     archer,
     shield,
-    spear
+    spearman
 }
 
 public enum EnemyDir {
@@ -25,6 +25,8 @@ public class BatchCharacter : MonoBehaviour
     [HideInInspector] public BatchSO batchSO;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
+
+    private Vector2 characterOffset = Vector2.zero;
 
     private DrawLine _drawLine;
 
@@ -47,7 +49,7 @@ public class BatchCharacter : MonoBehaviour
         objSpr.sortingOrder = 5;
 
         CircleCollider2D objCol = obj.AddComponent<CircleCollider2D>();
-        objCol.offset = new Vector2(0, 0);
+        objCol.offset = -characterOffset;
         objCol.radius = BlockManager.instance.tileSize / 5f;
 
         Animator objAnim = obj.AddComponent<Animator>();
@@ -72,7 +74,7 @@ public class BatchCharacter : MonoBehaviour
             enemyColList.Add(objCol);
             obj.tag = "Enemy";
             obj.layer = 7;
-            obj.transform.position += Vector3.up * BlockManager.instance.tileSize * 0.13f;
+            obj.transform.position += (Vector3)characterOffset;
             objCol.isTrigger = true;
             objAnim.SetFloat("Idle", (int)dir);
             if ((int)dir == 1)
@@ -144,6 +146,7 @@ public class BatchCharacter : MonoBehaviour
     }
 
     public void BatchAll() {
+        characterOffset = Vector3.up * BlockManager.instance.tileSize * 0.13f;
         foreach(var item in batchSO.batchObject) {
             Vector2 pos = CreateBlock.blocks[item.pos.y, item.pos.x].worldPos;
             
