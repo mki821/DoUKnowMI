@@ -29,6 +29,7 @@ public class SlimeAttack : MonoBehaviour
         else if(other.CompareTag("Key")) {
             Debug.Log("Key");
             _db.takenKeyStage.Add(CreateBlock.stageInfo);
+            _db.keyAmount ++;
             DBmanager.Save();
             Destroy(other.gameObject);
         }
