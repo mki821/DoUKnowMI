@@ -24,12 +24,12 @@ public class BlockManager : MonoBehaviour
     private void Awake() {
         if(instance == null) instance = this;
 
+        size = Screen.width / 250;
+
         SetTileSize();
     }
 
     private void SetTileSize() {
-        Debug.Log(size);
-        Debug.Log(BlockCount);
         tileSize = size / BlockCount;
     }
 }
