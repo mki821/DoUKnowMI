@@ -26,9 +26,7 @@ public class BatchCharacter : MonoBehaviour
     [HideInInspector] public Vector2 characterOffset = Vector2.zero;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
-
-    private Vector2 characterOffset = Vector2.zero;
-
+                            
     private DrawLine _drawLine;
     private BlockCheck _blockCheck;
 
