@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BlockCheck : MonoBehaviour
 {
-    public List<Vector2> enemyPos = new List<Vector2>();
-
     [SerializeField] private LayerMask _blockLayer;
     [SerializeField] private LayerMask _enemyLayer;
 
@@ -63,13 +61,13 @@ public class BlockCheck : MonoBehaviour
         this.dir = dir;
         this.distance = distance;
 
-        if(d.Length == 1 && (Vector2)d[0].transform.position == blockPos) {
-            Debug.Log(1);
+        if(d.Length == 1 && (Vector2)d[0].transform.position - _batchCharacter.characterOffset == blockPos) {
             return false;
         }
 
+        Debug.Log($"{(Vector2)d[0].transform.position} == {blockPos}");
+
         if(d.Length == 1) {
-            Debug.Log(2);
             _slimeMove.AddEnemyPos(d[0].transform.position);
             d[0].collider.enabled = false;
             enemyColList.Add(d[0].collider);
