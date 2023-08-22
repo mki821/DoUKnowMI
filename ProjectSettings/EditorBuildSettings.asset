@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: fa29547cb1e8c1a449eab1c5cb256a23
   - enabled: 1
+    path: Assets/Scenes/mki_System.unity
+    guid: d499054093c8973468a461405b95053d
+  - enabled: 1
     path: Assets/Scenes/DAZB/DAZB3.unity
     guid: e8c277cbd4cf75f4a85d1d9effc867f1
   m_configObjects: {}

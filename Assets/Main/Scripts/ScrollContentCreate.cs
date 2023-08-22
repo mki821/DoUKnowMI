@@ -105,22 +105,22 @@ namespace MainScroll
                 for (int i = 0; i < levelAmount; i++) {
                     stageCount ++;
                     if (stageCount == stage) {
-                        return new int[] { index, i };
+                        return new int[] { index + 1 /* padding 블럭이 있기 때문에 padding index 건너뜀 */, i };
                     }
                 }
                 index ++;
             }
         }
 
-        internal Vector2 SnapTo(RectTransform target) {
+        internal Vector2 SnapTo(RectTransform target, float plus = 0) {
             Canvas.ForceUpdateCanvases();
             float y = transform.InverseTransformPoint(contentBox.position).y - transform.InverseTransformPoint(target.position).y;
-            return contentBox.anchoredPosition = new(0, y);
+            return contentBox.anchoredPosition = new(0, y + plus);
         }
-        internal Vector2 SnapTo(int childIndex)
+        internal Vector2 SnapTo(int childIndex, int ofChild, float plus)
         {
-            RectTransform target = contentBox.GetChild(childIndex).GetComponent<RectTransform>();
-            return SnapTo(target);
+            RectTransform target = contentBox.GetChild(childIndex).GetChild(ofChild).GetComponent<RectTransform>();
+            return SnapTo(target, plus);
         }
         internal int GetStageAmountToMap(int index) {
             int k = 0;

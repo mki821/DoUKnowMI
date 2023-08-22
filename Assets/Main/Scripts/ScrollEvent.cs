@@ -18,7 +18,7 @@ namespace MainScroll {
 
         internal void OnInit(ScrollContentCreate _base) {
             _db = DBmanager.GetData();
-            // _db.clearStage = 1000; // TEST
+            // _db.clearStage = 60; // TEST
 
             int[] index_Conf = _base.GetMapIndexToStage(_db.clearStage + 1);
 
@@ -27,7 +27,7 @@ namespace MainScroll {
                 _base.AddStage();
             }
 
-            float ScrollY = _base.SnapTo(index_Conf[0]).y;
+            float ScrollY = _base.SnapTo(index_Conf[0], index_Conf[1], -500).y;
             Canvas.ForceUpdateCanvases();
 
             StartCoroutine(Wiatcorrection(_base, ScrollY));
@@ -49,17 +49,47 @@ namespace MainScroll {
             rect.anchoredPosition *= scale;
             rect.sizeDelta *= scale;
 
+            var textMesh = _transform.GetComponentInChildren<TextMeshProUGUI>();
+            textMesh.text = stage.ToString();
+
+            if (stage != 1 && (stage % 20) == 1) {
+                _transform.Find("Lock").gameObject.SetActive(true);
+                
+                if ((stage / 20) > _db.keyUnlock) {
+                    textMesh.color = new Color32(255, 255, 255, 230);
+                    _transform.GetComponent<Image>().color = new Color32(212,52,43, 255);
+                    _transform.gameObject.AddComponent<Button>().onClick.AddListener(() => {
+                        KeyUnLock.instance.TryUnlock(_transform, stage, theme);
+                    });
+                    return;
+                }
+            }
+
             if ( stage > _db.clearStage + 1 ) {
-                _transform.GetComponent<Image>().color = new Color(1,1,1, 0.5f);
-                _transform.GetComponentInChildren<TextMeshProUGUI>().text = stage.ToString();
+                textMesh.color = new Color32(255, 255, 255, 150);
+                _transform.GetComponent<Image>().color = new Color32(50,50,50, 150);
                 return;
             }
 
-            _transform.GetComponentInChildren<TextMeshProUGUI>().text = stage.ToString();
-            _transform.gameObject.AddComponent<Button>().onClick.AddListener(() => {
+            textMesh.color = new Color32(0, 0, 0, 230);
+            if (stage == _db.clearStage + 1) {
+                _transform.GetComponent<Image>().color = new Color32(243, 240, 102, 255);
+            } else {
+                _transform.GetComponent<Image>().color = new Color32(111, 212, 43, 255);
+            }
+
+            var btncomp = _transform.gameObject.GetComponent<Button>() ?? _transform.gameObject.AddComponent<Button>();
+            btncomp.onClick.RemoveAllListeners();
+            
+            btncomp.onClick.AddListener(() => {
                 CreateBlock.stageInfo = stage;
                 CreateBlock.stageTileType = (int)theme;
-                // theme 어디에다가 넣지? (⊙_⊙)？
+                
+                if (!HealthManager.Try()) {
+                    domiAlertSys.Show("체력이 부족하여 스테이지를 진행할 수 없습니다.", new Color32(230,100,100, 255));
+                    return;
+                }
+
                 UnityEngine.SceneManagement.SceneManager.LoadScene("DAZB3");
             });
         }

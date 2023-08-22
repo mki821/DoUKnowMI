@@ -26,7 +26,7 @@ public class BatchCharacter : MonoBehaviour
     [HideInInspector] public Vector2 characterOffset = Vector2.zero;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
-
+                            
     private DrawLine _drawLine;
     private BlockCheck _blockCheck;
 
@@ -150,6 +150,7 @@ public class BatchCharacter : MonoBehaviour
     }
 
     public void BatchAll() {
+        characterOffset = Vector3.up * BlockManager.instance.tileSize * 0.13f;
         foreach(var item in batchSO.batchObject) {
             Vector2 pos = CreateBlock.blocks[item.pos.y, item.pos.x].worldPos;
             
