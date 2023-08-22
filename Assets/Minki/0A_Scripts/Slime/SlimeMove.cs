@@ -131,12 +131,12 @@ public class SlimeMove : MonoBehaviour
     }
 
     private void SetSlimeDir(int i, Vector2 enemyPos) {
-        animator.SetTrigger("IsAtk");
         Vector2 dir  = movePos[i] - movePos[i - 1];
         if(i < movePos.Count - 1 && (movePos[i] - (Vector2)transform.position).magnitude < 0.2f) dir = movePos[i + 1] - movePos[i];
         direction = dir.normalized;
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         StartCoroutine(Check());
+        animator.SetTrigger("IsAtk");
         if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
             animator.SetFloat("Slime_Atk", Slime_Atk);
         }
