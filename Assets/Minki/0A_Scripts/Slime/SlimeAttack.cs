@@ -16,7 +16,9 @@ public class SlimeAttack : MonoBehaviour
         _slimeMove = GetComponent<SlimeMove>();
         _drawLine = GameObject.Find("LineRenderer").GetComponent<DrawLine>();
         layer = LayerMask.GetMask("Enemy");
+    }
 
+    private void Start() {
         _db = DBmanager.GetData();
     }
 
