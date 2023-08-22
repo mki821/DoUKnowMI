@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using domi.DB;
 
 public class BlockManager : MonoBehaviour
 {
@@ -12,6 +11,8 @@ public class BlockManager : MonoBehaviour
     public float tileSize = 0f;
 
     public SlimeMove slimeMove;
+
+    private DBstruct _db;
 
     [SerializeField] private GameObject clearPanel;
     [SerializeField] private GameObject failPanel;
@@ -38,12 +39,20 @@ public class BlockManager : MonoBehaviour
         SetTileSize();
     }
 
+    private void Start() {
+        _db = DBmanager.GetData();
+    }
+
     private void SetTileSize() {
         tileSize = size / BlockCount;
     }
 
     public void EndStage(bool clear) {
-        if (clear) _changeStage.NextStage();
+        if (clear) {
+            _db.clearStage++;
+            DBmanager.Save();
+            _changeStage.NextStage();
+        }
         else _changeStage.SceneChange("DAZB3");
     }
 
