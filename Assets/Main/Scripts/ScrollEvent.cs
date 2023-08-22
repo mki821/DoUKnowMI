@@ -18,7 +18,7 @@ namespace MainScroll {
 
         internal void OnInit(ScrollContentCreate _base) {
             _db = DBmanager.GetData();
-            _db.clearStage = 23; // TEST
+            // _db.clearStage = 998; // TEST
 
             int[] index_Conf = _base.GetMapIndexToStage(_db.clearStage + 1);
 
@@ -27,7 +27,7 @@ namespace MainScroll {
                 _base.AddStage();
             }
 
-            float ScrollY = _base.SnapTo(index_Conf[0]).y;
+            float ScrollY = _base.SnapTo(index_Conf[0], index_Conf[1], -500).y;
             Canvas.ForceUpdateCanvases();
 
             StartCoroutine(Wiatcorrection(_base, ScrollY));

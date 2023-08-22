@@ -8,6 +8,7 @@ TagManager:
   - EnemyAttack
   - Enemy
   - UIstageMap
+  - Key
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4043317653
     locked: 0
   - name: Tile
     uniqueID: 3437704401
