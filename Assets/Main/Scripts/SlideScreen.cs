@@ -74,7 +74,10 @@ namespace domiSliceScreen {
             // trigger
             screens[oldID].screen.GetComponent<ISlideEvent>()?.OnSlideClose();
 
-            screen.screen.DOAnchorPos(Vector3.zero, .3f);
+            screen.screen.DOAnchorPos(Vector3.zero, .3f).OnComplete(() => {
+                screens[oldID].screen.offsetMin = new Vector2(-width, 0);
+                screens[oldID].screen.offsetMax = -new Vector2(width, 0);
+            });
             ImmediatelyChange(true);
         }
 
