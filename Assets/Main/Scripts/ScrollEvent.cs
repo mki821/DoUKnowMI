@@ -49,12 +49,21 @@ namespace MainScroll {
             rect.anchoredPosition *= scale;
             rect.sizeDelta *= scale;
 
-            if (stage != 1 && (stage % 20) == 1) {
-                _transform.Find("Lock").gameObject.SetActive(true);
-            }
-
             var textMesh = _transform.GetComponentInChildren<TextMeshProUGUI>();
             textMesh.text = stage.ToString();
+
+            if (stage != 1 && (stage % 20) == 1) {
+                _transform.Find("Lock").gameObject.SetActive(true);
+                
+                if ((stage / 20) > _db.keyUnlock) {
+                    textMesh.color = new Color32(255, 255, 255, 230);
+                    _transform.GetComponent<Image>().color = new Color32(212,52,43, 255);
+                    _transform.gameObject.AddComponent<Button>().onClick.AddListener(() => {
+                        KeyUnLock.instance.TryUnlock(_transform, stage, theme);
+                    });
+                    return;
+                }
+            }
 
             if ( stage > _db.clearStage + 1 ) {
                 textMesh.color = new Color32(255, 255, 255, 150);
@@ -69,7 +78,10 @@ namespace MainScroll {
                 _transform.GetComponent<Image>().color = new Color32(111, 212, 43, 255);
             }
 
-            _transform.gameObject.AddComponent<Button>().onClick.AddListener(() => {
+            var btncomp = _transform.gameObject.GetComponent<Button>() ?? _transform.gameObject.AddComponent<Button>();
+            btncomp.onClick.RemoveAllListeners();
+            
+            btncomp.onClick.AddListener(() => {
                 CreateBlock.stageInfo = stage;
                 CreateBlock.stageTileType = (int)theme;
                 // theme 어디에다가 넣지? (⊙_⊙)？

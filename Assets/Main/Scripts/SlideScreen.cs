@@ -21,6 +21,7 @@ namespace domiSliceScreen {
     {
         [Header("Config")]
         [SerializeField] int defaultScreen;
+        [SerializeField] int igroneOrder;
         [SerializeField] SlideContent[] screens;
 
         [Header("Resources")]
@@ -82,7 +83,7 @@ namespace domiSliceScreen {
             if (!disable)
                 screen.screen.anchoredPosition = Vector3.zero;
 
-            screen.screen.transform.SetSiblingIndex(transform.childCount - 1 - 2);
+            screen.screen.transform.SetSiblingIndex(transform.childCount - 1 - igroneOrder);
             StageText.text = screen.name;
             UpdateOne();
 
