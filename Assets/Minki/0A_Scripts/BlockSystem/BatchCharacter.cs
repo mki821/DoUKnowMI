@@ -23,15 +23,20 @@ public class BatchCharacter : MonoBehaviour
 {
     public static List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
     [HideInInspector] public BatchSO batchSO;
+    [HideInInspector] public Vector2 characterOffset = Vector2.zero;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private RuntimeAnimatorController[] _animators;
 
     private DrawLine _drawLine;
+    private BlockCheck _blockCheck;
 
     private DBstruct _db;
 
     private void Awake() {
         _drawLine = GameObject.Find("LineRenderer").GetComponent<DrawLine>();
+        _blockCheck = (BlockCheck)GetComponent("BlockCheck");
+
+        characterOffset = Vector3.up * BlockManager.instance.tileSize * 0.13f;
 
         _db = DBmanager.GetData();
     }
@@ -72,8 +77,9 @@ public class BatchCharacter : MonoBehaviour
             enemyColList.Add(objCol);
             obj.tag = "Enemy";
             obj.layer = 7;
-            obj.transform.position += Vector3.up * BlockManager.instance.tileSize * 0.13f;
+            obj.transform.position += (Vector3)characterOffset;
             objCol.isTrigger = true;
+            objCol.offset = characterOffset;
             objAnim.SetFloat("Idle", (int)dir);
             if ((int)dir == 1)
                 obj.GetComponent<SpriteRenderer>().flipX = true;
