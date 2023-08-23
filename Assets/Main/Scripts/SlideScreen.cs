@@ -57,6 +57,12 @@ namespace domiSliceScreen {
             int Plus = left ? -1 : 1;
             if ((currentID + Plus) < 0 || (currentID + Plus) >= screens.Length) return;
 
+            // 아직 준비중
+            if (currentID + Plus == 2) {
+                domiAlertSys.Show("아직 준비중 입니다!", Color.white);
+                return;
+            }
+
             currentID += Plus;
             print("page change - "+currentID);
 
