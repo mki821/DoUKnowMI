@@ -45,6 +45,7 @@ public class HealthManager : MonoBehaviour
             if (diff >= 1) {
                 Give((int)diff);
                 _db.healthTime = DateTime.Now.Ticks.ToString();
+                DBmanager.Save();
                 print(health);
             }
         } else if (activeTimer) {

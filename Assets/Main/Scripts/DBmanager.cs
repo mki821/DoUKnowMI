@@ -5,7 +5,7 @@ using LitJson;
 
 namespace domi.DB {
     public class DBstruct {
-        public int health = 5;
+        public int health = 20;
         public int clearStage = 0;
         public string healthTime = "0";
         public int jeadanTime = 0;
