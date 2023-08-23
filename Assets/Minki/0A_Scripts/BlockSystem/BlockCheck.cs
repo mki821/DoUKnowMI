@@ -22,7 +22,7 @@ public class BlockCheck : MonoBehaviour
     }
 
     private void Update() {
-        if (!_batchCharacter.isBatching && Input.GetMouseButtonDown(0)) {
+        if (!_batchCharacter.isBatching && !_slimeMove.isMoving && Input.GetMouseButtonDown(0)) {
             if(_slimeMove is null) _slimeMove = BlockManager.instance.slimeMove;
 
             Vector2 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
@@ -47,7 +47,7 @@ public class BlockCheck : MonoBehaviour
     }
 
     public void Back() {
-        if (enemyColList.Count > 0) {
+        if (!_slimeMove.isMoving && enemyColList.Count > 0) {
             _drawLine.RevertLinePos();
             enemyColList[enemyColList.Count - 1].enabled = true;
             enemyColList.Remove(enemyColList[enemyColList.Count - 1]);

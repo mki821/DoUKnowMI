@@ -2108,6 +2108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967bf8a2cb0432c48a6d6ea5a547a71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBatching: 0
   batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
   characterOffset: {x: 0, y: 0}
   _sprites:
@@ -2382,7 +2383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6176ec13cb10a6f47b844e8262593683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _posList: []
 --- !u!1 &1626668993
 GameObject:
   m_ObjectHideFlags: 0
