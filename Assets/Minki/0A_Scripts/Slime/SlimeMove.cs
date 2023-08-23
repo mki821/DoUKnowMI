@@ -166,10 +166,12 @@ public class SlimeMove : MonoBehaviour
                 animator.SetFloat("Slime_Idle", Slime_Idle_diagonal_right);
             }
 
-            if (i == _drawLine._posList.Count - 1) {
-                CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
-                StartCoroutine(TimeScale());
-                break;
+            if (enemyPos.Count != 0) {
+                if (i == _drawLine._posList.Count - 1) {
+                    CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
+                    StartCoroutine(TimeScale());
+                    break;
+                }
             }
             yield return null;
         }
