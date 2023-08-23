@@ -326,7 +326,7 @@ MonoBehaviour:
   defaultScreen: 1
   igroneOrder: 3
   screens:
-  - name: "\uC81C"
+  - name: "\uC81C\uB2E8"
     screen: {fileID: 65035128}
   - name: stage
     screen: {fileID: 2020128705}
