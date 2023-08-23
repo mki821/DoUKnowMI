@@ -155,6 +155,9 @@ MonoBehaviour:
   blockCount: 8
   size: 4
   tileSize: 0
+  slimeMove: {fileID: 0}
+  clearPanel: {fileID: 0}
+  failPanel: {fileID: 0}
 --- !u!4 &443293528
 Transform:
   m_ObjectHideFlags: 0
@@ -488,9 +491,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bcb91267ee2a542aa94087c2760435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  block: {fileID: 4744651038088691635, guid: c59e58d3199699b4ba8cf79d8da4e98b, type: 3}
+  batchSO: {fileID: 0}
+  backgroundPrefabs: []
+  outlineColors: []
+  blockSprites: []
+  _square: {fileID: 0}
+  blockAnimator: {fileID: 0}
   _batchCharacter: {fileID: 1457461336}
   _slimeMove: {fileID: 0}
+  _lineRenderer: {fileID: 0}
 --- !u!4 &1457461334
 Transform:
   m_ObjectHideFlags: 0
@@ -518,7 +527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041df4333bfe9b946a08a85f1013b5f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPos: []
   _blockLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -539,7 +547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967bf8a2cb0432c48a6d6ea5a547a71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _batchSO: {fileID: 11400000, guid: 554b63fd6d27ac84981949b4fff8ade4, type: 2}
+  isBatching: 0
+  batchSO: {fileID: 0}
+  characterOffset: {x: 0, y: 0}
   _sprites:
   - {fileID: 2102678837, guid: a34681dca7f11ee45a0738d8b1136e1e, type: 3}
   - {fileID: 2102678837, guid: a34681dca7f11ee45a0738d8b1136e1e, type: 3}
@@ -604,7 +614,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -857262895
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 20
   m_Positions: []
   m_Parameters:
