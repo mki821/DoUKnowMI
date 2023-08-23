@@ -48,7 +48,11 @@ public class SlimeMove : MonoBehaviour
     }
 
     public void Move() {
-        StartCoroutine(M());
+        StartCoroutine("M");
+    }
+
+    public void StopMove() {
+        StopCoroutine("M");
     }
 
     private IEnumerator M() {
@@ -106,7 +110,13 @@ public class SlimeMove : MonoBehaviour
         //Vector2 dir  = _drawLine._posList.ToArray()[i] - _drawLine._posList.ToArray()[i - 1];
         Vector2 dir = movePos[i] - movePos[i - 1];
         //if(i < _drawLine._posList.Count - 1 && (_drawLine._posList.ToArray()[i] - transform.position).magnitude < 0.2f) dir = _drawLine._posList.ToArray()[i + 1] - _drawLine._posList.ToArray()[i];
-        direction = dir.normalized;
+        if ((transform.position - movePos[i]).magnitude < BlockManager.instance.tileSize * 0.6f) {
+            if(i < 2) return;
+            direction = movePos[i - 2] - movePos[i - 1];
+        }
+        else {
+            direction = dir.normalized;
+        }
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         StartCoroutine(Check());
         animator.SetTrigger("IsAtk");

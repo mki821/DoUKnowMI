@@ -18,7 +18,10 @@ public class SlimeAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("EnemyAttack")) {
-            if (CheckEnemy(_slimeMove.direction, other.transform.parent)) BlockManager.instance.ShowPanel(false);
+            if (CheckEnemy(_slimeMove.direction, other.transform.parent)) {
+                BlockManager.instance.ShowPanel(false);
+                _slimeMove.StopMove();
+            }
         }
         else if(other.CompareTag("Enemy")) {
             BatchCharacter.enemyColList.Remove((CircleCollider2D)other);
