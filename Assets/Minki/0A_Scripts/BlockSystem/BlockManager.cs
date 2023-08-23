@@ -49,8 +49,16 @@ public class BlockManager : MonoBehaviour
 
     public void EndStage(bool clear) {
         if (clear) {
-            _db.clearStage++;
-            DBmanager.Save();
+            if (BatchCharacter.isKey) {
+                _db.takenKeyStage.Add(CreateBlock.stageInfo);
+                _db.keyAmount ++;
+                DBmanager.Save();
+            }
+
+            if (_db.clearStage < CreateBlock.stageInfo) {
+                _db.clearStage = CreateBlock.stageInfo;
+                DBmanager.Save();
+            }
             _changeStage.NextStage();
         }
         else {
@@ -62,6 +70,19 @@ public class BlockManager : MonoBehaviour
             else {
                 _changeStage.SceneChange("Main");
             }
+        }
+    }
+
+    public void StageSave() {
+        if (BatchCharacter.isKey) {
+            _db.takenKeyStage.Add(CreateBlock.stageInfo);
+            _db.keyAmount ++;
+            DBmanager.Save();
+        }
+
+        if (_db.clearStage < CreateBlock.stageInfo) {
+            _db.clearStage = CreateBlock.stageInfo;
+            DBmanager.Save();
         }
     }
 

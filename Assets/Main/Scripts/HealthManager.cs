@@ -53,8 +53,10 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    public static void Give(int value = 1) {
-        instance._db.health = Mathf.Min(instance._db.health + value, 5);
+    public static void Give(int value = 1, bool overflow = false) {
+        if (overflow) {
+            instance._db.health += value;
+        } else instance._db.health = Mathf.Min(instance._db.health + value, 5);
         DBmanager.Save();
         UpdateText();
     }
@@ -65,7 +67,7 @@ public class HealthManager : MonoBehaviour
         int lastNum = instance._db.health;
         instance._db.health -= value;
 
-        if (lastNum == 5 && instance._db.health < 5)
+        if (lastNum >= 5 && instance._db.health < 5)
             instance._db.healthTime = DateTime.Now.Ticks.ToString();
 
         DBmanager.Save();

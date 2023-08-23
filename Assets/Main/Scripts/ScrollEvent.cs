@@ -52,6 +52,10 @@ namespace MainScroll {
             var textMesh = _transform.GetComponentInChildren<TextMeshProUGUI>();
             textMesh.text = stage.ToString();
 
+            string map_json = Resources.Load("StageMap/" + stage)?.ToString();
+            if (map_json != null && map_json.IndexOf("key") != -1)
+                _transform.Find("Key").gameObject.SetActive(true);
+
             if (stage != 1 && (stage % 20) == 1) {
                 _transform.Find("Lock").gameObject.SetActive(true);
                 

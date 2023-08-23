@@ -10,16 +10,10 @@ public class SlimeAttack : MonoBehaviour
 
     private LayerMask layer;
 
-    private DBstruct _db;
-
     private void Awake() {
         _slimeMove = GetComponent<SlimeMove>();
         _drawLine = GameObject.Find("LineRenderer").GetComponent<DrawLine>();
         layer = LayerMask.GetMask("Enemy");
-    }
-
-    private void Start() {
-        _db = DBmanager.GetData();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -32,9 +26,7 @@ public class SlimeAttack : MonoBehaviour
         }
         else if(other.CompareTag("Key")) {
             Debug.Log("Key");
-            _db.takenKeyStage.Add(CreateBlock.stageInfo);
-            _db.keyAmount ++;
-            DBmanager.Save();
+            BatchCharacter.isKey = true;
             Destroy(other.gameObject);
         }
     }
