@@ -22,7 +22,7 @@ public class BlockCheck : MonoBehaviour
     }
 
     private void Update() {
-        if (!_batchCharacter.isBatching && !_slimeMove.isMoving && Input.GetMouseButtonDown(0)) {
+        if (!_batchCharacter.isBatching /*&& _slimeMove is not null && !_slimeMove.isMoving*/ && Input.GetMouseButtonDown(0)) {
             if(_slimeMove is null) _slimeMove = BlockManager.instance.slimeMove;
 
             Vector2 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
