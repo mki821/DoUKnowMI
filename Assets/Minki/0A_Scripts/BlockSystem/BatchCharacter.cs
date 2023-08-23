@@ -22,6 +22,8 @@ public enum EnemyDir {
 public class BatchCharacter : MonoBehaviour
 {
     public static List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
+    public bool isBatching = false;
+
     [HideInInspector] public BatchSO batchSO;
     [HideInInspector] public Vector2 characterOffset = Vector2.zero;
     [SerializeField] private Sprite[] _sprites;
@@ -151,11 +153,13 @@ public class BatchCharacter : MonoBehaviour
 
     public void BatchAll() {
         characterOffset = Vector3.up * BlockManager.instance.tileSize * 0.13f;
+        enemyColList.Clear();
         foreach(var item in batchSO.batchObject) {
             Vector2 pos = CreateBlock.blocks[item.pos.y, item.pos.x].worldPos;
             
             Batch(pos, item.dir, (int)item.type);
         }
+        isBatching = false;
     }
 
     private void CreateEnemy(Transform parent, Vector3 pos) {
