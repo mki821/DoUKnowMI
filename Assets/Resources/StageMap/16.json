@@ -1,1 +1,39 @@
-{"projectName":"저 아세요?","size":6,"player":[0,3],"data":{"5,4":{"character":"sinchamgisa","rotate":0},"4,5":{"character":"sinchamgisa","rotate":0},"3,4":{"character":"sinchamgisa","rotate":0},"2,4":{"character":"sinchamgisa","rotate":0},"1,5":{"character":"sinchamgisa","rotate":0},"0,2":{"character":"sinchamgisa","rotate":0},"1,1":{"character":"sinchamgisa","rotate":0},"0,4":{"character":"sinchamgisa","rotate":0},"5,2":{"character":"sinchamgisa","rotate":0},"3,2":{"character":"sinchamgisa","rotate":0},"2,2":{"character":"sinchamgisa","rotate":0},"4,1":{"character":"sinchamgisa","rotate":0},"1,3":{"character":"sinchamgisa","rotate":0},"4,3":{"character":"sinchamgisa","rotate":0}}}
+{
+  "projectName": "저 아세요?",
+  "size": 5,
+  "player": [ 0, 0 ],
+  "data": {
+    "3,0": {
+      "character": "archer",
+      "rotate": 3
+    },
+    "0,3": {
+      "character": "archer",
+      "rotate": 0
+    },
+    "1,1": {
+      "character": "sinchamgisa",
+      "rotate": 0
+    },
+    "3,3": {
+      "character": "archer",
+      "rotate": 0
+    },
+    "4,2": {
+      "character": "sinchamgisa",
+      "rotate": 0
+    },
+    "2,3": {
+      "character": "sinchamgisa",
+      "rotate": 0
+    },
+    "1,4": {
+      "character": "sinchamgisa",
+      "rotate": 0
+    },
+    "3,1": {
+      "character": "sinchamgisa",
+      "rotate": 0
+    }
+  }
+}
