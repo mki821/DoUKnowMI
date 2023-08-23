@@ -5,8 +5,8 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    public static int stageInfo = 9;
-    public static int stageTileType = 1;
+    public static int stageInfo = 1;
+    public static int stageTileType = 0;
     public BatchSO batchSO;
 
     public static Block[,] blocks = new Block[16, 16];
@@ -38,6 +38,7 @@ public class CreateBlock : MonoBehaviour
     }
 
     public Block[,] Create() {
+        _batchCharacter.isBatching = true;
         int blockCount = batchSO.blockCount;
         blockManager.BlockCount = blockCount;
 
