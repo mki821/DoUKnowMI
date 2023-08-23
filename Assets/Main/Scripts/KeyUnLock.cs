@@ -25,11 +25,13 @@ namespace MainScroll {
 
         public void TryUnlock(Transform _transform, int stage, MapTheme theme) {
             if ((stage / 20) != _db.keyUnlock + 1) {
+                SoundManager.instance.CantGoStageSound();
                 domiAlertSys.Show("아직 전 스테이지에서 잠금이 풀리지 않았습니다.", new Color32(230,100,100, 255));
                 return;
             }
 
             if (_db.keyAmount - NEED_KEY < 0) {
+                SoundManager.instance.CantGoStageSound();
                 domiAlertSys.Show("열쇠 조각이 부족합니다. 필요한 열쇠조각: "+ (NEED_KEY - _db.keyAmount) + "개", new Color32(230,100,100, 255));
                 return;
             }

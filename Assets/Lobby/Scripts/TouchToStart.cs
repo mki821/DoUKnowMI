@@ -25,6 +25,7 @@ public class TouchToStart : MonoBehaviour
     void Update()
     {
         if (Input.touchCount > 0) {
+            SoundManager.instance.TouchToStartSound();
             SceneManager.LoadScene("Main");
         }
     }

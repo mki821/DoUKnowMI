@@ -150,7 +150,7 @@ public class CreateBlock : MonoBehaviour
 
     public void Move() {
         if (_slimeMove.isMoving) return;
-
+        SoundManager.instance.BntClickSound();
         _batchCharacter.EndCheck();
         _slimeMove.Move();
     }

@@ -48,6 +48,7 @@ public class BlockCheck : MonoBehaviour
 
     public void Back() {
         if (!_slimeMove.isMoving && enemyColList.Count > 0) {
+            SoundManager.instance.BntClickSound();
             _drawLine.RevertLinePos();
             enemyColList[enemyColList.Count - 1].enabled = true;
             enemyColList.Remove(enemyColList[enemyColList.Count - 1]);

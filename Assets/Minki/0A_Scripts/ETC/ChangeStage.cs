@@ -7,11 +7,13 @@ public class ChangeStage : MonoBehaviour
     private DBstruct _db;
 
     public void SceneChange(string sceneName) {
+        SoundManager.instance.BntClickSound();
         SceneManager.LoadScene(sceneName);
     }
 
     public void NextStage() {
         _db = DBmanager.GetData();
+        SoundManager.instance.BntClickSound();
         if (_db.health > 0) {
             _db.health--;
             int stageNum = CreateBlock.stageInfo;

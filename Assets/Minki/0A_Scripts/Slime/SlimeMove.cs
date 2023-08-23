@@ -73,12 +73,14 @@ public class SlimeMove : MonoBehaviour
         BlockManager.instance.ShowPanel(BatchCharacter.enemyColList.Count == 0);
     }
 
-    // private void OnTriggerEnter2D(Collider2D other) {
-    //     if (i == movePos.Count - 1) {
-    //         CameraManager.SlowCameraEnable(enemyPos[enemyPos.Count - 1]);
-    //         StartCoroutine(TimeScale());
-    //     }
-    // }
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Key")) {
+            SoundManager.instance.GetKeySound();
+        }
+        else {
+            SoundManager.instance.EatSound();
+        }
+    }
 
 
     public void SetMovePos(Vector2 pos) {

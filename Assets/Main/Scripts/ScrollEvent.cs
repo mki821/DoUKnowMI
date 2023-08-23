@@ -86,10 +86,11 @@ namespace MainScroll {
                 CreateBlock.stageTileType = (int)theme;
                 
                 if (!HealthManager.Try()) {
+                    SoundManager.instance.CantGoStageSound();
                     domiAlertSys.Show("체력이 부족하여 스테이지를 진행할 수 없습니다.", new Color32(230,100,100, 255));
                     return;
                 }
-
+                SoundManager.instance.BntClickSound();
                 UnityEngine.SceneManagement.SceneManager.LoadScene("DAZB3");
             });
         }
