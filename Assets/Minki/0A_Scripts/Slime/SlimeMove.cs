@@ -66,6 +66,15 @@ public class SlimeMove : MonoBehaviour
             while(t < 1 * distance / speed) {
                 transform.position = Vector2.Lerp(movePos[i], movePos[i - 1], t / distance * speed);
                 t += Time.deltaTime;
+
+                if ((transform.position - movePos[i - 1]).magnitude < BlockManager.instance.tileSize * 1.5f) {
+                    if(i < 2) direction = (movePos[i - 1] - movePos[i]).normalized;
+                    else direction = (movePos[i - 2] - movePos[i - 1]).normalized;
+                }
+                else {
+                    direction = (movePos[i - 1] - movePos[i]).normalized;
+                }
+
                 //SetSlimeDir(i);
                 yield return null;
             }
@@ -108,15 +117,9 @@ public class SlimeMove : MonoBehaviour
     private void SetSlimeDir(int i) {;
         Vector3[] movePos = _drawLine._posList.ToArray();
         //Vector2 dir  = _drawLine._posList.ToArray()[i] - _drawLine._posList.ToArray()[i - 1];
-        Vector2 dir = movePos[i] - movePos[i - 1];
+        Vector2 dir = movePos[i] -  movePos[i - 1];
         //if(i < _drawLine._posList.Count - 1 && (_drawLine._posList.ToArray()[i] - transform.position).magnitude < 0.2f) dir = _drawLine._posList.ToArray()[i + 1] - _drawLine._posList.ToArray()[i];
-        if ((transform.position - movePos[i]).magnitude < BlockManager.instance.tileSize * 0.6f) {
-            if(i < 2) return;
-            direction = movePos[i - 2] - movePos[i - 1];
-        }
-        else {
-            direction = dir.normalized;
-        }
+        
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         StartCoroutine(Check());
         animator.SetTrigger("IsAtk");

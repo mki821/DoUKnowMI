@@ -58,10 +58,6 @@ public class BlockCheck : MonoBehaviour
     private bool CheckEnemy(Vector2 pos, Vector2 dir, float distance, Vector2 blockPos) {
         RaycastHit2D[] d = Physics2D.RaycastAll(pos, dir, distance, _enemyLayer);
 
-        this.pos = pos;
-        this.dir = dir;
-        this.distance = distance;
-
         if(d.Length == 1 && (Vector2)d[0].transform.position - _batchCharacter.characterOffset == blockPos) {
             return false;
         }
@@ -75,12 +71,5 @@ public class BlockCheck : MonoBehaviour
         else {
             return false;
         }
-    }
-
-    Vector2 pos, dir = Vector2.zero;
-    float distance = 0;
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(pos, dir * distance);
     }
 }
