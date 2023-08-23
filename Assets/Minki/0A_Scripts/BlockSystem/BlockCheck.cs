@@ -22,7 +22,7 @@ public class BlockCheck : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (!_batchCharacter.isBatching && Input.GetMouseButtonDown(0)) {
             if(_slimeMove is null) _slimeMove = BlockManager.instance.slimeMove;
 
             Vector2 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
@@ -32,11 +32,13 @@ public class BlockCheck : MonoBehaviour
             if (hit.collider != null) {
                 Block block = hit.transform.GetComponent<Block>();
 
-                Vector2 dir = block.worldPos - (Vector2)_drawLine._posList[_drawLine._posList.Count - 1];
+                Vector3[] movePos = _drawLine._posList.ToArray();
+
+                Vector2 dir = block.worldPos - (Vector2)movePos[0];
                 int angle = (int)Mathf.Abs(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
 
                 if (angle % 45 == 0) {
-                    if (CheckEnemy(_drawLine._posList[_drawLine._posList.Count - 1], dir.normalized, dir.magnitude, block.transform.position)) {
+                    if (CheckEnemy(movePos[0], dir.normalized, dir.magnitude, block.transform.position)) {
                         _drawLine.SetLinePos(block.worldPos);
                     }
                 }
