@@ -22,6 +22,7 @@ public enum EnemyDir {
 public class BatchCharacter : MonoBehaviour
 {
     public static List<CircleCollider2D> enemyColList = new List<CircleCollider2D>();
+    public static bool isKey = false;
     public bool isBatching = false;
 
     [HideInInspector] public BatchSO batchSO;
@@ -72,6 +73,7 @@ public class BatchCharacter : MonoBehaviour
             if (_db.takenKeyStage.Contains(CreateBlock.stageInfo)) Destroy(obj);
             else {
                 obj.tag = "Key";
+                objCol.isTrigger = true;
                 Destroy(objAnim);
             }
         }
@@ -152,6 +154,7 @@ public class BatchCharacter : MonoBehaviour
     }
 
     public void BatchAll() {
+        isKey = false;
         characterOffset = Vector3.up * BlockManager.instance.tileSize * 0.13f;
         enemyColList.Clear();
         foreach(var item in batchSO.batchObject) {
