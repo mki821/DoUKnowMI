@@ -53,7 +53,16 @@ public class BlockManager : MonoBehaviour
             DBmanager.Save();
             _changeStage.NextStage();
         }
-        else _changeStage.SceneChange("DAZB3");
+        else {
+            if (_db.health > 0) {
+                _db.health--;
+                DBmanager.Save();
+                _changeStage.SceneChange("DAZB3");
+            }
+            else {
+                _changeStage.SceneChange("Main");
+            }
+        }
     }
 
     public void ShowPanel(bool clear) {

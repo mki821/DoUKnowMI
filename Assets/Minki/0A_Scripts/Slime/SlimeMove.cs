@@ -7,6 +7,7 @@ public class SlimeMove : MonoBehaviour
     public List<Vector2> enemyPos = new List<Vector2>();
     public Vector2 direction;
     public int curPos = 0;
+    public bool isMoving = false;
 
     private float speed = 8f;
     private LayerMask layer = 7;
@@ -50,6 +51,7 @@ public class SlimeMove : MonoBehaviour
     }
 
     private IEnumerator M() {
+        isMoving = true;
         float t = 0;
         Vector3[] movePos = _drawLine._posList.ToArray();
         for(i = movePos.Length - 1; i > 0; i--) {
@@ -66,6 +68,7 @@ public class SlimeMove : MonoBehaviour
         }
         CameraManager.SlowCameraDisable();
 
+        isMoving = false;
         BlockManager.instance.ShowPanel(BatchCharacter.enemyColList.Count == 0);
     }
 
