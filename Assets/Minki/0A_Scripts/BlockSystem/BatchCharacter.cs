@@ -83,7 +83,7 @@ public class BatchCharacter : MonoBehaviour
             obj.layer = 7;
             obj.transform.position += (Vector3)characterOffset;
             objCol.isTrigger = true;
-            objCol.offset = -characterOffset / 2;
+            objCol.offset = -characterOffset;
             objAnim.SetFloat("Idle", (int)dir);
             if ((int)dir == 1)
                 obj.GetComponent<SpriteRenderer>().flipX = true;
@@ -175,7 +175,7 @@ public class BatchCharacter : MonoBehaviour
         CircleCollider2D eAtkCol = enemyAttack.AddComponent<CircleCollider2D>();
         eAtkCol.isTrigger = true;
         eAtkCol.radius = BlockManager.instance.tileSize * 0.1f;
-        eAtkCol.offset = -characterOffset / 2;
+        eAtkCol.offset = -characterOffset;
     }
 
     public void EndCheck() {

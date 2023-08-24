@@ -1962,7 +1962,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 577103797}
   m_HandleRect: {fileID: 577103796}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2881,7 +2881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00048828125, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1834260821
@@ -3193,23 +3193,23 @@ MonoBehaviour:
   - prefab: {fileID: 4190509215517289905, guid: 69708b626a16d5c489bcfaffbe8516c0, type: 3}
     theme: 0
   - prefab: {fileID: 4190509215517289905, guid: 2887cc9af909efe498506241507a7903, type: 3}
-    theme: 0
+    theme: 1
   - prefab: {fileID: 4190509215517289905, guid: 2e4223d01f85e0a4bb0af722f843fdaf, type: 3}
-    theme: 0
+    theme: 1
   - prefab: {fileID: 4190509215517289905, guid: 2e4223d01f85e0a4bb0af722f843fdaf, type: 3}
-    theme: 0
+    theme: 1
   - prefab: {fileID: 4190509215517289905, guid: 1420901614506064c9099fcec2665ae6, type: 3}
-    theme: 0
+    theme: 2
   - prefab: {fileID: 4190509215517289905, guid: d709c2b2a3397764c8b528dbf5b5e8f6, type: 3}
-    theme: 0
+    theme: 2
   - prefab: {fileID: 4190509215517289905, guid: d709c2b2a3397764c8b528dbf5b5e8f6, type: 3}
-    theme: 0
+    theme: 2
   - prefab: {fileID: 4190509215517289905, guid: 18feaf938bc4c6849b829b25a0237df3, type: 3}
-    theme: 0
+    theme: 3
   - prefab: {fileID: 4190509215517289905, guid: 66b57d29bb5997242a91e674c41ad3f4, type: 3}
-    theme: 0
+    theme: 3
   - prefab: {fileID: 4190509215517289905, guid: 66b57d29bb5997242a91e674c41ad3f4, type: 3}
-    theme: 0
+    theme: 3
   contentBox: {fileID: 874726490}
   maxStage: 70
   _padding:
