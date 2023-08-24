@@ -56,7 +56,7 @@ public class BatchCharacter : MonoBehaviour
 
         CircleCollider2D objCol = obj.AddComponent<CircleCollider2D>();
         objCol.offset = new Vector2(0, 0);
-        objCol.radius = BlockManager.instance.tileSize / 10f;
+        objCol.radius = BlockManager.instance.tileSize * 0.005f;
 
         Animator objAnim = obj.AddComponent<Animator>();
         objAnim.runtimeAnimatorController = _animators[type == 0 ? type : type - 1];
@@ -74,6 +74,7 @@ public class BatchCharacter : MonoBehaviour
             else {
                 obj.tag = "Key";
                 objCol.isTrigger = true;
+                objCol.radius = BlockManager.instance.tileSize * 0.1f;
                 Destroy(objAnim);
             }
         }
@@ -83,7 +84,8 @@ public class BatchCharacter : MonoBehaviour
             obj.layer = 7;
             obj.transform.position += (Vector3)characterOffset;
             objCol.isTrigger = true;
-            objCol.offset = -characterOffset;
+            objCol.radius = BlockManager.instance.tileSize * 0.1f;
+            objCol.offset = -characterOffset / 2;
             objAnim.SetFloat("Idle", (int)dir);
             if ((int)dir == 1)
                 obj.GetComponent<SpriteRenderer>().flipX = true;
@@ -174,7 +176,8 @@ public class BatchCharacter : MonoBehaviour
 
         CircleCollider2D eAtkCol = enemyAttack.AddComponent<CircleCollider2D>();
         eAtkCol.isTrigger = true;
-        eAtkCol.radius = 0.03f;
+        eAtkCol.radius = BlockManager.instance.tileSize * 0.1f;
+        eAtkCol.offset = -characterOffset / 2;
     }
 
     public void EndCheck() {
