@@ -83,6 +83,8 @@ public class SlimeMove : MonoBehaviour
         }
         CameraManager.SlowCameraDisable();
 
+        yield return new WaitForSeconds(1f);
+
         isMoving = false;
         BlockManager.instance.ShowPanel(BatchCharacter.enemyColList.Count == 0);
     }
