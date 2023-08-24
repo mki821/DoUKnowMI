@@ -53,8 +53,11 @@ namespace MainScroll {
             textMesh.text = stage.ToString();
 
             string map_json = Resources.Load("StageMap/" + stage)?.ToString();
-            if (map_json != null && map_json.IndexOf("key") != -1)
+            if (map_json != null && map_json.IndexOf("key") != -1) {
                 _transform.Find("Key").gameObject.SetActive(true);
+                if (_db.takenKeyStage.Contains(stage))
+                    _transform.Find("Key").GetComponent<Image>().color = Color.white;
+            }
 
             if (stage != 1 && (stage % 20) == 1) {
                 _transform.Find("Lock").gameObject.SetActive(true);

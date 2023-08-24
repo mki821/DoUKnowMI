@@ -4,11 +4,7 @@
   "player": [ 2, 2 ],
   "data": {
     "2,0": {
-      "character": "shield",
-      "rotate": 3
-    },
-    "1,1": {
-      "character": "shield",
+      "character": "key",
       "rotate": 3
     },
     "1,1": {
