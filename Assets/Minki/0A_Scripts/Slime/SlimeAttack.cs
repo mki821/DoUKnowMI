@@ -50,6 +50,6 @@ public class SlimeAttack : MonoBehaviour
     Vector2 dir = Vector2.zero;
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, dir);
+        Gizmos.DrawRay(transform.position, _slimeMove.direction);
     }
 }
