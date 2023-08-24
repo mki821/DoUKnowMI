@@ -67,7 +67,7 @@ public class SlimeMove : MonoBehaviour
                 transform.position = Vector2.Lerp(movePos[i], movePos[i - 1], t / distance * speed);
                 t += Time.deltaTime;
 
-                if ((transform.position - movePos[i - 1]).magnitude < BlockManager.instance.tileSize * 1.5f) {
+                if ((transform.position - movePos[i - 1]).magnitude < BlockManager.instance.tileSize * 0.6f) {
                     if(i < 2) direction = (movePos[i - 1] - movePos[i]).normalized;
                     else direction = (movePos[i - 2] - movePos[i - 1]).normalized;
                 }
