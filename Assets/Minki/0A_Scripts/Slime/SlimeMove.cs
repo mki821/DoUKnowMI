@@ -9,7 +9,7 @@ public class SlimeMove : MonoBehaviour
     public int curPos = 0;
     public bool isMoving = false;
 
-    private float speed = 8f;
+    private float speed = 4f;
     private LayerMask layer = 7;
     private Animator animator;
     private SpriteRenderer rend;
