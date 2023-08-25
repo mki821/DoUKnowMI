@@ -45,7 +45,6 @@ public class BatchCharacter : MonoBehaviour
     }
 
     public void Batch(Vector2 pos, EnemyDir dir, int type) {
-        BlockManager.instance.tileSize = 10;
         GameObject obj = new GameObject();
         obj.transform.position = pos;
         obj.transform.localScale = Vector3.one * BlockManager.instance.tileSize * 1.5f;
