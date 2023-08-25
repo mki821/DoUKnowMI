@@ -22,6 +22,7 @@ public class Help : MonoBehaviour
 
     public void ShowPanel() {
         helpPanel.SetActive(true);
+        if (prevGameobject is not null) Destroy(prevGameobject);
         
         prevGameobject = Instantiate(helpImages[CurPage], helpPanel.transform.position, quaternion.identity, helpPanel.transform);
     }
