@@ -48,10 +48,6 @@ public class SlimeMove : MonoBehaviour
         rend.sortingOrder = 100;
     }
 
-    private void Update() {
-        print(isEnemy);
-    }
-
     public void Move() {
         StartCoroutine("M");
     }
@@ -179,7 +175,7 @@ public class SlimeMove : MonoBehaviour
 
     private IEnumerator Check() {
         while (!isEnemy) {
-            CheckEnemy(Vector2.left, 1f, angle);
+            CheckEnemy(Vector2.left, 0.3f, angle);
             if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
                 animator.SetFloat("Slime_Idle", Slime_Idle_back);
             }
