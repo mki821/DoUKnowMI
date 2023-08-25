@@ -14,9 +14,10 @@ public class SlimeMove : MonoBehaviour
     private Animator animator;
     private SpriteRenderer rend;
     private DrawLine _drawLine;
-    private float angle;
+    private float angle = 0f;
     private int i;
     private int enemyCnt;
+    private bool isEnemy = false;
 
 #region Slime_Idle
     private const float Slime_Idle_left = 0;
@@ -45,6 +46,10 @@ public class SlimeMove : MonoBehaviour
         animator.SetFloat("Slime_Idle", Slime_Idle);
         rend = GetComponent<SpriteRenderer>();
         rend.sortingOrder = 100;
+    }
+
+    private void Update() {
+        print(isEnemy);
     }
 
     public void Move() {
@@ -122,9 +127,9 @@ public class SlimeMove : MonoBehaviour
         //Vector2 dir  = _drawLine._posList.ToArray()[i] - _drawLine._posList.ToArray()[i - 1];
         Vector2 dir = movePos[i] -  movePos[i - 1];
         //if(i < _drawLine._posList.Count - 1 && (_drawLine._posList.ToArray()[i] - transform.position).magnitude < 0.2f) dir = _drawLine._posList.ToArray()[i + 1] - _drawLine._posList.ToArray()[i];
-        
-        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         StartCoroutine(Check());
+        if (!isEnemy)
+            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         animator.SetTrigger("IsAtk");
         if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
             animator.SetFloat("Slime_Atk", Slime_back_Atk);
@@ -151,18 +156,30 @@ public class SlimeMove : MonoBehaviour
             animator.SetFloat("Slime_Atk", Slime_back_Atk);
         }
         // 더 추가 해야됨
-        Debug.Log($"각도: {angle}");
+        Debug.Log($"각도: {angle} {i}");
         enemyCnt++;
     }
 
-    private bool CheckEnemy(Vector2 dir, float distance, float angle) {
+    private void CheckEnemy(Vector2 dir, float distance, float angle) {
         dir = Quaternion.Euler(0, 0, angle) * dir;
-        Debug.DrawRay(transform.position, dir * distance, Color.red);
-        return Physics2D.Raycast(transform.position, dir, distance, layer);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y + 0.15f), dir, distance, LayerMask.GetMask("Enemy"));
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.15f), dir * distance, Color.yellow);
+        if (hit.collider != null)  {
+            isEnemy = true;
+            Vector2 direction = hit.collider.transform.position - transform.position;
+            if (angle != Mathf.Abs(Mathf.Atan2(direction.y, direction.x)) && isEnemy == true) {
+                print("이상한 얘 감지");
+                SetSlimeDir(i);
+                isEnemy = false;
+                return;
+            }
+        }
+
     }
 
     private IEnumerator Check() {
-        while (CheckEnemy(Vector2.right, 0.5f, angle)) {
+        while (!isEnemy) {
+            CheckEnemy(Vector2.left, 1f, angle);
             if (Mathf.Abs(angle - (-90f)) < 0.0001f) {
                 animator.SetFloat("Slime_Idle", Slime_Idle_back);
             }
@@ -195,6 +212,8 @@ public class SlimeMove : MonoBehaviour
             }
             yield return null;
         }
+        isEnemy = false;
+        //Time.timeScale = 0;
     }
 
     public void AddEnemyPos(Vector3 pos) {

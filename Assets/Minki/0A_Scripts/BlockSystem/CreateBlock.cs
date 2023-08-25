@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class CreateBlock : MonoBehaviour
 {
-    public static int stageInfo = 13;
+    public static int stageInfo = 50;
     public static int stageTileType = 0;
     public BatchSO batchSO;
 
