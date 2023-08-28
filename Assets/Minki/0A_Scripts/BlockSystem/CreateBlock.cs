@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class CreateBlock : MonoBehaviour
 {
-    public static int stageInfo = 50;
+    public static int stageInfo = 1;
     public static int stageTileType = 0;
     public BatchSO batchSO;
 
@@ -21,6 +22,8 @@ public class CreateBlock : MonoBehaviour
     [SerializeField] private SlimeMove _slimeMove;
 
     [SerializeField] private LineRenderer _lineRenderer;
+
+    [SerializeField] private GameObject _helpText;
 
     private BlockManager blockManager;
 
@@ -128,6 +131,10 @@ public class CreateBlock : MonoBehaviour
     }
 
     private void EndCreate() {
+        if(stageInfo == 1) {
+            _helpText.SetActive(true);
+        }
+
         GameObject obj = new GameObject();
         obj.transform.localScale = Vector3.one * (BlockManager.instance.size + 0.1f);
         SpriteRenderer objSpr = obj.AddComponent<SpriteRenderer>();
