@@ -8,7 +8,7 @@ using DG.Tweening;
 
 public class HealthManager : MonoBehaviour
 {
-    static long TIME_LEFT = 6000000000;
+    static long TIME_LEFT = 3000000000;
     static HealthManager instance;
     public static int health {
         get => instance._db.health;
